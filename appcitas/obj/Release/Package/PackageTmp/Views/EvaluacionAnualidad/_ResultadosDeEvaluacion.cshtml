@@ -1,0 +1,19 @@
+﻿@model appcitas.Controllers.ResultadoVM
+
+@{
+    ViewBag.Resultados = Model.Resultados;
+}
+
+@if (Model.Resultados != null && Model.Resultados.Count() > 0)
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.Resultados, htmlAttributes: new { @class = "label-control" })
+        @Html.DropDownListFor(model => model.Resultados, new SelectList(Model.Resultados, "ItemDeReclamoId", "ItemDeReclamoDescripcion"), "seleccione un resultado", new { @class = "form-control", @onChange = "ResultadosCbxChange(event)" })
+    </div>
+}
+else
+{
+    <div class="alert alert-danger">
+        <strong>Este cliente no aplica a ningun beneficio</strong>
+    </div>
+}

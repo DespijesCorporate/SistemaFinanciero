@@ -1,0 +1,323 @@
+﻿
+@{
+    ViewBag.Title = "Tipo razones";
+}
+<div class="box bac">
+    <div class="box-header">
+        <h3 class="titulo">Información de Clientes</h3>
+        <div class="row nomargin">
+            <button class="btn btn-md btn-success" onclick="NuevoTipoRazon(event)" id="btn_nuevo_registro">
+                <i class="fa fa-plus"> </i>
+                <span> Nuevo Cliente</span>
+            </button>
+        </div>
+    </div>
+    <div class="box-body bac-table-panel">
+        <table id="tableTipoRazones" class="list-table table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>RTN</th>
+                    <th>Nombre</th>
+                    <th>Genero</th>
+                    <th>Edad</th>
+                    <th>Estado Cliente</th>
+                    <th>Dirección</th>
+                    <th>Tel Casa</th>
+                    <th>Celular</th>
+                    <th>Correo</th>
+                    <th>Acciones</th>
+                    <th hidden="hidden"></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="moda_tipo_razones" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><span id="theHeader">Agregar/Editar Tipo Razon</span></h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="hidden_id" />
+                <div id="form">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group input-group-sm">
+                                <label for="identidad">ID</label>
+                                <input type="text" class="form-control identidad" id="identidad" name="identidad" attr-message="Es un campo requerido!" placeholder="Número de Identidad" />
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group input-group-sm">
+                                <label for="rtn">RTN</label>
+                                <input type="text" class="form-control rtn" id="rtn" name="rtn" attr-message="Es un campo requerido!" placeholder="RTN" />
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group input-group-sm">
+                                <label for="primernombre">Primer Nombre</label>
+                                <input type="text" class="form-control varchar50" id="primernombre" name="primernombre" attr-message="Es un campo requerido!" placeholder="Primer Nombre del Cliente" />
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group input-group-sm">
+                                <label for="segundonombre">Segundo Nombre</label>
+                                <input type="text" class="form-control varchar50" id="segundonombre" name="segundonombre" attr-message="Es un campo requerido!" placeholder="Segundo Nombre del Cliente" />
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group input-group-sm">
+                                <label for="primerapellido">Primer Apellido</label>
+                                <input type="text" class="form-control varchar50" id="primerapellido" name="primerapellido" attr-message="Es un campo requerido!" placeholder="Primer Apellido del Cliente" />
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group input-group-sm">
+                                <label for="segundoapellido">Segundo Apellido</label>
+                                <input type="text" class="form-control varchar50" id="segundoapellido" name="segundoapellido" attr-message="Es un campo requerido!" placeholder="Segundo Apellido del Cliente" />
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group input-group-sm" id="genero">
+                                <label for="genero">Genero</label>
+                                <select class="selectpicker show-menu-arrow requerido" data-live-search="true" title="Seleccione" id="genero" name="genero" attr-message="Es un campo requerido!">
+                                    <option value="0">Femenino</option>
+                                    <option value="1">Masculino</option>
+                                </select>
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group input-group-sm">
+                                <label for="telcasa">Teléfono Resdidencial</label>
+                                <input type="text" class="form-control telefonoCelular" id="telcasa" name="telcasa" attr-message="Es un campo requerido!" placeholder="Teléfono Fijo" />
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group input-group-sm">
+                                <label for="celular">Celular</label>
+                                <input type="text" class="form-control telefonoCelular" id="celular" name="celular" attr-message="Es un campo requerido!" placeholder="Celular" />
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group input-group-sm">
+                                <label for="correo">Correo</label>
+                                <input type="text" class="form-control correo" id="correo" name="correo" attr-message="Es un campo requerido!" placeholder="Correo Electrónico" />
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group input-group-sm">
+                                <label for="fecha">Fecha de Nacimiento</label>
+                                <input type="text" class="form-control fecha" id="fecha" name="fecha" attr-message="Es un campo requerido!" placeholder="Seleccione Fecha de Nacimiento" />
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group input-group-sm">
+                                <label for="estado">Estado</label>
+                                <select class="selectpicker show-menu-arrow requerido" data-live-search="true" title="Seleccione" id="estado" name="estado" attr-message="Es un campo requerido!">
+                                    <option value="0">ACTIVO</option>
+                                    <option value="1">INACTIVO</option>
+                                </select>
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group input-group-sm" id="genero">
+                                <label for="estcivil">Estado Civil</label>
+                                <select class="selectpicker show-menu-arrow requerido" data-live-search="true" title="Seleccione" id="estcivil" name="estcivil" attr-message="Es un campo requerido!">
+                                    <option value="0">SOLTERO</option>
+                                    <option value="1">CASADO</option>
+                                    <option value="1">UNION LIBRE</option>
+                                </select>
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group input-group-sm">
+                                <label for="direccion">Dirección</label>
+                                <input type="text" class="form-control varchar200" id="direccion" name="direccion" attr-message="Es un campo requerido!" placeholder="Dirección Residencial" />
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*<div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group input-group-sm" id="div_descripcion_tipo_razon">
+                            <label for="descripcion_tipo_razon">Descripción</label>
+                            <textarea class="form-control varchar100" id="descripcion_tipo_razon" attr-message="Es un campo requerido!" maxlength="600" align="left" style="height:100px; width:100%; resize: none;"></textarea>
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                </div>*@
+
+
+
+                    @*<hr />
+                <div class="row no-margin hidden" id="div_listado_extra">
+                    <h3>Listado extra</h3>
+                    <div class="col-sm-6">
+                        <div class="form-group input-group-sm">
+                            <label for="etiqueta">Etiqueta</label>
+                            <input type="text" class="form-control varchar50" attr-message="Es un campo requerido!" id="etiqueta" name="etiqueta" />
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group input-group-sm">
+                            <label for="origen">Origen</label>
+                            <input type="text" class="form-control varchar10" attr-message="Es un campo requerido!" id="origen" name="origen" />
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group input-group-sm">
+                            <label for="codigo_listado">Codigo</label>
+                            <input type="text" class="form-control varchar10" attr-message="Es un campo requerido!" id="codigo_listado" name="codigo_listado" />
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                </div>*@
+                </div>
+            </div>
+
+
+            @*PRIMERA REFERENCIA PERSONAL*@
+            <div class="container" style="background-color: #212F3D; color: white; height: 3.9em;">
+                <h4 style="margin-top: 1em;">Primera Referencia Personal</h4>
+            </div>
+            <br />
+
+            <div>
+                <div class="col-sm-6">
+                    <div class="form-group input-group-sm">
+                        <label for="NomRef1">Nombre Completo</label>
+                        <input type="text" class="form-control varchar50 requerido" id="NomRef1" attr-message="Es un campo requerido!" name="NomRef1" placeholder="Nombre Completo Referencia 1" />
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group input-group-sm">
+                        <label for="IdRef1">Identidad</label>
+                        <input type="text" class="form-control identidad requerido" id="IdRef1" attr-message="Es un campo requerido!" name="IdRef1" placeholder="Identidad Referencia 1" />
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group input-group-sm">
+                        <label for="CelRef1">Celular</label>
+                        <input type="text" class="form-control telefonoCelular requerido" id="CelRef1" attr-message="Es un campo requerido!" name="CelRef1" placeholder="Celular Referencia 1" />
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group input-group-sm">
+                        <label for="TelRef1">Teléfono Fijo</label>
+                        <input type="text" class="form-control telefonoCelular requerido" id="TelRef1" attr-message="Es un campo requerido!" name="TelRef1" placeholder="Teléfono Fijo Referencia 1" />
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                </div>
+            </div>
+            <br /><br /><br /><br /><br /><br /><br /><br />
+
+
+            @*SEGUNDA REFERENCIA PERSONAL*@
+            <div class="container" style="background-color: #212F3D; color: white; height: 3.9em;">
+                <h4 style="margin-top: 1em;">Segunda Referencia Personal</h4>
+            </div>
+            <br />
+
+            <div>
+                <div class="col-sm-6">
+                    <div class="form-group input-group-sm">
+                        <label for="NomRef2">Nombre Completo</label>
+                        <input type="text" class="form-control varchar50 requerido" id="NomRef2" attr-message="Es un campo requerido!" name="NomRef2" placeholder="Nombre Completo Referencia 2" />
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group input-group-sm">
+                        <label for="IdRef2">Identidad</label>
+                        <input type="text" class="form-control identidad requerido" id="IdRef2" attr-message="Es un campo requerido!" name="IdRef2" placeholder="Identidad Referencia 2" />
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group input-group-sm">
+                        <label for="CelRef2">Celular</label>
+                        <input type="text" class="form-control telefonoCelular requerido" id="CelRef2" attr-message="Es un campo requerido!" name="CelRef2" placeholder="Celular Referencia 2" />
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group input-group-sm">
+                        <label for="TelRef2">Teléfono Fijo</label>
+                        <input type="text" class="form-control telefonoCelular requerido" id="TelRef2" attr-message="Es un campo requerido!" name="TelRef2" placeholder="Teléfono Fijo Referencia 2" />
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                </div>
+            </div>
+            <br /><br /><br /><br /><br /><br /><br />
+
+            <div class="modal-footer">
+                <button type="button" id="btnCerrrar" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" id="btnGuardar" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEliminarTipoRazon" role="dialog" aria-labelledby="modalProcesar">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="tituloProcesar"><span id="theHeaderEliminar">Eliminar trámite</span></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div data-alerts="alerts" data-titles="{&quot;success&quot;: &quot;&lt;em&gt;Correcto!&lt;/em&gt;&quot;}" data-ids="successModalEliminarPlantillas" data-fade="5000"></div>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <h5>
+                        <h3><div id="modalmessage" class="alert alert-warnin" role="alert"></div></h3>
+                    </h5>
+
+                </div><!-- /.box-body -->
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-xs-12 text-right">
+                        <button type="button" id="cerrarModalProcesar" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="button" id="btnEliminar" class="btn btn-danger">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Scripts.Render("~/Scripts/js/Clientes.js")

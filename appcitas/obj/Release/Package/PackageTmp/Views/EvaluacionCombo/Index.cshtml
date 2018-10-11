@@ -1,0 +1,145 @@
+﻿@model appcitas.Dtos.ComboDto
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style type="text/css">
+    input[readonly].webservice {
+        background-color: salmon;
+    }
+
+    input.motordesicion {
+        background-color: cornflowerblue;
+    }
+</style>
+
+<div class="box bac">
+    <div class="box-header">
+        <h3 class="titulo">Evaluacion de Combos - Motor de Retenciones</h3>
+        <div class="row nomargin">
+        </div>
+    </div>
+    <div class="box-body">
+        <form id="FormCombos">
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.NumeroCuenta, htmlAttributes: new { @class = "control-label" })
+                            <div class="input-group">
+                                @Html.EditorFor(model => model.NumeroCuenta, new { htmlAttributes = new { @class = "form-control" } })
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">Buscar</button>
+                                </span>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.NumeroCuenta, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.CIF, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.CIF, new { htmlAttributes = new { @class = "form-control webservice", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.CIF, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Fecha, new { htmlAttributes = new { @class = "form-control motordesicion" } })
+                            @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.Familia, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Familia, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.Familia, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.Segmento, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Segmento, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.Segmento, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.Marca, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Marca, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.Marca, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.ComboOpId, htmlAttributes: new { @class = "control-label" })
+                            @Html.DropDownListFor(model => model.ComboOpId, new SelectList(ViewBag.Combos, "ConfigItemID", "ConfigItemAbreviatura"), "Seleccione un tipo de anualidad", new { @class = "form-control", @onChange = "ComboChangeEvent(event)" })
+                            @Html.ValidationMessageFor(model => model.ComboOpId, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.ComboName, new { htmlAttributes = new { @class = "form-control hidden" } })
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.SaldoActual, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.SaldoActual, new { htmlAttributes = new { @class = "form-control webservice", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.SaldoActual, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            @Html.LabelFor(model => model.Limite, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Limite, new { htmlAttributes = new { @class = "form-control webservice", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.Limite, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(model => model.PrimerCargoId, htmlAttributes: new { @class = "control-label" })
+                            @Html.DropDownListFor(model => model.PrimerCargoId, new SelectList(ViewBag.Cargos, "ConfigItemID", "ConfigItemAbreviatura"), "Seleccione un cargo", new { @class = "form-control", @onChange = "PrimerCargoChangeEvent(event)" })
+                            @Html.ValidationMessageFor(model => model.PrimerCargoId, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.PrimerCargoName, new { htmlAttributes = new { @class = "form-control hidden" } })
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(model => model.SegundoCargoId, htmlAttributes: new { @class = "control-label" })
+                            @Html.DropDownListFor(model => model.SegundoCargoId, new SelectList(ViewBag.Cargos, "ConfigItemID", "ConfigItemAbreviatura"), "Seleccione un cargo", new { @class = "form-control", @onChange = "PrimerCargoChangeEvent(event)" })
+                            @Html.ValidationMessageFor(model => model.SegundoCargoId, "", new { @class = "text-danger" })
+                            @Html.EditorFor(model => model.SegundoCargoName, new { htmlAttributes = new { @class = "form-control hidden" } })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(model=>model.MontoPrimerCargo, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model=>model.MontoPrimerCargo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model=>model.MontoPrimerCargo, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(model=>model.MontoSegundoCargo, htmlAttributes: new { @class="control-label" })
+                            @Html.EditorFor(model=>model.MontoSegundoCargo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model=>model.MontoSegundoCargo, "", new { @class="text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(model => model.FechaPrimerCargo, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.FechaPrimerCargo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.FechaPrimerCargo, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(model => model.FechaSegundoCargo, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.FechaSegundoCargo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.FechaSegundoCargo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

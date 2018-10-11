@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box bac">
+            <div class="box-header">
+                <h3 class="titulo">Dashboard de Efectividad</h3>
+            </div>
+            <div class="box-body">
+                <div class="row nomargin">
+                    <div class="form-group input-group-sm date col-md-6">
+                        <label for="txt_fecha1">Fecha Inicio</label>
+                        <div class='input-group input-group-sm date' id="fecha1">
+                            <span class="input-group-addon">
+                                <span class="fa fa-calendar"></span>
+                            </span>
+                            <input type='text' class="form-control limpiar requerido" data-requerido="true" id="txt_fecha1" readonly="" attr-message="Es un filtro requerido!">
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                    <div class="form-group input-group-sm date col-md-6">
+                        <label for="txt_fecha2">Fecha Final</label>
+                        <div class='input-group input-group-sm date' id="fecha2">
+                            <span class="input-group-addon">
+                                <span class="fa fa-calendar"></span>
+                            </span>
+                            <input type='text' class="form-control limpiar requerido" data-requerido="true" id="txt_fecha2" readonly="" attr-message="Es un filtro requerido!">
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row nomargin">
+                    <div class="col-md-3">
+                        <label class="control-label" for="cod_sucursal">Centro de fidelización</label>
+                        <select class="form-control requerido" data-requerido="false" id="cod_sucursal" attr-message="Es un filtro requerido!"></select>
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="control-label" for="cod_ejecutivo">Ejecutivo</label>
+                        <select class="form-control requerido" data-requerido="false" id="cod_ejecutivo" attr-message="Es un filtro requerido!" ></select>
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="control-label" for="cod_tipo_cita">Tipo Atención</label>
+                        <select class="form-control requerido" data-requerido="false" id="cod_tipo_cita" attr-message="Es un filtro requerido!" ></select>
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="control-label" for="tipo_razon">Tipo razón</label>
+                        <select class="form-control requerido" data-requerido="false" id="tipo_razon" attr-message="Es un filtro requerido!" ></select>
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                </div>
+                <div class="row nomargin" style="margin-bottom: 25px !important; margin-top: 10px !important;">
+                    <div class="col-xs-12 text-center">
+                        <button type="button" class="btn btn-md btn-primary" id="btn_crear_reporte_dashboard1">Generar reporte</button>
+                    </div>
+                </div>
+                <div class="row bac-container-table-panel">
+                    <div class="col-xs-12 bac-table-panel">
+                        <table class="table list-table table-bordered" id="tableCitasDashboard1">
+                            <thead>
+                                <tr class="">
+                                    <th>Nro</th>
+                                    <th>Tipo Cita</th>
+                                    <th>Sucursal</th>
+                                    <th>Ejecutivo</th>
+                                    <th>Citas retenidas</th>
+                                    <th>Citas no retenidas</th>
+                                    <th>Efectividad - %</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/Scripts/js/dashboard_efectividad.js")

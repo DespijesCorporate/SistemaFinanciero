@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.Title = "Item de configuración";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="box bac">
+    <div class="box-header">
+        <h3 class="titulo">Listado de items de configuración</h3>
+        <div class="row nomargin">
+            <button class="btn btn-md btn-success" data-toggle="modal" data-target="#modal_items">
+                <i class="fa fa-plus"> </i>
+                <span> Nuevo Registro</span>
+            </button>
+        </div>
+    </div>
+    <div class="box-body">
+        <table id="tableItems" class="list-table table table-bordered">
+            <thead>
+                <tr>
+                    <th>N°</th>
+                    <th>Descripción</th>
+                    <th>Acciones</th>
+                    <th hidden="hidden"></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modal_items" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><span id="theHeader">Agregar/Editar Item</span></h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="hidden_id" />
+                <div class="row" id="form">
+                    <div class="col-md-12">
+                        <div class="form-group input-group-sm" id="div_ConfigDescripcion">
+                            <label for="ConfigDescripcion">Descripción</label>
+                            <textarea class="form-control" id="ConfigDescripcion" maxlength="600" align="left" style="height:100px; width:100%; resize: none;"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnGuardar" class="btn btn-primary">Guardar</button>
+                <button type="button" id="btnCerrrar" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalEliminarItem" role="dialog" aria-labelledby="modalProcesar">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="tituloProcesar"><span id="theHeaderEliminar">Eliminar Item</span></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div data-alerts="alerts" data-titles="{&quot;success&quot;: &quot;&lt;em&gt;Correcto!&lt;/em&gt;&quot;}" data-ids="successModalEliminarPlantillas" data-fade="5000"></div>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <h5>
+                        <h3><div id="modalmessage" class="alert alert-warning" role="alert"></div></h3>
+                    </h5>
+
+                </div><!-- /.box-body -->
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-12">
+                    <button type="button" id="btnEliminar" class="btn btn-danger">Eliminar</button>
+                    <button type="button" id="cerrarModalProcesar" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,138 @@
+﻿
+@{
+    var TipoId = Request.Url.Segments.Last();
+    ViewBag.Title = "Razones";
+    ViewBag.TipoId = TipoId;
+}
+<div class="box bac">
+    <div class="box-header">
+        <h3 class="titulo">Listado de razones</h3>
+        <div class="row nomargin">
+             <div class="col-md-3">
+                 <button class="btn btn-md btn-success" id="btn_nuevo_registro" onclick="NuevaRazon(event)">
+                     <i class="fa fa-plus"> </i>
+                     <span> Nuevo Registro</span>
+                 </button>
+             </div>
+            <div class="col-md-3 col-md-offset-6" align="right">
+                <button class="btn btn-md btn-warning" id="btn_regresar" onclick="location.href='/TipoRazones/tipo_razones'">
+                    <i class="fa fa-arrow-left"> </i>
+                    <span> Regresar</span>
+                </button>
+            </div>            
+        </div>
+    </div>
+    <div class="box-body bac-table-panel">
+        <table id="tableRazones" class="list-table table table-bordered">
+            <thead>
+                <tr>
+                    <th>Grupo</th>
+                    <th>Abreviatura</th>
+                    <th>Descripción</th>
+                    <th>Razón consolidada</th>
+                    <th>Status</th>
+                    <th>Acciones</th>
+                    <th hidden="hidden"></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="moda_razones" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><span id="theHeader">Agregar/Editar Razón</span></h4>
+            </div>
+            <div class="modal-body" id="form">
+                <input type="hidden" id="hidden_id" />
+                <input type="hidden" id="hidden_tipo_id" value="@ViewBag.ClienteId"/>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group input-group-sm" id="div_tipo_razones">
+                            <label for="cod_tipo_razon">Grupo</label>
+                            <select class="selectpicker show-menu-arrow" disabled="disabled" data-live-search="true" title="Seleccione" id="cod_tipo_razon" name="cod_tipo_razon">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group input-group-sm">
+                            <label for="abreviatura">Abreviatura</label>
+                            <input type="text" class="form-control varchar50 requerido" id="abreviatura"  attr-message="Es un campo requerido!" name="abreviatura" />
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group input-group-sm" id="div_descripcion_tipo_razon">
+                            <label for="descripcion_tipo_razon">Descripción</label>
+                            <input type="text" class="form-control varchar50 requerido" id="descripcion_tipo_razon"  attr-message="Es un campo requerido!" name="descripcion_tipo_razon" />
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group input-group-sm">
+                            <label for="razongroup">Razón consolidada</label>
+                            <select class="selectpicker show-menu-arrow requerido" attr-message="Es un campo requerido!" title="Seleccione" id="razongroup" name="razongroup">
+                            </select>
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group input-group-sm">
+                            <label for="razonstatus">Estado</label>
+                            <select class="selectpicker show-menu-arrow" title="Seleccione" id="razonstatus" name="razonstatus">
+                                <option value="ACT">ACTIVADO</option>
+                                <option value="DES">DESACTIVADO</option>
+                            </select>
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrrar" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" id="btnGuardar" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEliminarRazon" role="dialog" aria-labelledby="modalProcesar">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="tituloProcesar"><span id="theHeaderEliminar">Eliminar trámite</span></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div data-alerts="alerts" data-titles="{&quot;success&quot;: &quot;&lt;em&gt;Correcto!&lt;/em&gt;&quot;}" data-ids="successModalEliminarPlantillas" data-fade="5000"></div>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <h5>
+                        <h3><div id="modalmessage" class="alert alert-warnin" role="alert"></div></h3>
+                    </h5>
+
+                </div><!-- /.box-body -->
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-xs-12 text-right">
+                        <button type="button" id="cerrarModalProcesar" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="button" id="btnEliminar" class="btn btn-danger">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Scripts.Render("~/Scripts/js/razones.js")

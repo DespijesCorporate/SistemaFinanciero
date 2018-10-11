@@ -1,0 +1,730 @@
+﻿
+@{
+    ViewBag.Title = "Registros de Cajero";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style type="text/css">
+    .miSidePanel {
+        overflow-x: auto;
+        border-top: 2px solid rgb(230,230,230);
+        height: 780px;
+        max-height: 780px;
+    }
+
+    .miPanel{
+        overflow-x:auto;
+        border-top:2px solid rgb(230,230,230);
+        height:375px;
+        max-height:600px;
+    }
+</style>
+
+<div class="box bac">
+    <div class="box-header">
+        <h3 class="titulo">Registros de Cajero</h3>
+        <div class="row nomargin">
+        </div>
+    </div>
+<div class="row nomargin">
+       <div class="col-sm-1">
+            <div class="form-group input-group-sm">
+                <label><tr></tr>Cajero:</label>
+            </div>
+       </div>
+       <div class="col-sm-2">
+       <span class="hidden-xs userCode" style="display: inline-block !important;"></span>
+            @*<div class="form-group input-group-sm">
+                <input type="text" class="form-control varchar100" id="Cajero" name="Cajero" attr-message="Es un campo requerido!" />
+                <div class="validation-error"><p></p></div>
+            </div>*@
+       </div>
+       <div class="col-md-2">
+            @*<button type="button" class="btn btn-md btn-primary" class="btn btn-success pull-right hidden" id="btnAgregarRegCajero">Agregar Registro</button>*@
+       </div>
+       <div class="col-sm-2">
+            <div class="form-group input-group-sm">
+                <input type="text" class="form-control varchar100 hidden" id="CA_Secuencia" name="CA_Secuencia" attr-message="Es un campo requerido!" />
+                <input type="text" class="form-control varchar100 hidden" id="CA_Cajero_Estado" name="CA_Cajero_Estado" attr-message="Es un campo requerido!" />
+                <div class="validation-error"><p></p></div>
+            </div>
+       </div>
+       <div class="col-md-3">
+           
+       </div>
+       <div class="col-md-3">
+            
+       </div>
+       <div class="col-md-2">
+            @*<button type="button" class="btn btn-md btn-primary" class="btn btn-success pull-right hidden" id="btnAgregarRegCajero">Agregar Registro</button>*@
+       </div>
+ </div>
+<div class="row nomargin">
+       <div class="col-sm-1">
+            <div class="form-group input-group-sm">
+                <label><tr></tr>Fecha:</label>
+            </div>
+       </div>
+       <div class="col-sm-2">
+            <div class="form-group input-group-sm">
+                <input type="text" class="form-control fecha" id="FechaCajero" name="FechaCajero" attr-message="Es un campo requerido!" />
+                <div class="validation-error"><p></p></div>
+            </div>
+       </div>
+       <div class="col-md-2">
+            <button type="button" class="btn btn-md btn-primary" id="btnBuscarRegCajero">Actualizar Registros</button>
+       </div>
+       <div class="col-md-3">
+            
+       </div>
+       <div class="col-md-2">
+            
+       </div>
+       <div class="col-md-2">
+            <button type="button" class="btn btn-md btn-primary" class="btn btn-success pull-right hidden" id="btnAgregarRegCajero">Agregar Registro</button>
+       </div>
+ </div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-4">
+                <div style="vertical-align:top">
+                    <div class="panel panel-default miPanel">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <strong>Montos</strong>
+                                </div>
+                                <div class="col-md-6">
+                                    <button id="btnAgregarItem" onclick="AgregarItem(event)" class="btn btn-success pull-right hidden" data-toggle="tooltip" data-placement="left" title="Agregar nuevo catálogo"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                        <label> </label>
+                        </div>
+                        <div class="row nomargin">
+                         <div class="col-sm-6">
+                             <div class="form-group input-group-sm">
+                                 <label><tr></tr>Inicio del dia:</label>
+                             </div>
+                         </div>
+                         <div class="col-sm-6">
+                             <div class="form-group input-group-sm" >
+                                 <input disabled type="text" class="form-control varchar100" id="InicioDia" name="InicioDia" attr-message="Es un campo requerido!"  />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                        </div>
+                        <div class="row nomargin">
+                         <div class="col-sm-6">
+                             <div class="form-group input-group-sm">
+                                 <label>Recibido en Efectivo:</label>
+                             </div>
+                         </div>
+                         <div class="col-sm-6">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control varchar100" id="RecEfectivo" name="RecEfectivo" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                        </div>
+                        <div class="row nomargin">
+                         <div class="col-sm-6">
+                             <div class="form-group input-group-sm">
+                                 <label>Entregado en Efectivo:</label>
+                             </div>
+                         </div>
+                         <div class="col-sm-6">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control varchar100" id="EntrEfectivo" name="EntrEfectivo" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                        </div>
+                        <div class="row nomargin">
+                         <div class="col-sm-6">
+                             <div class="form-group input-group-sm">
+                                 <label>Recibido del Tesorero:</label>
+                             </div>
+                         </div>
+                         <div class="col-sm-6">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control varchar100" id="RecTesorero" name="RecTesorero" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                        </div>
+                        <div class="row nomargin">
+                         <div class="col-sm-6">
+                             <div class="form-group input-group-sm">
+                                 <label>Entregado al Tesorero:</label>
+                             </div>
+                         </div>
+                         <div class="col-sm-6">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control varchar100" id="EntrTesorero" name="EntrTesorero" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                        </div>
+                        <div class="row nomargin">
+                         <div class="col-sm-6">
+                             <div class="form-group input-group-sm">
+                                 <label>Saldo en caja:</label>
+                             </div>
+                         </div>
+                         <div class="col-sm-6">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control varchar100" id="SaldoCaja" name="SaldoCaja" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div style="vertical-align:top">
+                    <div class="panel panel-default miPanel">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <strong>Arqueo de Caja</strong>
+                                </div>
+                                <div class="col-md-6">
+                                    <button id="btnAgreagrVariableEvaluar" onclick="AgregarVariable(event)" class="btn btn-success pull-right hidden" data-toggle="tooltip" data-placement="left" title="Agregar Variable">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row nomargin">
+                        <div class="col-sm-1">
+                             <div class="form-group input-group-sm">
+                                 <label><tr></tr>Lps.</label>
+                             </div>
+                         </div>
+                         <div class="col-sm-2">
+                             <div class="form-group input-group-sm">
+                                 <label><tr></tr>Cantidad</label>
+                             </div>
+                         </div>
+                         <div class="col-sm-3">
+                             <div class="form-group input-group-sm">
+                                 <label><tr></tr>Valores</label>
+                             </div>
+                         </div>
+                        <div class="col-sm-1">
+                             <div class="form-group input-group-sm">
+                                 <label><tr></tr>Mon.</label>
+                             </div>
+                         </div>
+                         <div class="col-sm-2">
+                             <div class="form-group input-group-sm">
+                                 <label><tr></tr>Cantidad</label>
+                             </div>
+                         </div>
+                         <div class="col-sm-3">
+                             <div class="form-group input-group-sm">
+                                 <label><tr></tr>Valores</label>
+                             </div>
+                         </div>
+                        </div>
+                        <div class="row nomargin">
+                         <div class="col-sm-1">
+                             <div class="form-group input-group-sm">
+                                 <label><tr></tr>1</label>
+                             </div>
+                         </div>
+                         <div class="col-sm-2">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control monto inputRequired " id="CA_B_1" name="CA_B_1" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                         <div class="col-sm-3">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control varchar100" id="MontoB1" name="MontoB1" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                        <div class="col-sm-1">
+                             <div class="form-group input-group-sm">
+                                 <label><tr></tr>0.01</label>
+                             </div>
+                         </div>
+                         <div class="col-sm-2">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control monto inputRequired" id="CA_M_1" name="CA_M_1" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                         <div class="col-sm-3">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control varchar100" id="MontoM1" name="MontoM1" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                        </div>
+                        <div class="row nomargin">
+                         <div class="col-sm-1">
+                             <div class="form-group input-group-sm">
+                                 <label><tr></tr>2</label>
+                             </div>
+                         </div>
+                         <div class="col-sm-2">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control monto inputRequired" id="CA_B_2" name="CA_B_2" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                         <div class="col-sm-3">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control varchar100" id="MontoB2" name="MontoB2" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                        <div class="col-sm-1">
+                             <div class="form-group input-group-sm">
+                                 <label><tr></tr>0.02</label>
+                             </div>
+                         </div>
+                         <div class="col-sm-2">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control monto inputRequired" id="CA_M_2" name="CA_M_2" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                         <div class="col-sm-3">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control varchar100" id="MontoM2" name="MontoM2" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                        </div>
+                        <div class="row nomargin">
+                         <div class="col-sm-1">
+                             <div class="form-group input-group-sm">
+                                 <label><tr></tr>5</label>
+                             </div>
+                         </div>
+                         <div class="col-sm-2">
+                             <div  class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control monto inputRequired" id="CA_B_5" name="CA_B_5" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                         <div class="col-sm-3">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control varchar100" id="MontoB5" name="MontoB5" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                         <div class="col-sm-1">
+                             <div class="form-group input-group-sm">
+                                 <label><tr></tr>0.05</label>
+                             </div>
+                         </div>
+                         <div class="col-sm-2">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control monto inputRequired" id="CA_M_5" name="CA_M_5" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                         <div class="col-sm-3">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control varchar100" id="MontoM5" name="MontoM5" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                        </div>
+                        <div class="row nomargin">
+                         <div class="col-sm-1">
+                             <div class="form-group input-group-sm">
+                                 <label><tr></tr>10</label>
+                             </div>
+                         </div>
+                         <div class="col-sm-2">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control monto inputRequired" id="CA_B_10" name="CA_B_10" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                        <div class="col-sm-3">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control varchar100" id="MontoB10" name="MontoB10" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                        <div class="col-sm-1">
+                             <div class="form-group input-group-sm">
+                                 <label><tr></tr>0.10</label>
+                             </div>
+                         </div>
+                         <div class="col-sm-2">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control monto inputRequired" id="CA_M_10" name="CA_M_10" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                        <div class="col-sm-3">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control varchar100" id="MontoM10" name="MontoM10" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                        </div>
+                        <div class="row nomargin">
+                         <div class="col-sm-1">
+                             <div class="form-group input-group-sm">
+                                 <label><tr></tr>20</label>
+                             </div>
+                         </div>
+                         <div class="col-sm-2">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control monto inputRequired" id="CA_B_20" name="CA_B_20" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                        <div class="col-sm-3">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control varchar100" id="MontoB20" name="MontoB20" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                         <div class="col-sm-1">
+                             <div class="form-group input-group-sm">
+                                 <label><tr></tr>0.20</label>
+                             </div>
+                         </div>
+                         <div class="col-sm-2">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control monto inputRequired" id="CA_M_20" name="CA_M_20" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                        <div class="col-sm-3">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control varchar100" id="MontoM20" name="MontoM20" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                        </div>
+                        <div class="row nomargin">
+                         <div class="col-sm-1">
+                             <div class="form-group input-group-sm">
+                                 <label><tr></tr>50</label>
+                             </div>
+                         </div>
+                         <div class="col-sm-2">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control monto inputRequired" id="CA_B_50" name="CA_B_50" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                         <div class="col-sm-3">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control varchar100" id="MontoB50" name="MontoB50" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                        <div class="col-sm-1">
+                             <div class="form-group input-group-sm">
+                                 <label><tr></tr>0.50</label>
+                             </div>
+                         </div>
+                         <div class="col-sm-2">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control monto inputRequired" id="CA_M_50" name="CA_M_50" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                         <div class="col-sm-3">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control varchar100" id="MontoM50" name="MontoM50" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                        </div>
+                        <div class="row nomargin">
+                         <div class="col-sm-1">
+                             <div class="form-group input-group-sm">
+                                 <label><tr></tr>100</label>
+                             </div>
+                         </div>
+                         <div class="col-sm-2">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control monto inputRequired" id="CA_B_100" name="CA_B_100" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                        <div class="col-sm-3">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control varchar100" id="MontoB100" name="MontoB100" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                         <div class="col-sm-3">
+                             <div class="form-group input-group-sm">
+                                 <label><tr></tr>Total Monedas:</label>
+                             </div>
+                         </div>
+                         <div class="col-sm-3">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control varchar100" id="TotalMonedas" name="TotalMonedas" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                        </div>
+                        <div class="row nomargin">
+                         <div class="col-sm-1">
+                             <div class="form-group input-group-sm">
+                                 <label><tr></tr>500</label>
+                             </div>
+                         </div>
+                         <div class="col-sm-2">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control monto inputRequired" id="CA_B_500" name="CA_B_500" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                         <div class="col-sm-3">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control varchar100" id="MontoB500" name="MontoB500" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                        <div class="col-md-3">
+                        <div class="form-group input-group-sm">
+                                 <label><tr></tr>Total Dinero:</label>
+                             </div>
+                        </div>
+                        <div class="col-md-3">
+                       <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control varchar100" id="TotalDinero" name="TotalDinero" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                        </div>
+                        </div>
+                        <div class="row nomargin">
+                         <div class="col-sm-3">
+                             <div class="form-group input-group-sm">
+                                 <label><tr></tr>Total Billetes:</label>
+                             </div>
+                         </div>
+                         <div class="col-sm-3">
+                             <div class="form-group input-group-sm">
+                                 <input disabled type="text" class="form-control varchar100" id="TotalBilletes" name="TotalBilletes" attr-message="Es un campo requerido!" />
+                                 <div class="validation-error"><p></p></div>
+                             </div>
+                         </div>
+                        <div class="col-md-1">
+                        
+                        </div>
+                        <div class="col-md-2">
+                        
+                        </div>
+                        <div class="col-md-3">
+                        
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           </div>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-md btn-primary" id="btnBuscarTransCajero">Transacciones de Cajero</button>
+       </div>
+          <div class="col-md-3">
+          <button type="button" style="background:green" class="btn btn-md btn-primary" class="btn btn-success pull-center hidden" id="btnArqueoCaja">Arqueo de Caja</button>            
+          </div>
+        <div class="col-md-1">
+            <button type="button" style="background:green" class="btn btn-md btn-primary hidden" class="btn btn-success pull-center hidden" id="btnGuardarDatosArqueo">Guardar</button>
+         </div>
+        <div class="col-md-1">
+             <button type="button" style="background:green" class="btn btn-md btn-primary hidden"  class="btn btn-success pull-center hidden" id="btnCierreCaja">Cierre de Caja</button>
+         </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalReclamo" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <input type="hidden" id="hiddenReclamoId" />
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 id="ReclamoModalTitle" class="modal-title"> </h4>
+            </div>
+            <div class="modal-body">
+                <div id="agregarReclamoContainer" class="hidden">
+                </div>
+                <div id="editarReclamoContainer" class="hidden">                   
+                </div>
+                <div id="eliminarReclamoContainer" class="hidden">
+                    <div class="row">
+                        Esta seguro que desea eliminar el registro seleccionado?
+                        <br />
+                        <br />
+                        <div class="col-md-12">
+                            <button onclick="EliminarReclamo(event)" style="margin-left: 5px;" type="button" value="Eliminar" class="btn btn-danger pull-right">  Eliminar</button>
+                            <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalItem" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <input type="hidden" id="hiddenItemId" />
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 id="ItemModalTitle" class="modal-title"> </h4>
+            </div>
+            <div class="modal-body">
+                <div id="agregarItemContainer" class="hidden">
+                </div>
+                <div id="editarItemContainer" class="hidden">
+                </div>
+                <div id="eliminarItemContainer" class="hidden">
+                    <div class="row">
+                        Esta seguro que desea eliminar el registro seleccionado?
+                        <br />
+                        <br />
+                        <div class="col-md-12">
+                            <button onclick="EliminarItem(event)" style="margin-left: 5px;" type="button" value="Eliminar" class="btn btn-danger pull-right">  Eliminar</button>
+                            <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalVariables" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <input type="hidden" id="hiddenVariableId" />
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 id="VariableModalTitle" class="modal-title"> </h4>
+            </div>
+            <div class="modal-body">
+                <div id="agregarVariableContainer" class="hidden">
+                </div>
+                <div id="editarVariableContainer" class="hidden">
+                </div>
+                <div id="eliminarVariableContainer" class="hidden">
+                    <div class="row">
+                        Esta seguro que desea eliminar el registro seleccionado?
+                        <br />
+                        <br />
+                        <div class="col-md-12">
+                            <button onclick="EliminarVariable(event)" style="margin-left: 5px;" type="button" value="Eliminar" class="btn btn-danger pull-right">  Eliminar</button>
+                            <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="Transac_Cajero" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><span id="theHeader">Transacciones de Cajero</span></h4>
+            </div>
+            <div class="modal-body" id="form">
+                <input type="hidden" id="hidden_id" />
+                <input type="hidden" id="hidden_tipo_id" value="@ViewBag.TipoId" />
+
+                <div class="col-xs-12 bac-table-panel">
+                    <table id="TransCajero" class="list-table table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Cajero</th>
+                                <th>Fecha</th>
+                                <th>Monto Entrega</th>
+                                <th>Monto Recibido</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnAgregarTransCajero" class="btn btn-default" data-dismiss="modal">Agregar</button>
+                <button type="button" id="btnCerrrar" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="AgregaTransCajero" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><span id="theHeader">Agregar/Transacción de Cajero</span></h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="hidden_id" />
+                <div id="form">
+                    <div class="row">
+                        <div class="col-sm-5">
+                        <div class="form-group input-group-sm">
+                            <label for="garantia">Tipo de Transacción</label>
+                            <select class="selectpicker show-menu-arrow" title="Seleccione" id="TipoTransCaja" name="TipoTransCaja">
+                                <option value="0">Inicio de Dia</option>
+                                <option value="1">Recibido de Supervisor</option>
+                                <option value="2">Entrega a Supervisor</option>
+                            </select>
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                        <div class="col-sm-4">
+                            <div class="form-group input-group-sm">
+                                <label for="Monto">Monto Lps.</label>
+                                <input type="text" class="form-control varchar100" id="Monto" name="Monto" attr-message="Es un campo requerido!" />
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            
+                        </div>
+                    </div>
+                    @*<div class="row">
+                    <div class="col-sm-12">
+                            <div class="form-group input-group-sm">
+                                <label for="Observacion">Observación</label>
+                                <input type="text" class="form-control varchar100" id="Observacion" name="Observacion" attr-message="Es un campo requerido!" />
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                    </div>*@
+                    <hr/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrrar" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" id="btnGeneraTrans" class="btn btn-primary">Generar Trans</button>
+                <button type="button" id="btnGeneraComprobante" class="btn btn-primary">Generar Comprobante</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/Scripts/js/Cajero.js")
+}
+

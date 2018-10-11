@@ -1,0 +1,278 @@
+﻿@{
+    ViewBag.Title = "Inicio";
+}
+<head>
+    <script src="~/Plugins/ionslider/ion.rangeSlider.min.js"></script>
+    <link href="~/Plugins/ionslider/ion.rangeSlider.css" rel="stylesheet" />
+    <link href="~/Plugins/ionslider/ion.rangeSlider.skinFlat.css" rel="stylesheet" />
+    <link href="~/Plugins/ionslider/ion.rangeSlider.skinNice.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="~/Plugins/jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" />
+    <link href="~/Plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" />
+    <link href="~/Plugins/datepicker/datepicker3.css" rel="stylesheet" />
+    <script src="~/Plugins/datepicker/bootstrap-datepicker.js"></script>
+    <link href="~/Plugins/daterangepicker/daterangepicker.css" rel="stylesheet" />
+    <script src="~/Plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="~/Plugins/daterangepicker/moment.min.js"></script>
+    <script src="~/Plugins/datepicker/bootstrap-datepicker.js"></script>
+    <link href="~/Plugins/morris/morris.css" rel="stylesheet" />
+    <script src="~/Plugins/morris/morris.min.js"></script>
+    <script src="~/Plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+    <script src="~/Plugins/fastclick/fastclick.min.js"></script>
+    <script src="~/Plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <style>
+        .jqstooltip {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            visibility: hidden;
+            background: rgb(0, 0, 0) transparent;
+            background - color: rgba(0, 0, 0, 0.6);
+            filter: progid: DXImageTransform.Microsoft.gradient(startColorstr =#99000000, endColorstr =#99000000);
+            -ms - filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+            color: white;
+            font: 10px arial, san serif;
+            text - align: left;
+            white - space: nowrap;
+            padding: 5px;
+            border: 1px solid white;
+            z - index: 10000;
+        }
+
+        .jqsfield {
+            color: white;
+            font: 10px arial, san serif;
+            text - align: left;
+        }
+    </style>
+</head>
+<div class="row">
+    <div class="col-md-3 col-sm-6 col-xs-12 LSM LSM_ADCC030">
+        <!-- small box -->
+        <div class="small-box bg-green-gradient">
+            <div class="inner">
+                <h4>Cajero</h4>
+                <p>Registro de Cajero</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-address-book-o"></i>
+            </div>
+            <!-- <a href="#" class="small-box-footer">Ir <i class="fa fa-arrow-circle-right"></i></a> -->
+            <a class="small-box-footer" href="@Url.Action("Cajero", "Caja")" title="Cajero">Ir <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12 LSM LSM_PDCC010">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+            <div class="inner">
+                <h4>Pago de Prestamos</h4>
+                <p>Registro de pagos</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-credit-card"></i>
+            </div>
+            <!-- <a href="#" class="small-box-footer">Ir <i class="fa fa-arrow-circle-right"></i></a> -->
+            <a class="small-box-footer" href="@Url.Action("ClientesCaja", "Caja")" title="Programar Citas">Ir <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div><!-- ./col -->
+    <div class="col-md-3 col-sm-6 col-xs-12 LSM LSM_CONF010">
+        <!-- small box -->
+
+        <div class="small-box bg-yellow">
+            <div class="inner">
+                <h4>Otras Transacciones</h4>
+                <p>Otros ingresos </p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-university"></i>
+            </div>
+            <!-- <a href="#" class="small-box-footer">Ir <i class="fa fa-arrow-circle-right"></i></a> -->
+            <a class="small-box-footer" onclick="Otros_Ingresos(event)" title="Catálogos Generales">Ir <i class="fa fa-arrow-circle-right"></i></a>
+            @*<a class="small-box-footer" href="@Url.Action("index", "Configuracion")" title="Catálogos Generales">Ir <i class="fa fa-arrow-circle-right"></i></a>*@
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12 LSM LSM_CONF010">
+        <!-- small box -->
+
+        <div class="small-box bg-red">
+            <div class="inner">
+                <h4>Recibos</h4>
+                <p>Gestión de Recibos </p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-university"></i>
+            </div>
+            <!-- <a href="#" class="small-box-footer">Ir <i class="fa fa-arrow-circle-right"></i></a> -->
+            <a class="small-box-footer" onclick="ListaRecibos(event)" title="Catálogos Generales">Ir <i class="fa fa-arrow-circle-right"></i></a>
+            @*<a class="small-box-footer" href="@Url.Action("index", "Configuracion")" title="Catálogos Generales">Ir <i class="fa fa-arrow-circle-right"></i></a>*@
+        </div>
+    </div>
+    @*<div class="col-md-3 col-sm-6 col-xs-12 LSM LSM_CYRS130">
+        <!-- small box -->
+        <div class="small-box bg-red">
+            <div class="inner">
+                <h4>Depositos a Plazo Fijo</h4>
+                <p>Información</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-money"></i>
+            </div>
+            <!-- <a href="#" class="small-box-footer">Ir <i class="fa fa-arrow-circle-right"></i></a> -->
+            <a class="small-box-footer" href="@Url.Action("Dashboard_MantaDatos", "Reportes")" title="Dashboard manta de datos">Ir <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>*@
+    <!-- ./col -->
+</div>
+@*<div class="row">
+    <div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3">
+        <img src="~/imgs/logo_cw.png" width="100%" />
+    </div>    
+</div>*@
+
+<!-- Modal -->
+<div class="modal fade" id="Moda_otras_transacciones" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><span id="theHeader">Agregar/Editar Tipo Razon</span></h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="hidden_id" />
+                <div id="form">
+                    <div class="row">
+                    <div class="col-sm-11">
+                            <div class="form-group input-group-sm">
+                                <label for="Observacion">Cliente</label>
+                                <input type="text" class="form-control varchar100" id="Observacion" name="Observacion" attr-message="Es un campo requerido!" placeholder="Nombre Completo del Cliente" />
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-sm-5">
+                            <div class="form-group input-group-sm">
+                            @*<div class="form-group input-group-sm col-md-12">*@
+                               <label class="control-label" for="cod_tipo_cita">Tipo de Transacción</label>
+                               <select class="form-control requerido" data-requerido="false" id="ListaTiposTrans" attr-message="Es un filtro requerido!"></select>
+                           <div class="validation-error"><p></p></div>
+                         </div>
+                        </div>
+                    <div class="col-sm-6">
+                            <div class="form-group input-group-sm">
+                                <label for="Clave">Clave</label>
+                                <input type="text" class="form-control varchar50" id="Clave" name="Clave" attr-message="Es un campo requerido!" placeholder="Ingresar Clave" />
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <div class="form-group input-group-sm">
+                                <label for="Monto">Monto Lps.</label>
+                                <input type="text" class="form-control monto" id="Monto" name="Monto" attr-message="Es un campo requerido!" placeholder="Monto"/>
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group input-group-sm">
+                                <label for="NumTrans"></label>
+                                <input type="text" class="form-control varchar100 hidden" id="NumTrans" name="NumTrans" attr-message="Es un campo requerido!" />
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row no-margin hidden" id="div_listado_extra">
+                        <h3>Listado extra</h3>
+                        <div class="col-sm-6">
+                            <div class="form-group input-group-sm">
+                                <label for="etiqueta">Etiqueta</label>
+                                <input type="text" class="form-control varchar50" attr-message="Es un campo requerido!" id="etiqueta" name="etiqueta" />
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group input-group-sm">
+                                <label for="origen">Origen</label>
+                                <input type="text" class="form-control varchar10" attr-message="Es un campo requerido!" id="origen" name="origen" />
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group input-group-sm">
+                                <label for="codigo_listado">Codigo</label>
+                                <input type="text" class="form-control varchar10" attr-message="Es un campo requerido!" id="codigo_listado" name="codigo_listado" />
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrrar" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" id="btnGeneraPago" class="btn btn-primary">Generar Pago</button>
+                <button type="button" class="btn btn-md btn-danger disabled" id="btnGenerarSolicitud">Imprimir Recibo</button>
+                @*<button onclick="GenerarSolicitud(NumTransc)" style="margin-left: 5px;" type="button" value="Eliminar" class="btn btn-danger pull-right"> Imprimir Recibo</button>
+                <a id="btnGeneraRecibo" class="btn btn-primary" href="@Url.Action("ReciboOtros", "Prestamos", new { NumTran = @Html.TextBox("NumTrans") }) ">Imprimir Recibo</a>
+                <button type="button" id="btnGeneraRecibo" class="btn btn-primary" onclick="GenerarSolicitud()">Imprimir Recibo</button>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3">
+        <img src="~/imgs/logo_cw2.png"
+             style=" opacity: 0.1;
+                     width: 110%;
+                     position: relative;
+                     margin-top: 4em;
+         " ; />
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="ModalListaRecibos" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><span id="theHeader">Gestión de Recibos</span></h4>
+            </div>
+            <div class="modal-body" id="form">
+                <input type="hidden" id="hidden_id" />
+                <input type="hidden" id="hidden_tipo_id" value="@ViewBag.TipoId" />
+
+                <div class="col-xs-12 bac-table-panel">
+                    <table id="ListaRecibos" class="list-table table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Recibo</th>
+                                <th>Fecha</th>
+                                <th>Observación</th>
+                                <th>Monto de Recibo</th>
+                                <th>Cajero</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                @*<button type="button" id="btnAgregarTransCajero" class="btn btn-default" data-dismiss="modal">Agregar</button>*@
+                <button type="button" id="btnCerrrar" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@Scripts.Render("~/Scripts/js/CajaOtrasTransacciones.js")
+@Scripts.Render("~/Scripts/js/Recibos.js")
+@*@Scripts.Render("~/Scripts/js/ValidaCajero.js")*@

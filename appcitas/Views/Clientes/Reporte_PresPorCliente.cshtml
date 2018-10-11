@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "Reporte_PresPorCliente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="box bac">
+            <div class="box-header">
+                <h3 class="titulo">Reporte Préstamos Por Clientes</h3>
+            </div>
+            <div class="box-body">
+                <div class="row nomargin">
+                    <div class="col-sm-12">
+                        <div class="form-group input-group-sm" id="div_identificacion">
+                            <label for="txt_identificacion_n">Identificación Del Cliente</label>
+                            <input type="text" class="form-control id limpiar input requerido identidad" data-requerido="true" id="txt_identificacion_n" name="txt_identificacion_n" placeholder="Identificacion del cliente" maxlength="50" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row nomargin" style="margin-bottom: 25px !important; margin-top: 10px !important;">
+                    <div class="col-md-2 col-md-offset-5">
+                        <button type="button" class="btn btn-md btn-primary" id="btn_crear_reporte">Generar Reporte</button>
+                    </div>
+                </div>
+                <div class="row bac-container-table-panel">
+                    <div class="col-xs-12 bac-table-panel">
+                        <table class="table list-table table-bordered" id="tableCitasDashboard1">
+                            <thead>
+                                <tr class="">
+                                    <th>Nro</th>
+                                    <th>Nombre del Cliente</th>
+                                    <th>Identidad</th>
+                                    <th>Garantia</th>
+                                    <th>Monto Aprobado</th>
+                                    <th>Fecha de Aprobación</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Scripts.Render("~/Scripts/js/Reporte_PresPorCliente.js")
+
+

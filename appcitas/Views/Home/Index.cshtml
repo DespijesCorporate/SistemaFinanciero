@@ -1,0 +1,130 @@
+﻿@{
+    Session.Abandon();
+    Response.Cookies.Add(new HttpCookie("ASP.NET_SessionId", ""));
+    ViewBag.Title = "Inicio";
+    Layout = null;
+    Session["usuario"] = "-1";
+
+}
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>UNICREDIT</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    @Styles.Render("~/Content/plugins/Font-awesome/css/font-awesome.css")
+    @Styles.Render("~/Content/bootstrap/css/bootstrap.css")
+    @Styles.Render("~/Content/dist/css/admin-lte.css")
+    @Styles.Render("~/Content/dist/css/skins/skin-blue.css")
+    @Styles.Render("~/Plugins/select2/select2.min.css")
+
+    @Scripts.Render("~/Content/plugins/jquery/js/jQuery-2.1.4.min.js")
+    @Scripts.Render("~/Content/plugins/jquery/js/jquery.mask.min.js")
+    @Scripts.Render("~/Content/bootstrap/js/bootstrap.js")
+    @Scripts.Render("~/Plugins/select2/select2.full.js")
+    @Scripts.Render("~/Scripts/js/global.js")
+    @Scripts.Render("~/Scripts/js/security.js")
+
+    <style type="text/css">
+        #wrongCredencial{
+            background: rgb(255,255,255);
+            text-align: center;
+            border: 1px solid rgb(169, 37, 37);
+            font-weight: bold;
+            margin: auto;
+            width: 95%;
+            margin-bottom: 10px;
+            color: rgb(221, 75, 57);
+        }
+        .jumbotron{
+            margin-bottom: 0px !important;
+        }
+    </style>
+
+</head>
+<div class="jumbotron div_cuerpo">
+    <div class="row">
+        <div class="col-md-12" align="center">
+            <img src="~/imgs/logo_cr2.png"  style="max-height:200px;max-width:270px;">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4" align="center">
+            <h3>Sistema Financiero</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="col-md-12" style="background: rgb(255,255,255);padding: 20px;">
+                <div id="wrongCredencial" class="hidden ">
+                    <span>Credenciales incorrectas! Intente de nuevo</span>
+                </div>
+                <form class="container" style="background-color:white;">
+                    <div class="form-group input-group-sm">
+                        <label for="user" style="color: black;margin-bottom: -5px;">Usuario</label>
+                        <input type="text" class="form-control" id="user" name="user" placeholder="Nombre de Usuario">
+                    </div>
+                    <div class="form-group input-group-sm">
+                        <label for="password" style="color: black;margin-bottom: -5px;">Contraseña</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña">
+                    </div>
+                    <button id="ingresar" name="ingresar" class="btn btn-sm btn-danger btn-block " type="button" style="margin-top: 25px;">Iniciar sesión</button>
+                </form>
+            </div>            
+        </div>        
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#user").keyup(function(event) {
+            if (event.keyCode == 13)
+            {
+                var user = $("#user").val();
+                var pass = $("#password").val();
+                if (user != "" && pass != "" ){
+                    checkUserAccessModule(user, pass, "SGRC");
+                }
+                else{
+                    $("#user").focus();
+                }
+            }
+        });
+
+        $("#password").keyup(function(event) {
+            if (event.keyCode == 13)
+            {
+                var user = $("#user").val();
+                var pass = $("#password").val();
+                if (user != "" && pass != "" ){
+                    checkUserAccessModule(user, pass, "SGRC");
+                }
+                else{
+                    $("#user").focus();
+                }
+            }
+        });
+
+        $('#ingresar').click(function (e) {
+            var user = $("#user").val();
+            var pass = $("#password").val();
+            if (user != "" && pass != "") {
+                checkUserAccessModule(user, pass, "SGRC");
+            }
+            else{
+                $("#user").focus();
+            }
+        });
+    });
+</script>
+
+<style>
+    .div_cuerpo {
+        border-top: solid #505050 5px;
+        border-bottom: solid #252525 5px;
+        height: 100%;
+        min-height: 100%;
+    }
+</style>
+

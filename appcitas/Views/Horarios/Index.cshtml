@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "Horarios";
+}
+<div class="box bac">
+    <div class="box-header">
+        <h3 class="titulo">Listado de horarios</h3>
+        <div class="row nomargin">
+            <button class="btn btn-md btn-success" data-toggle="modal" data-target="#modalSucursalesHorarios">
+                <i class="fa fa-plus"> </i>
+                <span> Nuevo Registro</span>
+            </button>
+        </div>
+    </div>
+    <div class="box-body">
+        <table class="list-table table table-bordered">
+            <thead>
+                <tr>
+                    <th>Sucursal</th>
+                    <th>Horario</th>
+                    <th>Inicio</th>
+                    <th>Fin</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalSucursalesHorarios" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><span id="theHeader">Agregar/Editar Sucursal</span></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="control-label">Sucursal</label>
+                        <select>
+                            <option value="-1">Ninguno...</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="control-label">Horario</label>
+                        <input type="text" class="form-control" id="txt_abreviatura">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="control-label">Inicio</label>
+                        <input type="text" class="form-control" id="txt_ubicacion">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="control-label">fin</label>
+                        <input type="text" class="form-control" id="txt_canal">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnGuardar" class="btn btn-primary">Guardar</button>
+                <button type="button" id="btnCerrrar" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

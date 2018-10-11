@@ -1,0 +1,133 @@
+﻿@{
+    ViewBag.Title = "Emisores";
+}
+<div class="box bac">
+    <div class="box-header">
+        <h3 class="titulo">Listado de emisores</h3>
+        <div class="row nomargin" style="padding-left: 10px;padding-right: 25px;">
+            <div class="col-sm-8 col-md-9 bottom-space-sm">
+                <label class="control-label">&nbsp;</label>
+                <button class="btn btn-md btn-success" onClick="NuevoEmisor(event)" style="display: block;">
+                    <i class="fa fa-plus"> </i>
+                    <span> Nuevo Registro</span>
+                </button>
+            </div>
+            <div class="col-sm-4 col-md-3">
+                <label class="control-label">Marca</label>
+                <select class="form-control input-md" id="cmb_marca"></select>
+            </div>
+        </div>
+    </div>
+    <div class="box-body bac-table-panel">
+        <table id="tableEmisores" class="list-table table table-bordered">
+            <thead>
+                <tr>                
+                    <th>No.</th>
+                    <th>Emisor Cuenta</th>
+                    <th>Marca</th>
+                    <th>Segmento</th>
+                    <th>Producto</th>
+                    <th>Familia</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                    <th hidden="hidden"></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalEmisores" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><span id="theHeader">Agregar/Editar Emisor</span></h4>
+            </div>
+            <div class="modal-body" id="form">
+                <input type="hidden" id="hidden_id"/>
+                <div class="row">
+                    <div class="col-md-12 bottom-space-sm">
+                        <label class="control-label" for="txt_producto">Producto</label>
+                        <input type="text" class="form-control varchar100 requerido" data-requerido="true" id="txt_producto" attr-message="Es un campo requerido!">
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 bottom-space-sm">
+                        <label class="control-label" for="txt_emisorCuenta">Emisor Cuenta</label>
+                        <input type="text" class="form-control numero10 requerido" data-requerido="true" id="txt_emisorCuenta" attr-message="Es un campo requerido!">
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                    <div class="col-md-6 bottom-space-sm">
+                        <label class="control-label" for="txt_familia">Familia</label>
+                        <input type="text" class="form-control varchar100 requerido" data-requerido="true" id="txt_familia" attr-message="Es un campo requerido!">
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 bottom-space-sm">
+                        <label for="marca" class="control-label">Marca</label>
+                        <select class="form-control requerido" data-requerido="true" id="marca" attr-message="Es un campo requerido!"></select>
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                    <div class="col-md-4 bottom-space-sm">
+                        <label for="cod_segmento" class="control-label">Segmento</label>
+                        <select class="form-control requerido" data-requerido="true" id="cod_segmento" attr-message="Es un campo requerido!"></select>
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                    <div class="col-md-4 bottom-space-sm">
+                        <label for="cmb_status" class="control-label">Estado</label>
+                        <select class="form-control requerido" data-requerido="true" id="cmb_status" attr-message="Es un campo requerido!">
+                            <option value="1" selected="">Activo</option>
+                            <option value="0">Inactivo</option>
+                        </select>
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-xs-12 text-right">
+                        <button type="button" id="btnCerrrar" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="button" id="btnGuardar" class="btn btn-primary">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEliminarEmisor" role="dialog" aria-labelledby="modalProcesar">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="tituloProcesar"><span id="theHeaderEliminar">Eliminar Emisor</span></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div data-alerts="alerts" data-titles="{&quot;success&quot;: &quot;&lt;em&gt;Correcto!&lt;/em&gt;&quot;}" data-ids="successModalEliminarEmisor" data-fade="5000"></div>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <h5>
+                        <h3><div id="modalmessage" class="alert" role="alert"></div></h3>
+                    </h5>
+
+                </div><!-- /.box-body -->
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-xs-12 text-right">
+                        <button type="button" id="cerrarModalProcesar" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="button" id="btnEliminar" class="btn btn-danger">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Scripts.Render("~/Scripts/js/emisores.js")

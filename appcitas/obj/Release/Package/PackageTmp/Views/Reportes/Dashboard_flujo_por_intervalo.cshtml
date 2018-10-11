@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box bac">
+            <div class="box-header">
+                <h3 class="titulo">Dashboard Flujo por intervalo</h3>
+            </div>
+            <div class="box-body">
+                <div class="row nomargin">
+                    <div class="form-group input-group-sm date col-md-3">
+                        <label for="txt_fecha1">Fecha Inicio</label>
+                        <div class='input-group input-group-sm date' id="fecha1">
+                            <span class="input-group-addon">
+                                <span class="fa fa-calendar"></span>
+                            </span>
+                            <input type='text' class="form-control limpiar requerido" data-requerido="true" id="txt_fecha1" readonly="" attr-message="Es un filtro requerido!">
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                    <div class="form-group input-group-sm date col-md-3">
+                        <label for="txt_fecha2">Fecha Final</label>
+                        <div class='input-group input-group-sm date' id="fecha2">
+                            <span class="input-group-addon">
+                                <span class="fa fa-calendar"></span>
+                            </span>
+                            <input type='text' class="form-control limpiar requerido" data-requerido="true" id="txt_fecha2" readonly="" attr-message="Es un filtro requerido!">
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="control-label" for="cod_sucursal">Centro de fidelización</label>
+                        <select class="form-control requerido" data-requerido="false" id="cod_sucursal" attr-message="Es un filtro requerido!"></select>
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="control-label" for="cod_tipo_cita">Tipo Cita</label>
+                        <select class="form-control requerido" data-requerido="false" id="cod_tipo_cita" attr-message="Es un filtro requerido!" ></select>
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                </div>
+                <div class="row nomargin" style="margin-bottom: 25px !important; margin-top: 10px !important;">
+                    <div class="col-xs-12 text-center">
+                        <button type="button" class="btn btn-md btn-primary" id="btn_crear_reporte_dashboard1">Generar reporte</button>
+                    </div>
+                </div>
+                <div class="row bac-container-table-panel">
+                    <div class="col-xs-12 bac-table-panel">
+                        <table class="table list-table table-bordered" id="tableCitasDashboard1">
+                            <thead>
+                                <tr class="">
+                                    <th>Nro</th>
+                                    <th>Tipo Cita</th>
+                                    <th>Sucursal</th>
+                                    <th>Antes de 07:00 am</th>
+                                    <th>De 07:00 am - 07:30 am</th>
+                                    <th>De 07:30 am - 08:00 am</th>
+                                    <th>De 08:00 am - 08:30 am</th>
+                                    <th>De 08:30 am - 09:00 am</th>
+                                    <th>De 09:00 am - 09:30 am</th>
+                                    <th>De 09:30 am - 10:00 am</th>
+                                    <th>De 10:00 am - 10:30 am</th>
+                                    <th>De 10:30 am - 11:00 am</th>
+                                    <th>De 11:00 am - 11:30 am</th>
+                                    <th>De 11:30 am - 12:00 pm</th>
+                                    <th>De 12:00 pm - 12:30 pm</th>
+                                    <th>De 12:30 pm - 01:00 pm</th>
+                                    <th>De 01:00 pm - 01:30 pm</th>
+                                    <th>De 01:30 pm - 02:00 pm</th>
+                                    <th>De 02:00 pm - 02:30 pm</th>
+                                    <th>De 02:30 pm - 03:00 pm</th>
+                                    <th>De 03:00 pm - 03:30 pm</th>
+                                    <th>De 03:30 pm - 04:00 pm</th>
+                                    <th>De 04:00 pm - 04:30 pm</th>
+                                    <th>De 04:30 pm - 05:00 pm</th>
+                                    <th>De 05:00 pm - 05:30 pm</th>
+                                    <th>De 05:30 pm - 06:00 pm</th>
+                                    <th>Despues de 06:00 pm</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/Scripts/js/dashboard_flujo_por_intervalo.js")

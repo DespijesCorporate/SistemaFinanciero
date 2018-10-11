@@ -1,0 +1,72 @@
+﻿@model appcitas.Dtos.VariableDeItemDto
+
+<form id="CreateEditVariableForm">
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group hidden">
+            @Html.EditorFor(model=> model.VariableDeItemId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ReclamoId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ReclamoId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ItemDeReclamoId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ItemDeReclamoId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.VariableCodigo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.VariableCodigo, new SelectList(ViewBag.Variables, "VariableCodigo", "VariableNombre"), "seleccione una Variable", new { @class = "form-control", @onChange="VariableCodigoOnChange(event)" })
+                @Html.ValidationMessageFor(model => model.VariableCodigo, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.VariableNombre, new { htmlAttributes = new { @class="form-control hidden" } })
+            </div>
+        </div>
+               
+        <div class="form-group">
+            @Html.LabelFor(model => model.CondicionLogica, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.CondicionLogica, new SelectList(ViewBag.Condiciones, "Text", "Value"), "Seleccione una Condicion", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CondicionLogica, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ValorAEvaluar, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ValorAEvaluar, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ValorAEvaluar, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @if (Model.VariableDeItemId == Guid.Empty)
+        {
+            <div class="form-group">
+                <div class="col-md-12">
+                    <button onclick="GuardarVariable(event)" style="margin-left: 5px;" type="button" value="Crear" class="btn btn-primary pull-right">  Crear</button>
+                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="form-group">
+                <div class="col-md-12">
+                    <button onclick="GuardarVariable(event)" style="margin-left: 5px;" type="button" value="Guardar" class="btn btn-danger pull-right">  Guardar</button>
+                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        }
+    </div>
+</form>

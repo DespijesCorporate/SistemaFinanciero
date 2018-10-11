@@ -1,0 +1,141 @@
+﻿@model appcitas.Dtos.VariableDto
+
+@Scripts.Render("~/Plugins/jquery-validate/js/jquery.validate.js")
+@Scripts.Render("~/Plugins/jquery-validate/js/jquery.validate-vsdoc.js")
+@Scripts.Render("~/Plugins/jquery-validate/js/jquery.validate.unobtrusive.js")
+
+
+<h2>@ViewBag.Titulo</h2>
+
+<form id="myForm">
+    @Html.AntiForgeryToken()
+
+
+    <div class="row">
+        <div class="col-md-4">
+
+            @if (string.IsNullOrEmpty(Model.VariableCodigo))
+            {
+                <div class="form-group">
+                    @Html.LabelFor(m => m.VariableCodigo)
+                    @Html.TextBoxFor(m => m.VariableCodigo, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.VariableCodigo, "", new { @class = "text-danger" })
+                </div>
+            }
+            else
+            {
+                <div class="form-group">
+                    @Html.LabelFor(m => m.VariableCodigo)
+                    @Html.TextBoxFor(m => m.VariableCodigo, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+            }
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(m => m.VariableNombre)
+                @Html.TextBoxFor(m => m.VariableNombre, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.VariableNombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(m => m.OrigenId)
+                @Html.DropDownListFor(m => m.OrigenId, new SelectList(ViewBag.Origenes, "ConfigItemId", "ConfigItemAbreviatura"), "Seleccione un Origen", new { @class = "form-control", @onChange = "OrigenCbxChange(event)" })
+                @Html.ValidationMessageFor(m => m.OrigenId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+
+    <div class=" row">
+        <div class="form-group col-md-4">
+            @Html.LabelFor(m => m.DatoDeRetornoId)
+            @Html.DropDownListFor(m => m.DatoDeRetornoId, new SelectList(ViewBag.Tipos, "ConfigItemId", "ConfigItemAbreviatura"), "Seleccion el tipo de valor de retorno", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.DatoDeRetornoId, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group col-md-4">
+            @Html.LabelFor(m => m.TipoId)
+            @Html.DropDownListFor(m => m.TipoId, new SelectList(ViewBag.TiposVariables, "ConfigItemId", "ConfigItemAbreviatura"), "Seleccione el tipo de variable", new { @class = "form-control", @onChange = "TipoDeVariableChange(event)" })            
+        </div>
+        <div class="form-group col-md-4">
+            @Html.LabelFor(m => m.VariableValor)
+            @Html.TextBoxFor(m => m.VariableValor, new { @class = "form-control", @readonly = "readonly" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.VariableDescripcion)
+                @Html.TextAreaFor(m => m.VariableDescripcion, 5, 50, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.VariableDescripcion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row" id="FormulaPanel">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-12"><strong>Formula</strong></div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="VariablesCbx">Variables</label>
+                                @Html.DropDownList("VariablesCbx", new SelectList(ViewBag.VariablesList, "VariableCodigo", "VariableNombre"),
+                                                                                "Seleccione una variable de la lista", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <br />
+                            <a href="#" class="btn btn-primary" onclick="AgregarVariableFormula(event)"><i class="fa fa-plus"></i></a>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="FuncionesCbx">Funciones</label>
+                                @Html.DropDownList("FuncionesCbx", new SelectList(ViewBag.FuncionesList, "FuncionCodigo", "FuncionNombre"),
+                                                                                "Seleccione una funcion de la lista", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <br />
+                            <a href="#" class="btn btn-primary" onclick="AgregarFuncionFormula(event)"><i class="fa fa-plus"></i></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" style="padding:5px,5px,5px,5px">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.VariableFormula)
+                                @Html.TextAreaFor(m=> m.VariableFormula, 5,50, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (string.IsNullOrEmpty(Model.VariableCodigo))
+    {
+        <div class="row">
+            <div class="col-lg-offset-12 col-md-12">
+                <button type="button" class="btn btn-primary" id="btnSubmit" onclick="EnviarPost(event)">Crear Variable</button>
+                <button type="button" class="btn btn-default" onclick="CancelAction(event)">Cancelar</button>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-lg-offset-12 col-md-12">
+                <button type="button" class="btn btn-danger" id="btnSubmit" onclick="EnviarPost(event)">Guardar Cambios</button>
+                <button type="button" class="btn btn-default" onclick="CancelAction(event)">Cancelar</button>
+            </div>
+        </div>
+    }
+</form>

@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "Reporte_TotalesDineroCobrado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="box bac">
+            <div class="box-header">
+                <h3 class="titulo">Reporte Totales de Dinero Cobrado</h3>
+            </div>
+            <div class="box-body">
+                <div class="row nomargin">
+                    <div class="form-group input-group-sm date col-md-6">
+                        <label for="txt_fecha1">Fecha Inicio</label>
+                        <div class='input-group input-group-sm date' id="fecha1">
+                            <span class="input-group-addon">
+                                <span class="fa fa-calendar"></span>
+                            </span>
+                            <input type='text' class="form-control limpiar requerido" data-requerido="true" id="txt_fecha1" readonly="" attr-message="Es un filtro requerido!">
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                    <div class="form-group input-group-sm date col-md-6">
+                        <label for="txt_fecha2">Fecha Final</label>
+                        <div class='input-group input-group-sm date' id="fecha2">
+                            <span class="input-group-addon">
+                                <span class="fa fa-calendar"></span>
+                            </span>
+                            <input type='text' class="form-control limpiar requerido" data-requerido="true" id="txt_fecha2" readonly="" attr-message="Es un filtro requerido!">
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row nomargin" style="margin-bottom: 25px !important; margin-top: 10px !important;">
+                    <div class="col-md-2 col-md-offset-5">
+                        <button type="button" class="btn btn-md btn-primary" id="btn_crear_reporte">Generar Reporte</button>
+                    </div>
+                </div>
+                <div class="row bac-container-table-panel">
+                    <div class="col-xs-12 bac-table-panel">
+                        <table class="table list-table table-bordered" id="tableCitasDashboard1">
+                            <thead>
+                                <tr class="">
+                                    <th>Nro</th>
+                                    <th>Fecha de Transacción</th>
+                                    <th>Capital</th>
+                                    <th>Interés</th>
+                                    <th>Mora</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Scripts.Render("~/Scripts/js/Reporte_TotalesDineroCobrado.js")
+
+
+
+

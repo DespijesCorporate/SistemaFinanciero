@@ -1,0 +1,483 @@
+﻿@model appcitas.Dtos.AnualidadDto
+
+@{
+    ViewBag.Title = "Evaluacion de Anualidades";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style type="text/css">
+
+    .miPanel {
+        overflow-x: auto;
+        border-top: 2px solid rgb(230,230,230);
+        height: 400px;
+        max-height: 600px;
+    }
+
+    .miPanelResultado {
+        overflow-x: auto;
+        border-top: 2px solid rgb(230,230,230);
+        height: 300px;
+        max-height: 600px;
+    }
+</style>
+
+<div class="box bac">
+    <div class="box-header">
+        <h3 class="titulo">Evaluacion de Anualidades - Motor de Retenciones</h3>
+        <div class="row nomargin">
+        </div>
+    </div>
+    <div class="box-body">
+        <form id="AnualidadEvalForm">
+            @Html.AntiForgeryToken()
+
+            <div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                @Html.LabelFor(model => model.NumeroTarjeta, htmlAttributes: new { @class = "control-label" })
+                                <div class="input-group">
+                                    @Html.EditorFor(model => model.NumeroTarjeta, new { htmlAttributes = new { @class = "form-control" } })
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button" onclick="BuscarPorTarjeta(event)"><i class="fa fa-search"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-3">
+                                @Html.LabelFor(model => model.NumeroCuenta, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.NumeroCuenta, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.NumeroCuenta, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                @Html.LabelFor(model => model.CIF, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.CIF, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.CIF, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                @Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Fecha, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+                                @Html.LabelFor(model => model.Familia, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Familia, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.Familia, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @Html.LabelFor(model => model.Segmento, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Segmento, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.Segmento, "", new { @class = "text-danger" })
+                            </div>
+                            @Html.EditorFor(model => model.SegmentoId, new { htmlAttributes = new { @class = "hidden" } })
+                            <div class="col-md-4 form-group">
+                                @Html.LabelFor(model => model.Marca, htmlAttributes: new { @class = "control-label" })
+                                @Html.EditorFor(model => model.Marca, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.Marca, "", new { @class = "text-danger" })
+                            </div>
+                            @Html.EditorFor(model => model.MarcaId, new { htmlAttributes = new { @class = "hidden" } })
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.TipoAnualidadId, htmlAttributes: new { @class = "control-label" })
+                                    @Html.DropDownListFor(model => model.TipoAnualidadId, new SelectList(ViewBag.TipoDeAnualidades, "ConfigItemID", "ConfigItemAbreviatura"), "Seleccione un tipo de anualidad", new { @class = "form-control", @onChange = "TipoAnualidadOnChange(event)" })
+                                    @Html.ValidationMessageFor(model => model.TipoAnualidadId, "", new { @class = "text-danger" })
+                                </div>
+                                @Html.EditorFor(model => model.TipoAnualidad, new { htmlAttributes = new { @class = "hidden" } })
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Monto, htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.Monto, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Monto, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.FechaDeCargo, htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.FechaDeCargo, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.FechaDeCargo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SaldoActual, htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.SaldoActual, new { htmlAttributes = new { @class = "form-control webservice", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(model => model.SaldoActual, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Limite, htmlAttributes: new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.Limite, new { htmlAttributes = new { @class = "form-control webservice", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(model => model.Limite, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <button type="button" onclick="EvaluarVariables(event)" class="btn btn-primary">Evaluar Variables</button>
+                    </div>
+                </div>
+                <br />
+            </div>
+        </form>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="panel panel-default miPanel">
+                    <div class="panel-heading">
+                        <strong>Resultados de Variables</strong>
+                    </div>
+                    <div class="panel-body">
+                        <table id="resultadosDeVariables" class="list-table table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="hidden">Codigo</th>
+                                    <th class="hidden">ReclamoId</th>
+                                    <th class="hidden">ItemId</th>
+                                    <th>Item</th>
+                                    <th class="hidden">VariableDeItemId</th>
+                                    <th>Variable</th>
+                                    <th>Valor </th>
+                                    <th>Condicion</th>
+                                    <th>Valor Comparativo</th>
+                                    <th class="hidden">ResultadoBooleano</th>
+                                    <th>Resultado</th>
+                                </tr>
+                            </thead>
+                            <tbody class="dataTables_fontTbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <strong>Resultados de Evaluacion</strong>
+                    </div>
+                    <div class="panel-body miPanelResultado">
+                        <div id="resultadosContainer">
+
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Observacion, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.Observacion, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <button class="btn btn-primary" type="button" onclick="GuardarAnualidad(event)"> Guardar Evaluacion</button>
+                        <input type="reset" class="btn btn-default" value="Resetear Formulario" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            checkUserAccess('MTR020');
+        })
+
+        function TipoAnualidadOnChange(event) {
+            event.stopPropagation();
+            $('#TipoAnualidad').val($('#TipoAnualidadId').text());
+        }
+
+        function BuscarDatosDeCatalogos(cuenta) {
+            $.ajax({
+                type: 'GET',
+                url: urljs + 'EvaluacionAnualidad/BuscarDatosDeCatalogos/',
+                data: { cuenta: cuenta },
+                success: function (dataResult) {
+                    $('#Familia').val(dataResult["Familia"]);
+                    $('#Segmento').val(dataResult["Segmento"]);
+                    $('#Marca').val(dataResult["Marca"]);
+                    $('#MarcaId').val(dataResult["MarcaId"]);
+                    $('#SegmentoId').val(dataResult["SegmentoId"]);
+                },
+                error: function (data, status, xhr) {
+                    GenerarErrorAlerta("Se produjo un error" + status, 'error');
+                    goAlert();
+                }
+            })
+        }
+
+        function BuscarPorTarjeta(e) {
+            e.stopPropagation();
+
+            var numeroTarjeta = $('#NumeroTarjeta');
+            numeroTarjeta.validate();
+            if (numeroTarjeta.valid()) {
+                $.ajax({
+                    type: 'GET',
+                    url: urljs + 'EvaluacionAnualidad/BuscarPorTarjeta/',
+                    data: { tarjeta: numeroTarjeta.val() },
+                    success: function (result) {
+                        $('#CIF').val(result["Cif"]);
+                        $('#SaldoActual').val(result["SaldoVencido"]);
+                        $('#Limite').val(result["Limite"]);
+                        $('#NumeroCuenta').val(result["Cuenta"]);
+                        BuscarDatosDeCatalogos(result["Cuenta"]);
+                    },
+                    error: function (data, status, xhr) {
+                        GenerarErrorAlerta("Se produjo un error" + status, 'error');
+                        goAlert();
+                    }
+                })
+            }
+        }
+
+        function EvaluarVariables(e) {
+            e.stopPropagation();
+
+            var form = $('#AnualidadEvalForm');
+            form.validate();
+            if (form.valid()) {
+                $.ajax({
+                    type: 'GET',
+                    url: urljs + 'EvaluacionAnualidad/EvaluarVariables/',
+                    data:
+                        {
+                            tipoAnualidad: $('#TipoAnualidadId option:selected').text(),
+                            cuenta: $('#NumeroTarjeta').val(),
+                            fechaDeCargo: $('#FechaDeCargo').val(),
+                            segmento: $('#Segmento').val(),
+                            montoAnualidad: $('#Monto').val()
+                        },
+                    success: function (data) {
+                        if (data[0].Accion) {
+                            LimpiarTabla('#resultadosDeVariables');
+                            for (var i = 0; i < data.length; i++) {
+                                AgregarFilasVariablesEvaluadas(data[i], '#resultadosDeVariables');
+                            }
+
+                            ObtenerResultados(e);
+
+                            $('#ObtenerResults').removeAttr('disabled');
+                        }
+                        else {
+                            GenerarErrorAlerta(data[0].Mensaje, 'error');
+                            goAlert();
+                        }
+                    },
+                    error: function (data, status, xhr) {
+                        GenerarErrorAlerta("Se produjo un error: " + status, 'error');
+                        goAlert();
+                    }
+                });
+
+            }
+        }
+
+        function AgregarFilasVariablesEvaluadas(ArrayData, table) {
+            var elem = document.createElement("img");
+            if (ArrayData['EvaluacionCondicion'] === true) {
+
+                elem.setAttribute('src', 'imgs/True.png');
+                elem.setAttribute('height', '16');
+                elem.setAttribute('width', '16');
+            }
+            else {
+                elem.setAttribute('src', 'imgs/False.png');
+                elem.setAttribute('height', '16');
+                elem.setAttribute('width', '16');
+            }
+
+            var img = "";
+            var newRow = $(table).dataTable().fnAddData([
+                ArrayData['VariableCodigo'],
+                ArrayData['ReclamoId'],
+                ArrayData['ItemDeReclamoId'],
+                ArrayData['ItemDeReclamoNombre'],
+                ArrayData['VariableDeItemId'],
+                ArrayData['VariableNombre'],
+                ArrayData['ValorActual'],
+                ArrayData['CondicionLogica'],
+                ArrayData['ValorAEvaluar'],
+                ArrayData['EvaluacionCondicion'],
+                img
+            ]);
+
+            var theNode = $(table).dataTable().dataTable().fnSettings().aoData[newRow[0]].nTr;
+            theNode.setAttribute('id', ArrayData['VariableCodigo']);
+            $('td', theNode)[0].setAttribute('class', 'hidden');
+            $('td', theNode)[1].setAttribute('class', 'hidden');
+            $('td', theNode)[2].setAttribute('class', 'hidden');
+            $('td', theNode)[3].setAttribute('class', 'text-center');
+            $('td', theNode)[4].setAttribute('class', 'hidden');
+            $('td', theNode)[5].setAttribute('class', 'text-center');
+            $('td', theNode)[6].setAttribute('class', 'text-center');
+            $('td', theNode)[7].setAttribute('class', 'text-center');
+            $('td', theNode)[8].setAttribute('class', 'text-center');
+            $('td', theNode)[9].setAttribute('class', 'hidden');
+            $('td', theNode)[10].setAttribute('class', 'text-center');
+            $('td', theNode)[10].appendChild(elem);
+
+            $(table).DataTable().order([1, 'asc']).draw();
+        }
+
+        function ObtenerResultados(e) {
+            e.stopPropagation();
+            var myData = VariablesEvaluadasData('#resultadosDeVariables');
+
+            $.ajax({
+                type: 'POST',
+                url: urljs + 'EvaluacionAnualidad/ObtenerResultados/',
+                data: JSON.stringify({ dataList: myData }),
+                contentType: 'application/json;',
+                dataType: 'JSON',
+                traditional: true,
+                success: function (data) {
+                    if (data['statusCode']) {
+                        $('#resultadosContainer').html(data['resultadosHtml']);
+                    }
+                },
+                error: function (data, status, xhr) {
+                    GenerarErrorAlerta("Se produjo un error: " + data + " ", + status, 'error');
+                    goAlert();
+                }
+            });
+        }
+
+        function GuardarAnualidad(e) {
+            e.stopPropagation();
+
+            var path = '/EvaluacionAnualidad/GuardarAnualidad/';
+            var form = $('#AnualidadEvalForm');
+            var token = $('input[name="__RequestVerificationToken"]', form).val();
+
+            form.validate();
+
+            if (form.valid()) {
+
+                var myData = {
+                    __RequestVerificationToken: token,
+                    NumeroCuenta: $('#NumeroCuenta').val(),
+                    NumeroTarjeta: $('#NumeroTarjeta').val(),
+                    CIF: $('#CIF').val(),
+                    Fecha: $('#Fecha').val(),
+                    Familia: $('#Familia').val(),
+                    SegmentoId: $('#SegmentoId').val(),
+                    Segmento: $('#Segmento').val(),
+                    Marca: $('#Marca').val(),
+                    MarcaId: $('#MarcaId').val(),
+                    TipoAnualidad: $('#TipoAnualidad').val(),
+                    TipoAnualidadId: $('#TipoAnualidadId').val(),
+                    Monto: $('#Monto').val(),
+                    FechaDeCargo: $('#FechaDeCargo').val(),
+                    SaldoActual: $('#SaldoActual').val(),
+                    Limite: $('#Limite').val(),
+                    Observacion: $('#Observacion').val(),
+                    VariablesEvaluadas: VariablesEvaluadasData('#resultadosDeVariables'),
+                    Resultados: resultadoArray
+                };
+
+                var posting = $.post(path, myData);
+                posting.done(function (data) {
+                    if (data.Accion) {
+                        console.log(data.Accion);
+                    }
+                    else {
+                        GenerarErrorAlerta(data.Mensaje, 'error');
+                        goAlert();
+                    }
+                });
+
+                posting.fail(function (data, status, xhr) {
+                    form.trigger('reset');
+                    GenerarErrorAlerta(status, 'error');
+                    goAlert();
+                });
+
+                posting.always(function () { });
+            }
+
+        }
+
+        var resultadoArray = [];
+
+        function ResultadosCbxChange(e) {
+            e.stopPropagation();
+
+            resultadoArray = [];
+            var options = $('#selectBox option');
+            var values = $.map(options, function (option) {
+                return option.value;
+            });
+
+            for (var i = 0; i < options.length; i++) {
+                if ($('#Resultados').val() == values[i]) {
+                    resultadoArray.push({
+                        ItemDeReclamoId: values[i],
+                        ItemDeReclamoNombre: options[i],
+                        ResultadoAceptado: true
+                    });
+                }
+                else {
+                    resultadoArray.push({
+                        ItemDeReclamoId: values[i],
+                        ItemDeReclamoNombre: options[i],
+                        ResultadoAceptado: false
+                    });
+                }
+            }
+        }
+
+        function VariablesEvaluadasData(table) {
+
+            var myArray = $(table).DataTable().rows().data().toArray();
+            var resultArray = [];
+            myArray.forEach(function (item, index) {
+                resultArray.push(
+                    {
+                        VariableCodigo: item[0],
+                        ReclamoId: item[1],
+                        ItemDeReclamoId: item[2],
+                        ItemDeReclamoNombre: item[3],
+                        VariableDeItemId: item[4],
+                        VariableNombre: item[5],
+                        ValorActual: item[6],
+                        CondicionLogica: item[7],
+                        ValorAEvaluar: item[8],
+                        EvaluacionCondicion: item[9]
+                    }
+                );
+            });
+
+            return resultArray;
+        }
+
+        function ClearFields() {
+
+        }
+
+        function ResetForm(e) {
+            e.stopPropagation();
+
+        }
+    </script>
+}

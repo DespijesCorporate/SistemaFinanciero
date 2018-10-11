@@ -1,0 +1,450 @@
+﻿
+@{
+    ViewBag.Title = "Sucursales";
+}
+<div class="box bac">
+    <div class="box-header">
+        <h3 class="titulo">Listado de sucursales</h3>
+        <div class="row nomargin">
+            <button id="btnNuevasucursal" class="btn btn-md btn-success" data-toggle="modal" data-target="#modalSucursales">
+                <i class="fa fa-plus"> </i>
+                <span> Nuevo Registro</span>
+            </button>
+        </div>
+    </div>
+    
+    <div class="box-body bac-table-panel">
+        <br />
+        <br />
+        <table id="tableSucursales" class="list-table table table-bordered">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Abreviatura</th>
+                    <th>Ubicacion</th>
+                    <th>Canal</th>
+                    <th>Centro Atencion</th>
+                    <th>Tipo Atencion</th>
+                    <th hidden="hidden"></th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalSucursales" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><span id="theHeader">Agregar/Editar Sucursal</span></h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="hidden_id"/>
+                    <div id="form">
+                        <div class="row col-margin-top-small">
+                            <div class="col-md-6">
+                                <label class="control-label">Nombre</label>
+                                <input type="text" class="form-control" id="txt_nombre" attr-message="Es un campo requerido!">
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="control-label">Abreviatura</label>
+                                <input type="text" class="form-control" id="txt_abreviatura" attr-message="Es un campo requerido!">
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="control-label">Ubicacion</label>
+                                <input type="text" class="form-control" id="txt_ubicacion" attr-message="Es un campo requerido!">
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="control-label">Tipo Atención</label>
+                                <select class="form-control" id="cmb_tipoatencion_sucursal" attr-message="Es un campo requerido!"></select>
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                        <div class="row col-margin-top-small">
+                            <div class="col-md-6">
+                                <label class="control-label">Canal</label>
+                                @*<input type="text" class="form-control" id="txt_canal" attr-message="Es un campo requerido!">*@
+                                <select class="form-control" id="txt_canal" attr-message="Es un campo requerido!">
+                                    <option value="1">SI</option>
+                                    <option value="0">NO</option>
+                                </select>
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="control-label">Centro Atención</label>
+                                @*<input type="text" class="form-control" id="txt_atencion" attr-message="Es un campo requerido!">*@
+                                <select class="form-control" id="txt_atencion" attr-message="Es un campo requerido!">
+                                    <option value="1">SI</option>
+                                    <option value="0">NO</option>
+                                </select>
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                    </div>                   
+                </div>            
+            <div class="modal-footer">
+                <button type="button" id="btnCerrrar" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" id="btnGuardar" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEliminarSucursal" role="dialog" aria-labelledby="modalProcesar">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="tituloProcesar"><span id="theHeaderEliminar">Eliminar Plantilla</span></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div data-alerts="alerts" data-titles="{&quot;success&quot;: &quot;&lt;em&gt;Correcto!&lt;/em&gt;&quot;}" data-ids="successModalEliminarPlantillas" data-fade="5000"></div>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <h5>
+                        <h3><div id="modalmessage" class="alert alert-warnin" role="alert"></div></h3>
+                    </h5>
+
+                </div><!-- /.box-body -->
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-12">
+                    <button type="button" id="cerrarModalProcesar" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="button" id="btnEliminar" class="btn btn-danger">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Horario -->
+<div class="modal fade" id="modalSucursalesHorario" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabelHorario"><span id="theHeaderHorario">Agregar/Editar Sucursal</span></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div data-alerts="alerts" data-titles="{&quot;success&quot;: &quot;&lt;em&gt;Correcto!&lt;/em&gt;&quot;}" data-ids="successModalHorarios" data-fade="5000"></div>
+                    </div>
+                </div>
+                <input type="hidden" id="horario_id" />
+                <div id="formHorario" class="row col-margin-top-small">
+                    <div class="col-md-4">
+                        <label for="cmb_dia" class="control-label">Dia</label>
+                        <select class="form-control requerido" data-requerido="true" id="cmb_dia" attr-message="Es un campo requerido!"></select>
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="cmb_laboral" class="control-label">Laboral</label>
+                        <select class="form-control" id="cmb_laboral" attr-message="Es un campo requerido!">
+                            <option value="true">SI</option>
+                            <option value="false">NO</option>
+                        </select>
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="cmb_horario_corrido" class="control-label">Horario Corrido</label>
+                        <select class="form-control" id="cmb_horario_corrido" attr-message="Es un campo requerido!">
+                            <option value="false">NO</option>
+                            <option value="true">SI</option>
+                        </select>
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="txt_inicio" class="control-label">Inicio</label>
+                        <div class="input-group bootstrap-timepicker">
+                            <input readonly="true" id="txt_inicio" type="text" data-requerido="true" class="form-control input-small timepicker requerido" attr-message="Es un campo requerido!">
+                            <div class="validation-error"><p></p></div>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="txt_fin" class="control-label">Fin</label>
+                        <div class="input-group bootstrap-timepicker">
+                            <input readonly="true" id="txt_fin" type="text" data-requerido="true" class="form-control input-small timepicker requerido" attr-message="Es un campo requerido!">
+                            <div class="validation-error"><p></p></div>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row col-margin-top-small">
+                    <div class="col-md-12">
+                        <button type="button" id="btnGuardarHorario" class="btn btn-success pull-left" title='Agregar Horario' data-toggle='tooltip' data-placement='left'><i class="fa fa-plus" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 bac-table-panel">
+                        <table id="tableHorarios" class="list-table table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Dia</th>
+                                    <th>Laboral</th>
+                                    <th>H. Corrido</th>
+                                    <th>Inicio</th>
+                                    <th>Fin</th>                                    
+                                    <th>Acciones</th>
+                                    <th hidden="hidden"></th>
+                                    <th hidden="hidden"></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">                
+                <button type="button" id="btnCerrrarHorario" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEliminarHorario" role="dialog" aria-labelledby="modalProcesar">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="tituloProcesar"><span id="theHeaderEliminarHorario">Eliminar Plantilla</span></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div data-alerts="alerts" data-titles="{&quot;success&quot;: &quot;&lt;em&gt;Correcto!&lt;/em&gt;&quot;}" data-ids="successModalEliminarHorario" data-fade="5000"></div>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <h5>
+                        <h3><div id="modalmessageHorario" class="" role="alert"></div></h3>
+                    </h5>
+
+                </div><!-- /.box-body -->
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-12">                    
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="button" id="btnEliminarHorario" class="btn btn-danger">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Cubiculos -->
+<div class="modal fade" id="modalSucursalesCubiculos" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabelCubiculos"><span id="theHeaderCubiculos">Agregar/Editar Cubiculos</span></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div data-alerts="alerts" data-titles="{&quot;success&quot;: &quot;&lt;em&gt;Correcto!&lt;/em&gt;&quot;}" data-ids="successModalCubiculos" data-fade="5000"></div>
+                    </div>
+                </div>
+                <input type="hidden" id="cubiculo_id" />
+                <div id="formCubiculo" class="row col-margin-top-small">
+                    <div class="col-md-6">
+                        <label class="control-label">Cubiculo</label>
+                        <select class="form-control" id="cmb_cubiculo" attr-message="Es un campo requerido!"></select>
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="cmb_tipoatencion" class="control-label">Tipo Atención</label>
+                        <select class="form-control" id="cmb_tipoatencion" attr-message="Es un campo requerido!"></select>
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                </div>
+                <div class="row col-margin-top-small">
+                    <div class="col-md-6">
+                        <label for="txt_posicion" class="control-label">Posición</label>
+                        <input type="text" id="txt_posicion" class="form-control" attr-message="Es un campo requerido!" maxlength="50" />
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="txt_usuario" class="control-label">Usuario</label>
+                        <input type="text" id="txt_usuario" class="form-control" attr-message="Es un campo requerido!" maxlength="50" />
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                </div>
+                <div class="row col-margin-top-small">
+                    <div class="col-md-6">
+                        <label for="txt_inicio_descanso" class="control-label">Inicio Descanso</label>
+                        <div class="input-group bootstrap-timepicker">
+                            <input id="txt_inicio_descanso" type="text" readonly="true" class="form-control input-small timepicker" attr-message="Es un campo requerido!">
+                            <div class="validation-error"><p></p></div>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="txt_fin_descanso" class="control-label">Fin Descanso</label>
+                        <div class="input-group bootstrap-timepicker">
+                            <input id="txt_fin_descanso" type="text" readonly="true" class="form-control input-small timepicker" attr-message="Es un campo requerido!">
+                            <div class="validation-error"><p></p></div>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row col-margin-top-small">
+                    <div class="col-md-12">
+                        <button type="button" id="btnGuardarCubiculo" class="btn btn-success pull-left" title='Agregar Cubiculo' data-toggle='tooltip' data-placement='left'><i class="fa fa-plus" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+                <div class="row" style="overflow-x: auto;">
+                    <div class="col-md-12">
+                        <table id="tableCubiculo" class="list-table table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Posición/Cubiculo</th>                                    
+                                    <th>Tipo Atención</th>
+                                    <th>Posición</th>  
+                                    <th>Usuario</th>
+                                    <th>Inicio</th>
+                                    <th>Fin</th>
+                                    <th>Acciones</th>                                    
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" id="btnCerrrarHorarioCubiculo" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEliminarCubiculo" role="dialog" aria-labelledby="modalProcesar">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="tituloProcesar"><span id="theHeaderEliminarCubiculo">Eliminar Plantilla</span></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div data-alerts="alerts" data-titles="{&quot;success&quot;: &quot;&lt;em&gt;Correcto!&lt;/em&gt;&quot;}" data-ids="successModalEliminarCubiculos" data-fade="5000"></div>
+                    </div>
+                </div>                
+                <div class="box-body">
+                    <h5>
+                        <h3><div id="modalmessagecubiculo" class="" role="alert"></div></h3>
+                    </h5>
+
+                </div><!-- /.box-body -->
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-12">                    
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="button" id="btnEliminarCubiculo" class="btn btn-danger">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Segmentos -->
+<div class="modal fade" id="modalSucursalesSegmentos" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabelSegmentos"><span id="theHeaderSegmentos">Agregar/Editar Segmentos</span></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div data-alerts="alerts" data-titles="{&quot;success&quot;: &quot;&lt;em&gt;Correcto!&lt;/em&gt;&quot;}" data-ids="successModalSegmento" data-fade="5000"></div>
+                    </div>
+                </div>        
+                <input type="hidden" id="segmento_id" />
+                <div id="formSegmento" class="row col-margin-top-small">
+                    <div class="col-md-6">
+                        <label class="control-label">Segmento</label>
+                        <select class="form-control" id="cmb_segmento" attr-message="Es un campo requerido!"></select>
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                </div>
+                <div class="row col-margin-top-small">
+                    <div class="col-md-12">
+                        <button type="button" id="btnGuardarSegmento" class="btn btn-success pull-right" title='Agregar Segmento' data-toggle='tooltip' data-placement='left'><i class="fa fa-plus" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table id="tableSegmento" class="list-table table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Segmentos</th>                                    
+                                    <th>Acciones</th>
+                                    <th hidden="hidden"></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" id="btnCerrrarHorarioSegmento" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEliminarSegmento" role="dialog" aria-labelledby="modalProcesar">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="tituloProcesar"><span id="theHeaderEliminarSegmento">Eliminar Plantilla</span></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div data-alerts="alerts" data-titles="{&quot;success&quot;: &quot;&lt;em&gt;Correcto!&lt;/em&gt;&quot;}" data-ids="successModalEliminarSegmentos" data-fade="5000"></div>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <h5>
+                        <h3><div id="modalmessagesegmento" class="" role="alert"></div></h3>
+                    </h5>
+
+                </div><!-- /.box-body -->
+            </div>
+            <div class="modal-footer">
+                <div class="col-md-12">                    
+                    <button type="button" id="cerrarModalProcesar" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="button" id="btnEliminarSegmento" class="btn btn-danger">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@*@Scripts.Render("~/Scripts/jquery-3.1.1.min.js")*@
+@Scripts.Render("~/Scripts/js/sucursales.js")

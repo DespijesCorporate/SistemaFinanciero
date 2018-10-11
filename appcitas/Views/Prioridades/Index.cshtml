@@ -1,0 +1,112 @@
+﻿
+@{
+    ViewBag.Title = "Prioridades";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="box bac">
+    <div class="box-header">
+        <h3 class="titulo">Listado de prioridades</h3>
+        <div class="row nomargin">
+            <button class="btn btn-md btn-success" id="btn_nuevo_registro" onclick="NuevaPrioridad(event)">
+                <i class="fa fa-plus"> </i>
+                <span> Nuevo Registro</span>
+            </button>
+        </div>
+    </div>
+    <div class="box-body bac-table-panel">
+        <table id="tablePrioridades" class="list-table table table-bordered">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Abreviatura</th>
+                    <th>Nivel</th>
+                    <th>Identificador</th>
+                    <th>Acciones</th>
+                    <th hidden="hidden"></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modal_prioridades" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><span id="theHeader">Agregar/Editar Prioridad</span></h4>
+            </div>
+            <div class="modal-body" id="form">
+                <input type="hidden" id="hidden_id" />
+                <div class="row nomargin">
+                    <div class="col-xs-12">
+                        <div class="form-group input-group-sm" id="div_PrioridadNombre">
+                            <label for="PrioridadNombre">Nombre</label>
+                            <input type="text" class="form-control input varchar100" id="PrioridadNombre" attr-message="Es un campo requerido!">
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row nomargin">
+                    <div class="col-sm-4">
+                        <div class="form-group input-group-sm">
+                            <label for="PrioridadCodigo">Abreviatura</label>
+                            <input type="text" class="form-control varchar50" attr-message="Es un campo requerido!" id="PrioridadCodigo" name="PrioridadCodigo" />
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group input-group-sm">
+                            <label for="Identificador">Identificador</label>
+                            <input type="text" class="form-control varchar5" attr-message="Es un campo requerido!" id="Identificador" name="Identificador" />
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group input-group-sm">
+                            <label for="PrioridadNivel">Nivel</label>
+                            <input type="text" class="form-control numero" attr-message="Es un campo requerido!" id="PrioridadNivel" name="PrioridadNivel" />
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrrar" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" id="btnGuardar" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEliminarPrioridad" role="dialog" aria-labelledby="modalProcesar">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="tituloProcesar"><span id="theHeaderEliminar">Eliminar prioridad</span></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div data-alerts="alerts" data-titles="{&quot;success&quot;: &quot;&lt;em&gt;Correcto!&lt;/em&gt;&quot;}" data-ids="successModalEliminarPlantillas" data-fade="5000"></div>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <h5>
+                        <h3><div id="modalmessage" class="alert alert-warnin" role="alert"></div></h3>
+                    </h5>
+
+                </div><!-- /.box-body -->
+            </div>
+            <div class="modal-footer">
+                <div class="col-xs-12 text-right">
+                    <button type="button" id="cerrarModalProcesar" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="button" id="btnEliminar" class="btn btn-danger">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Scripts.Render("~/Scripts/js/prioridades.js")

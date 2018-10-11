@@ -1,0 +1,216 @@
+﻿
+@{
+    ViewBag.Title = "Configuraciones Motor de Retenciones";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style type="text/css">
+    .miSidePanel {
+        overflow-x: auto;
+        border-top: 2px solid rgb(230,230,230);
+        height: 780px;
+        max-height: 780px;
+    }
+
+    .miPanel{
+        overflow-x:auto;
+        border-top:2px solid rgb(230,230,230);
+        height:375px;
+        max-height:600px;
+    }
+</style>
+
+<div class="box bac">
+    <div class="box-header">
+        <h3 class="titulo">Configuración de Motor de Retenciones</h3>
+        <div class="row nomargin">
+        </div>
+    </div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="panel panel-default miSidePanel">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Catalogo de Reclamos</strong>
+                            </div>
+                            <div class="col-md-6">
+                                <button id="btnAgregarReclamo" onclick="btnAgregarReclamoEvent(event)" class="btn btn-success pull-right" data-toggle="tooltip" data-placement="left" title="Agregar nuevo catálogo"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <table id="reclamosTable" class="list-table table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Codigo</th>
+                                    <th>Nombre</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody class="dataTables_fontTbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div style="vertical-align:top">
+                    <div class="panel panel-default miPanel">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <strong>Items de Reclamos</strong>
+                                </div>
+                                <div class="col-md-6">
+                                    <button id="btnAgregarItem" onclick="AgregarItem(event)" class="btn btn-success pull-right hidden" data-toggle="tooltip" data-placement="left" title="Agregar nuevo catálogo"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <table id="itemsTable" class="list-table table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="hidden">ReclamoId</th>
+                                        <th>Codigo</th>
+                                        <th>Descipcion</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="dataTables_fontTbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="vertical-align:middle">
+                    <div class="panel panel-default miPanel">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <strong>Variables a Evaluar en Item</strong>
+                                </div>
+                                <div class="col-md-6">
+                                    <button id="btnAgreagrVariableEvaluar" onclick="AgregarVariable(event)" class="btn btn-success pull-right hidden" data-toggle="tooltip" data-placement="left" title="Agregar Variable">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <table id="variablesEnItemTable" class="list-table table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="hidden">VariableDeItemId</th>
+                                        <th class="hidden">ReclamoId</th>
+                                        <th class="hidden">ItemId</th>
+                                        <th class="hidden">VariableCodigo</th>
+                                        <th>Variable</th>
+                                        <th>Condición</th>
+                                        <th>Valor</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="dataTables_fontTbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalReclamo" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <input type="hidden" id="hiddenReclamoId" />
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 id="ReclamoModalTitle" class="modal-title"> </h4>
+            </div>
+            <div class="modal-body">
+                <div id="agregarReclamoContainer" class="hidden">
+                </div>
+                <div id="editarReclamoContainer" class="hidden">                   
+                </div>
+                <div id="eliminarReclamoContainer" class="hidden">
+                    <div class="row">
+                        Esta seguro que desea eliminar el registro seleccionado?
+                        <br />
+                        <br />
+                        <div class="col-md-12">
+                            <button onclick="EliminarReclamo(event)" style="margin-left: 5px;" type="button" value="Eliminar" class="btn btn-danger pull-right">  Eliminar</button>
+                            <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalItem" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <input type="hidden" id="hiddenItemId" />
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 id="ItemModalTitle" class="modal-title"> </h4>
+            </div>
+            <div class="modal-body">
+                <div id="agregarItemContainer" class="hidden">
+                </div>
+                <div id="editarItemContainer" class="hidden">
+                </div>
+                <div id="eliminarItemContainer" class="hidden">
+                    <div class="row">
+                        Esta seguro que desea eliminar el registro seleccionado?
+                        <br />
+                        <br />
+                        <div class="col-md-12">
+                            <button onclick="EliminarItem(event)" style="margin-left: 5px;" type="button" value="Eliminar" class="btn btn-danger pull-right">  Eliminar</button>
+                            <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalVariables" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <input type="hidden" id="hiddenVariableId" />
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 id="VariableModalTitle" class="modal-title"> </h4>
+            </div>
+            <div class="modal-body">
+                <div id="agregarVariableContainer" class="hidden">
+                </div>
+                <div id="editarVariableContainer" class="hidden">
+                </div>
+                <div id="eliminarVariableContainer" class="hidden">
+                    <div class="row">
+                        Esta seguro que desea eliminar el registro seleccionado?
+                        <br />
+                        <br />
+                        <div class="col-md-12">
+                            <button onclick="EliminarVariable(event)" style="margin-left: 5px;" type="button" value="Eliminar" class="btn btn-danger pull-right">  Eliminar</button>
+                            <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/Scripts/js/ConfiguracionesMotor.js")
+}
+

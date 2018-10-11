@@ -1,0 +1,70 @@
+﻿@model appcitas.Dtos.ReclamoDto
+
+@Scripts.Render("~/Plugins/jquery-validate/js/jquery.validate.js")
+@Scripts.Render("~/Plugins/jquery-validate/js/jquery.validate-vsdoc.js")
+@Scripts.Render("~/Plugins/jquery-validate/js/jquery.validate.unobtrusive.js")
+
+
+<form id="CreateEditForm">
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @if (Model.ReclamoId == "" || String.IsNullOrEmpty(Model.ReclamoId))
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.ReclamoId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ReclamoId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ReclamoId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.ReclamoId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ReclamoId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                </div>
+            </div>
+        }
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ReclamoNombre, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ReclamoNombre, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ReclamoNombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ReclamoDescripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ReclamoDescripcion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ReclamoDescripcion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @if (Model.ReclamoId == "" || String.IsNullOrEmpty(Model.ReclamoId))
+        {
+            <div class="form-group">
+                <div class="col-md-12">
+                    <button onclick="GuardarReclamo(event)" style="margin-left: 5px;" type="button" value="Crear" class="btn btn-primary pull-right">  Crear</button>
+                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="form-group">
+                <div class="col-md-12">
+                    <button onclick="GuardarReclamo(event)" style="margin-left: 5px;" type="button" value="Guardar" class="btn btn-danger pull-right">  Guardar</button>
+                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        }
+    </div>
+</form>

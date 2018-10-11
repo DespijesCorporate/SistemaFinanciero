@@ -1,0 +1,264 @@
+﻿@{
+    ViewBag.Title = "Catálogo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="box bac">
+    <div class="box-header">
+        <h3 class="titulo">Listado de catálogos</h3>
+        <div class="row nomargin">
+        </div>
+    </div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default bac-table-panel">
+                    <div class="panel-heading">
+                        Catálogos
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button id="btnAgregarEncabezado" class="btn btn-success pull-right" data-toggle="tooltip" data-placement="left" title="Agregar nuevo catálogo"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <table id="tablePadre" class="list-table table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Descripción</th>
+                                <th>Observación</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="dataTables_fontTbody"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-default bac-table-panel">
+                    <div class="panel-heading">
+                        Elementos
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button id="btnAgregarParametros" class="btn btn-success hidden pull-right" data-toggle="tooltip" data-placement="left" title="Agregar nuevo elemento"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <table id="tableHijo" class="table list-table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Descripción</th>
+                                <th>Valor</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="dataTables_fontTbody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Encabezados -->
+<div class="modal fade" id="modalEncabezados" tabindex="-1" role="dialog" aria-labelledby="myLabelEncabezados">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <input type="hidden" id="actionuser">
+                <input type="hidden" id="hiddenIdEncabezado">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myLabelEncabezados"> Agregar Catálogo</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div data-alerts="alerts" data-titles="{&quot;danger&quot;: &quot;&lt;em&gt;Advertencia!&lt;/em&gt;&quot;}" data-ids="errorEncabezados" data-fade="5000"></div>
+                        <div data-alerts="alerts" data-titles="{&quot;success&quot;: &quot;&lt;em&gt;Correcto!&lt;/em&gt;&quot;}" data-ids="successEncabezados" data-fade="5000"></div>
+                    </div>
+                </div>
+                <div id="contenedor_inputs" class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+
+                            </div>
+                            <div class="panel-body">
+                                <div class="row col-margin-top-small">
+                                    <div class="col-md-6">
+                                        <label>Código:</label>
+                                        <input type="text" id="txtCodEncabezado" class="form-control varchar5">
+                                        <div class="validation-error"><p></p></div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Descripción:</label>
+                                        <input type="text" id="txtDesc" class="form-control varchar200">
+                                        <div class="validation-error"><p></p></div>
+                                    </div>
+                                    
+                                </div>    
+                                <div class="row col-margin-top-small">
+                                    <div class="col-md-12">
+                                        <label>Observación:</label>
+                                        <input type="text" id="txtObs" class="form-control varchar200">
+                                        <div class="validation-error"><p></p></div>
+                                    </div>
+                                </div>                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="contenedor_delete" class="row col-margin-top-small hidden">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="text-center">
+                                <label>¿Esta seguro que desea eliminar el registro seleccionado?</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button id="btnGuardarEncabezado" style="margin-left: 5px;" type="button" class="btn btn-primary pull-right"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
+                        <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Parametros -->
+<div class="modal fade" id="modalParametros" tabindex="-1" role="dialog" aria-labelledby="myLabelEncabezados">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <input type="hidden" id="actionuserParametros">
+                <input type="hidden" id="hiddenIdParametros">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myLabelParametros"> Agregar Elementos</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div data-alerts="alerts" data-titles="{&quot;danger&quot;: &quot;&lt;em&gt;Advertencia!&lt;/em&gt;&quot;}" data-ids="errorParametros" data-fade="5000"></div>
+                        <div data-alerts="alerts" data-titles="{&quot;success&quot;: &quot;&lt;em&gt;Correcto!&lt;/em&gt;&quot;}" data-ids="successParametros" data-fade="5000"></div>
+                    </div>
+                </div>
+                <div id="contenedor_inputs_parametros" class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row col-margin-top-small">
+                                    <div class="col-sm-6">
+                                        <label>Código:</label>
+                                        <input type="text" id="txt_itemId" class="form-control varchar10">
+                                        <div class="validation-error"><p></p></div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label>Abreviatura:</label>
+                                        <input type="text" id="txt_itemAbreviatura" class="form-control varchar50">
+                                        <div class="validation-error"><p></p></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <label>Descripción:</label>
+                                        <input type="text" id="txt_itemDescripcion" class="form-control varchar200">
+                                        <div class="validation-error"><p></p></div>
+                                    </div>
+                                </div>
+                                <div class="row col-margin-top-small">
+                                    <div class="col-xs-12">
+                                        <label>Observación:</label>
+                                        <input type="text" id="txt_itemObservacion" class="form-control varchar200">
+                                        <div class="validation-error"><p></p></div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button id="btnParametroAdd" type="button" class="btn btn-success pull-left"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" id="panel_heading_catalogo_nuevo"></div>
+                            <div class="panel-body">
+                            </div>
+                            <table id="table_parametros" class="table table-bordered table-hover dataTable">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Descripción</th>
+                                        <th>Abreviatura</th>
+                                        <th>Observación</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="contenedor_edit" class="row col-margin-top-small hidden">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" id="panel_heading_catalogo_edit"></div>
+                            <div class="panel-body">
+                                <div class="row col-margin-top-small">
+                                    <div class="col-sm-6">
+                                        <label>Código:</label>
+                                        <input type="text" id="txt_itemId_edit" class="form-control" disabled>
+                                        <div class="validation-error"><p></p></div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label>Abreviatura:</label>
+                                        <input type="text" id="txt_itemAbreviatura_edit" class="form-control varchar50">
+                                        <div class="validation-error"><p></p></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <label>Descripción:</label>
+                                        <input type="text" id="txt_itemDescripcion_edit" class="form-control varchar200">
+                                        <div class="validation-error"><p></p></div>
+                                    </div>
+                                </div>
+                                <div class="row col-margin-top-small">
+                                    <div class="col-xs-12">
+                                        <label>Observación:</label>
+                                        <input type="text" id="txt_itemObservacion_edit" class="form-control varchar200">
+                                        <div class="validation-error"><p></p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="contenedor_delete_parametro" class="row col-margin-top-small hidden">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="text-center">
+                                <label>¿Esta seguro que desea eliminar el registro seleccionado?</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+                <div class="col-md-12">
+                    <button id="btnGuardarParametros" style="margin-left: 5px;" type="button" class="btn btn-primary pull-right"><i class="fa fa-floppy-o" aria-hidden="true"></i> Guardar</button>
+                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Scripts.Render("~/Scripts/js/config.js")

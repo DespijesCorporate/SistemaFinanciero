@@ -1,0 +1,83 @@
+﻿@model appcitas.Dtos.FuncionDto
+
+<h2>@ViewBag.Title</h2>
+
+<form>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(m => m.FuncionCodigo)
+                @Html.TextBoxFor(m => m.FuncionCodigo, new { @class = "form-control", @readonly = "readonly", @disabled = "disabled" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(m => m.FuncionNombre)
+                @Html.TextBoxFor(m => m.FuncionNombre, new { @class = "form-control", @readonly = "readonly", @disabled = "disabled" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(m => m.FuncionNumeroParametros)
+                @Html.TextBoxFor(m => m.FuncionNumeroParametros, new { @class = "form-control", @readonly = "readonly", @disabled = "disabled" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(m => m.FuncionTipoDeRetorno)
+                @Html.TextBoxFor(m => m.TipoDeRetorno.ConfigItemAbreviatura, new { @class = "form-control", @disabled = "disabled", @readonly = "readonly" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.FuncionDescripcion)
+                @Html.TextAreaFor(m => m.FuncionDescripcion, 5, 50, new { @class = "form-control", @readonly = "readonly", @disabled = "disabled" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong>Parametros</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <table id="parametrosTempTable" class="list-table table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Tipo</th>
+                        </tr>
+                    </thead>
+                    <tbody class="datatables_fontbody">
+                        @if (Model.Parametros != null)
+                        {
+                            foreach (var item in Model.Parametros)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.ParametroId
+                                    </td>
+                                    <td>
+                                        @item.ParametroName
+                                    </td>
+                                    <td>
+                                        @item.Tipo.ConfigItemAbreviatura
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>   
+</form>  

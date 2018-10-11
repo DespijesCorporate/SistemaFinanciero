@@ -1,0 +1,263 @@
+﻿
+@{
+    //ViewBag.Title = "Prestamo";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var ClienteId = Request.Url.Segments.Last();
+    ViewBag.Title = "Préstamos";
+    ViewBag.TipoId = ClienteId;
+}
+
+<div class="box bac">
+    <div class="box-header">
+        <h3 class="titulo">Listado de préstamos</h3>
+        <div class="row nomargin">
+            <div class="col-md-3">
+                @*<button class="btn btn-md btn-success" id="btn_nuevo_registro" onclick="NuevaRazon(event)">
+                    <i class="fa fa-plus"> </i>
+                    <span> Nuevo Préstamo</span>
+                </button>*@
+            </div>
+            <div class="col-md-3 col-md-offset-6" align="right">
+                <button class="btn btn-md btn-warning" id="btn_regresar" onclick="location.href='/Caja/ClientesCaja'">
+                    <i class="fa fa-arrow-left"> </i>
+                    <span> Regresar</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="box-body bac-table-panel">
+        <table id="tableRazones" class="list-table table table-bordered">
+            <thead>
+                <tr>
+                    <th>Fec Solicitud</th>
+                    @*<th>Monto Solicitado</th>*@
+                    <th>Monto Aprobado</th>
+                    @*<th>Plazo Meses</th>
+                    <th>Interes %</th>*@
+                    <th>Saldo</th>
+                    <th>Estado</th>
+                    <th>Garantia</th>
+                    <th>Acciones</th>
+                    <th hidden="hidden"></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="moda_razones" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><span id="theHeader">Agregar/Editar Razón</span></h4>
+            </div>
+            <div class="modal-body" id="form">
+                <input type="hidden" id="hidden_id" />
+                <input type="hidden" id="hidden_tipo_id" value="@ViewBag.TipoId" />
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group input-group-sm">
+                            <label for="Capital">Capital</label>
+                            <input type="text" class="form-control monto requerido" id="Capital" attr-message="Es un campo requerido!" name="Capital"/>
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group input-group-sm">
+                            <label for="Intereses">Intereses</label>
+                            <input type="text" class="form-control monto requerido" id="Intereses" attr-message="Es un campo requerido!" name="Intereses"/>
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group input-group-sm">
+                            <label for="Mora">Mora</label>
+                            <input type="text" class="form-control monto requerido" id="Mora" attr-message="Es un campo requerido!" name="Mora"/>
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group input-group-sm">
+                            <label for="Total">Total</label>
+                            <input type="text" class="form-control monto requerido" id="Total" attr-message="Es un campo requerido!" name="Total"/>
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group input-group-sm">
+                            <label for="Saldo">Saldo</label>
+                            <input type="text" class="form-control monto requerido" id="Saldo" attr-message="Es un campo requerido!" name="Saldo"/>
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group input-group-sm">
+                            <label for="TipoPago">Tipo de Pago</label>
+                            <select class="selectpicker show-menu-arrow" title="Seleccione" id="TipoPago" name="TipoPago">
+                                <option value="0">Efectivo</option>
+                                <option value="1">Transferencia</option>
+                            </select>
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 hidden">
+                        <div class="form-group input-group-sm">
+                            <label for="Prestamo"></label>
+                            <input type="text" class="form-control varchar50 requerido" id="Prestamo" attr-message="Es un campo requerido!" name="Prestamo"/>
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 hidden">
+                        <div class="form-group input-group-sm">
+                            <label for="NumRecibo"></label>
+                            <input type="text" class="form-control varchar50 requerido" id="NumRecibo" attr-message="Es un campo requerido!" name="NumRecibo"/>
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                    @*<div class="col-sm-4">
+                        <div class="form-group input-group-sm">
+                            <label for="frecuenciapago">Frecuencia de Pago</label>
+                            <select class="selectpicker show-menu-arrow" title="Seleccione" id="frecuenciapago" name="frecuenciapago">
+                                <option value="0">MENSUAL</option>
+                                <option value="1">QUINCENAL</option>
+                            </select>
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>*@
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group input-group-sm" id="div_descripcion_tipo_razon">
+                            <label for="observaciones">Observaciones</label>
+                            <input type="text" class="form-control varchar100 requerido" id="Observacion" attr-message="Es un campo requerido!" name="observaciones" />
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group input-group-sm">
+                                <label for="razongroup">Razón consolidada</label>
+                                <select class="selectpicker show-menu-arrow requerido" attr-message="Es un campo requerido!" title="Seleccione" id="razongroup" name="razongroup"></select>
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group input-group-sm">
+                                <label for="razonstatus">Estado</label>
+                                <select class="selectpicker show-menu-arrow" title="Seleccione" id="razonstatus" name="razonstatus">
+                                    <option value="ACT">ACTIVADO</option>
+                                    <option value="DES">DESACTIVADO</option>
+                                </select>
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                    </div>*@
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrrar" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                @*<button type="button" id="btnGuardar" class="btn btn-primary">Guardar</button>*@
+                <button type="button" id="btnGeneraPagoPrestamo" class="btn btn-primary">Generar Pago</button>
+                <button type="button" id="btnGeneraReciboPagoPrestamo" class="btn btn-primary">Imprimir Recibo</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="plan_pago" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><span id="theHeader">Plan de pago</span></h4>
+            </div>
+            <div class="modal-body" id="form">
+                <input type="hidden" id="hidden_id" />
+                <input type="hidden" id="hidden_tipo_id" value="@ViewBag.TipoId" />
+
+                <div class="col-xs-12 bac-table-panel">
+                    <table id="tablePlanPago" class="list-table table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>No. Pago</th>
+                                <th>Fecha</th>
+                                <th>Capital</th>
+                                <th>Intereses</th>
+                                <th>Total</th>
+                                <th>Saldo</th>
+                                <th hidden="hidden"></th>
+                                @*<th>Codigo</th>*@
+
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                
+                @*<div class="row">
+            <div class="col-sm-6">
+                <div class="form-group input-group-sm">
+                    <label for="razongroup">Razón consolidada</label>
+                    <select class="selectpicker show-menu-arrow requerido" attr-message="Es un campo requerido!" title="Seleccione" id="razongroup" name="razongroup"></select>
+                    <div class="validation-error"><p></p></div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group input-group-sm">
+                    <label for="razonstatus">Estado</label>
+                    <select class="selectpicker show-menu-arrow" title="Seleccione" id="razonstatus" name="razonstatus">
+                        <option value="ACT">ACTIVADO</option>
+                        <option value="DES">DESACTIVADO</option>
+                    </select>
+                    <div class="validation-error"><p></p></div>
+                </div>
+            </div>
+        </div>*@
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnCerrrar" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                @*<button type="button" id="btnGuardar" class="btn btn-primary">Guardar</button>
+        <button type="button" id="btnPlanPago" class="btn btn-primary">Ver Plan De Pago</button>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalEliminarRazon" role="dialog" aria-labelledby="modalProcesar">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="tituloProcesar"><span id="theHeaderEliminar">Eliminar trámite</span></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div data-alerts="alerts" data-titles="{&quot;success&quot;: &quot;&lt;em&gt;Correcto!&lt;/em&gt;&quot;}" data-ids="successModalEliminarPlantillas" data-fade="5000"></div>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <h5>
+                        <h3><div id="modalmessage" class="alert alert-warnin" role="alert"></div></h3>
+                    </h5>
+
+                </div><!-- /.box-body -->
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-xs-12 text-right">
+                        <button type="button" id="cerrarModalProcesar" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="button" id="btnEliminar" class="btn btn-danger">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Scripts.Render("~/Scripts/js/PrestamosCaja.js")
+@Scripts.Render("~/Scripts/js/citas.js")

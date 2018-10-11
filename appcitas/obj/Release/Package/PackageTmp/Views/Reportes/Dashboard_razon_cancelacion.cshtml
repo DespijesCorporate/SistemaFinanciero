@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    
+<div class="col-md-12">
+    <div class="box bac">
+        <div class="box-header">
+            <h3 class="titulo">Dashboard razón de cancelación</h3>
+        </div>
+        <div class="box-body">
+            <div class="row nomargin">
+                <div class="form-group input-group-sm date col-md-6">
+                    <label for="txt_fecha1">Fecha Inicio</label>
+                    <div class='input-group input-group-sm date' id="fecha1">
+                        <span class="input-group-addon">
+                            <span class="fa fa-calendar"></span>
+                        </span>
+                        <input type='text' class="form-control limpiar requerido" data-requerido="true" id="txt_fecha1" readonly="" attr-message="Es un filtro requerido!">
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                </div>
+                <div class="form-group input-group-sm date col-md-6">
+                    <label for="txt_fecha2">Fecha Final</label>
+                    <div class='input-group input-group-sm date' id="fecha2">
+                        <span class="input-group-addon">
+                            <span class="fa fa-calendar"></span>
+                        </span>
+                        <input type='text' class="form-control limpiar requerido" data-requerido="true" id="txt_fecha2" readonly="" attr-message="Es un filtro requerido!">
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row nomargin">
+                <div class="col-md-3">
+                    <label class="control-label" for="cod_sucursal">Centro de fidelización</label>
+                    <select class="form-control requerido" data-requerido="false" id="cod_sucursal" attr-message="Es un filtro requerido!"></select>
+                    <div class="validation-error"><p></p></div>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="cod_sucursal">Ejecutivo</label>
+                    <select class="form-control requerido" data-requerido="false" id="cod_ejecutivo" attr-message="Es un filtro requerido!">
+                        <option value="-1">Ninguno...</option>
+                    </select>
+                    <div class="validation-error"><p></p></div>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="cod_tipo_cita">Tipo Atención</label>
+                    <select class="form-control requerido" data-requerido="false" id="cod_tipo_cita" attr-message="Es un filtro requerido!"></select>
+                    <div class="validation-error"><p></p></div>
+                </div>
+                <div class="col-md-3">
+                    <label class="control-label" for="tipo_razon">Tipo razón</label>
+                    <select class="form-control requerido" data-requerido="false" id="tipo_razon" attr-message="Es un filtro requerido!"></select>
+                    <div class="validation-error"><p></p></div>
+                </div>
+            </div>
+            <div class="row nomargin" style="margin-bottom: 25px !important; margin-top: 10px !important;">
+                <div class="col-md-2 col-md-offset-5">
+                    <button type="button" class="btn btn-md btn-primary" id="btn_crear_reporte">Generar Reporte</button>
+                </div>
+            </div>
+            <div class="row bac-container-table-panel">
+                <div class="col-xs-12 bac-table-panel">
+                    <table class="table list-table table-bordered" id="tableCitasDashboard1">
+                        <thead>
+                            <tr class="">
+                                <th>Nro</th>
+                                <th>Código Razón</th>
+                                <th>Ejecutivo de atención</th>
+                                <th>Ejecutivo en posición</th>
+                                <th>Trámite</th>
+                                <th>Tipo atención</th>
+                                <th>Razón cancelación</th>
+                                <th>Listado extra</th>
+                                <th>Nombre cliente</th>
+                                <th>Estado cita</th>
+                                <th>Cuenta</th>
+                                <th>Tarjetas</th>
+                                <th>Segmento</th>
+                                <th>Marca</th>
+                                <th>Familia</th>
+                                <th>Tipo Razón</th>
+                                <th>Resolución</th>
+                                <th>Comentario Resolución</th>
+                                <th>Fecha Cita</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+@Scripts.Render("~/Scripts/js/dashboard_razon_cancelacion.js")

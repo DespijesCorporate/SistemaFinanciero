@@ -1,0 +1,169 @@
+﻿
+@{
+    ViewBag.Title = "Trámites";
+}
+<div class="box bac">
+    <div class="box-header">
+        <h3 class="titulo">Listado de trámites</h3>
+        <div class="row nomargin">
+            <button class="btn btn-md btn-success" onClick='NuevoTramite(event)'>
+                <i class="fa fa-plus"> </i>
+                <span> Nuevo Registro</span>
+            </button>
+        </div>
+    </div>
+    <div class="box-body bac-table-panel">
+        <table id="tableTramites" class="list-table table table-bordered">
+            <thead>
+                <tr>                
+                    <th>Descripción</th>
+                    <th>Abreviatura</th>
+                    <th>Duración</th>
+                    <th>Alerta Previa</th>
+                    <th>Tolerancia al Cliente</th>
+                    <th>Tolerancia del Cliente</th>
+                    <th>Tolerancia Finalización</th>
+                    <th>Tiempo Muerto</th>
+                    <th>Acciones</th>
+                    <th hidden="hidden"></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalTramites" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><span id="theHeader">Agregar/Editar Trámite</span></h4>
+            </div>
+            <div class="modal-body" id="form">
+                <input type="hidden" id="hidden_id"/>
+                <div class="row">
+                    <div class="col-md-6 bottom-space-sm">
+                        <label class="control-label">Descripción</label>
+                        <input type="text" class="form-control varchar200" id="txt_descripcion" attr-message="Es un campo requerido!">
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                    <div class="col-md-6 bottom-space-sm">
+                        <label class="control-label">Abreviatura</label>
+                        <input type="text" class="form-control varchar50" id="txt_abreviatura" attr-message="Es un campo requerido!">
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group input-group-sm col-md-6 bottom-space-sm">
+                        <label class="control-label">Duración</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control numero" id="txt_duracion" attr-message="Es un campo requerido!">
+                            <div class="validation-error"><p></p></div>
+                            <div class="input-group-addon">
+                                <span>minuto(s)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group input-group-sm col-md-6 bottom-space-sm">
+                        <label class="control-label">Alerta Previa</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control numero" id="txt_alertaPrevia" attr-message="Es un campo requerido!">
+                            <div class="validation-error"><p></p></div>
+                            <div class="input-group-addon">
+                                <span>minuto(s)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group input-group-sm col-md-6 bottom-space-sm">
+                        <label class="control-label">Tolerancia al Cliente</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control numero" id="txt_toleranciaAlCliente" attr-message="Es un campo requerido!">
+                            <div class="validation-error"><p></p></div>
+                            <div class="input-group-addon">
+                                <span>minuto(s)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group input-group-sm col-md-6 bottom-space-sm">
+                        <label class="control-label">Tolerancia del Cliente</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control numero" id="txt_toleranciaDelCliente" attr-message="Es un campo requerido!">
+                            <div class="validation-error"><p></p></div>
+                            <div class="input-group-addon">
+                                <span>minuto(s)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">      
+                    <div class="form-group input-group-sm col-md-6 bottom-space-sm">
+                        <label class="control-label">Tolerancia Finalización</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control numero" id="txt_toleranciaFinalizacion" attr-message="Es un campo requerido!">
+                            <div class="validation-error"><p></p></div>
+                            <div class="input-group-addon">
+                                <span>minuto(s)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group input-group-sm col-md-6 bottom-space-sm">
+                        <label class="control-label">Tiempo Muerto</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control numero" id="txt_tiempoMuerto" attr-message="Es un campo requerido!">
+                            <div class="validation-error"><p></p></div>
+                            <div class="input-group-addon">
+                                <span>minuto(s)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-xs-12 text-right">
+                        <button type="button" id="btnCerrrar" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="button" id="btnGuardar" class="btn btn-primary">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEliminarTramite" role="dialog" aria-labelledby="modalProcesar">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="tituloProcesar"><span id="theHeaderEliminar">Eliminar trámite</span></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div data-alerts="alerts" data-titles="{&quot;success&quot;: &quot;&lt;em&gt;Correcto!&lt;/em&gt;&quot;}" data-ids="successModalEliminarPlantillas" data-fade="5000"></div>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <h5>
+                        <h3><div id="modalmessage" class="alert alert-warnin" role="alert"></div></h3>
+                    </h5>
+
+                </div><!-- /.box-body -->
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-xs-12 text-right">
+                        <button type="button" id="cerrarModalProcesar" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="button" id="btnEliminar" class="btn btn-danger">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*@Scripts.Render("~/Scripts/jquery-3.1.1.min.js")*@
+@Scripts.Render("~/Scripts/js/tramites.js")

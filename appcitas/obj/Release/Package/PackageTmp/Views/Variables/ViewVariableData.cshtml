@@ -1,0 +1,82 @@
+﻿@model appcitas.Dtos.VariableDto
+
+<style type="text/css">
+    .btn-group {
+        width: 100%;
+    }
+
+        .btn-group .btn {
+            width: 90%;
+        }
+
+            .btn-group .btn.dropdown-toggle {
+                width: 10%;
+            }
+
+        .btn-group .dropdown-menu {
+            width: 100%;
+        }
+</style>
+
+<form>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(m => m.VariableCodigo)
+                @Html.TextBoxFor(m => m.VariableCodigo, new { @class = "form-control", @disabled = "disabled", @readonly = "readonly" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(m => m.VariableNombre)
+                @Html.TextBoxFor(m => m.VariableNombre, new { @class = "form-control", @disabled = "disabled", @readonly = "readonly" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(m => m.OrigenId)
+                @Html.TextBoxFor(m => m.OrigenDto.ConfigItemAbreviatura, new { @class = "form-control", @disabled = "disabled", @readonly = "readonly" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(m => m.DatoDeRetornoId)
+                @Html.TextBoxFor(m => m.DatoDeRetornoDto.ConfigItemAbreviatura, new { @class = "form-control", @disabled = "disabled", @readonly = "readonly" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(m => m.TipoId)
+                @Html.TextBoxFor(m => m.TipoDto.ConfigItemAbreviatura, new { @class = "form-control", @disabled = "disabled", @readonly = "readonly" })
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.VariableDescripcion)
+                @Html.TextAreaFor(m => m.VariableDescripcion, 5, 50, new { @class = "form-control", @disabled = "disabled", @readonly = "readonly" })
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(m => m.VariableValor)
+                @Html.TextBoxFor(m => m.VariableValor, new { @class = "form-control", @disabled = "disabled", @readonly = "readonly" })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(m => m.VariableFormula)
+                @Html.TextBoxFor(m => m.VariableFormula, new { @class = "form-control", @disabled = "disabled", @readonly = "readonly" })
+            </div>
+        </div>
+    </div>
+</form>

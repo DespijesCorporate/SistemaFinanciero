@@ -1,0 +1,128 @@
+﻿@{
+    ViewBag.Title = "Inicio";
+}
+<head>
+    <script src="~/Plugins/ionslider/ion.rangeSlider.min.js"></script>
+    <link href="~/Plugins/ionslider/ion.rangeSlider.css" rel="stylesheet" />
+    <link href="~/Plugins/ionslider/ion.rangeSlider.skinFlat.css" rel="stylesheet" />
+    <link href="~/Plugins/ionslider/ion.rangeSlider.skinNice.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="~/Plugins/jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" />
+    <link href="~/Plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" />
+    <link href="~/Plugins/datepicker/datepicker3.css" rel="stylesheet" />
+    <script src="~/Plugins/datepicker/bootstrap-datepicker.js"></script>
+    <link href="~/Plugins/daterangepicker/daterangepicker.css" rel="stylesheet" />
+    <script src="~/Plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="~/Plugins/daterangepicker/moment.min.js"></script>
+    <script src="~/Plugins/datepicker/bootstrap-datepicker.js"></script>
+    <link href="~/Plugins/morris/morris.css" rel="stylesheet" />
+    <script src="~/Plugins/morris/morris.min.js"></script>
+    <script src="~/Plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+    <script src="~/Plugins/fastclick/fastclick.min.js"></script>
+    <script src="~/Plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <style>
+        .jqstooltip {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            visibility: hidden;
+            background: rgb(0, 0, 0) transparent;
+            background - color: rgba(0, 0, 0, 0.6);
+            filter: progid: DXImageTransform.Microsoft.gradient(startColorstr =#99000000, endColorstr =#99000000);
+            -ms - filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+            color: white;
+            font: 10px arial, san serif;
+            text - align: left;
+            white - space: nowrap;
+            padding: 5px;
+            border: 1px solid white;
+            z - index: 10000;
+        }
+
+        .jqsfield {
+            color: white;
+            font: 10px arial, san serif;
+            text - align: left;
+        }
+    </style>
+</head>
+<div class="row">
+    <div class="col-md-3 col-sm-6 col-xs-12 LSM LSM_ADCC030">
+        <!-- small box -->
+        <div class="small-box bg-green-gradient">
+            <div class="inner">
+                <h4>Clientes</h4>
+                <p>Información de Clientes</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-address-book-o"></i>
+            </div>
+            <!-- <a href="#" class="small-box-footer">Ir <i class="fa fa-arrow-circle-right"></i></a> -->
+            <a class="small-box-footer" href="@Url.Action("Clientes", "Clientes")" title="Citas Pendientes">Ir <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12 LSM LSM_PDCC010">
+        <!-- small box -->
+        <div class="small-box bg-aqua">
+            <div class="inner">
+                <h4>Créditos</h4>
+                <p>Información de Créditos</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-credit-card"></i>
+            </div>
+            <!-- <a href="#" class="small-box-footer">Ir <i class="fa fa-arrow-circle-right"></i></a> -->
+            <a class="small-box-footer" href="@Url.Action("Aprobacion_Creditos", "Clientes")" title="Programar Citas">Ir <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div><!-- ./col -->
+    <div class="col-md-3 col-sm-6 col-xs-12 LSM LSM_CONF010">
+        <!-- small box -->
+
+        <div class="small-box bg-yellow">
+            <div class="inner">
+                <h4>Caja</h4>
+                <p>Transacciones</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-university"></i>
+            </div>
+            <!-- <a href="#" class="small-box-footer">Ir <i class="fa fa-arrow-circle-right"></i></a> -->
+            <a class="small-box-footer" href="@Url.Action("InicioCaja", "Caja")" title="Caja">Ir <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12 LSM LSM_CYRS130">
+        <!-- small box -->
+        <div class="small-box bg-red">
+            <div class="inner">
+                <h4>Depositos a Plazo Fijo</h4>
+                <p>Información</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-money"></i>
+            </div>
+            <!-- <a href="#" class="small-box-footer">Ir <i class="fa fa-arrow-circle-right"></i></a> -->
+            <a class="small-box-footer" href="@Url.Action("Dashboard_MantaDatos", "Reportes")" title="Dashboard manta de datos">Ir <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+</div>
+@*<div class="row">
+    <div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3">
+        <img src="~/imgs/logo_cw.png" width="100%" />
+    </div>    
+</div>*@
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3 col-sm-6 col-sm-offset-3">
+        <img src="~/imgs/logo_cw2.png"
+             style=" opacity: 0.1;
+                     width: 110%;
+                     position: relative;
+                     margin-top: 4em;
+         " ; />
+    </div>
+</div>

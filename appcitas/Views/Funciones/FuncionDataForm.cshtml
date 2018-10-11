@@ -1,0 +1,188 @@
+﻿@model appcitas.Dtos.FuncionDto
+
+@Scripts.Render("~/Plugins/jquery-validate/js/jquery.validate.js")
+@Scripts.Render("~/Plugins/jquery-validate/js/jquery.validate-vsdoc.js")
+@Scripts.Render("~/Plugins/jquery-validate/js/jquery.validate.unobtrusive.js")                                                                              
+
+<h2>@ViewBag.Title</h2>
+
+<form id="myForm">
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @if (String.IsNullOrEmpty(Model.FuncionCodigo))
+                {
+                    @Html.LabelFor(m => m.FuncionCodigo)
+                    @Html.TextBoxFor(m => m.FuncionCodigo, new { @class = "form-control varchar100" })
+                    @Html.ValidationMessageFor(m => m.FuncionCodigo)
+                }
+                else
+                {
+                    @Html.LabelFor(m => m.FuncionCodigo)
+                    @Html.TextBoxFor(m => m.FuncionCodigo, new { @class = "form-control varchar100", @readonly = "readonly"})
+                }
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(m => m.FuncionNombre)
+                @Html.TextBoxFor(m => m.FuncionNombre, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.FuncionNombre)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(m => m.FuncionNumeroParametros)
+                @Html.TextBoxFor(m => m.FuncionNumeroParametros, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.FuncionNumeroParametros)
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                @Html.LabelFor(m => m.FuncionTipoDeRetorno)
+                @Html.DropDownListFor(m => m.FuncionTipoDeRetorno, new SelectList(ViewBag.TiposDeRetorno, "ConfigItemID", "ConfigItemAbreviatura"), "Seleccione un Tipo", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.FuncionTipoDeRetorno)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.FuncionDescripcion)
+                @Html.TextAreaFor(m => m.FuncionDescripcion, 5, 50, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.FuncionDescripcion)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Parametros</strong>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-success pull-right" data-toggle="tooltip" data-placement="left" title="Agregar Parametros" onclick="AgregarParametroModal(event)"><i class="fa fa-plus-square"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table id="parametrosTable" class="list-table table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="hidden">ParametroId</th>
+                                <th class="hidden">ConfigID</th>
+                                <th>Nombre</th>
+                                <th class="hidden">TipoId</th>
+                                <th>Tipo</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="dataTables_fontbody">
+                            @foreach (var item in Model.Parametros)
+                            {
+                                <tr id="@item.ParametroName">
+                                    <td class="hidden">@item.ParametroId</td>
+                                    <td class="hidden">@item.ConfigID</td>
+                                    <td>@item.ParametroName</td>
+                                    <td class="hidden">@item.TipoId</td>
+                                    <td>@item.Tipo.ConfigItemAbreviatura</td>
+                                    <td class="text-center">
+                                        <button id="btn_@item.ParametroName" data-parametro-id="@item.ParametroName" onclick="ConfirmarEliminacionParametro(event)" title="Eliminar elemento" data-toggle="tooltip" class="btn btn-sm btn-danger text-center">
+                                            <i class="icon-edit icon-white fa fa-trash-o"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    @if (string.IsNullOrEmpty(Model.FuncionCodigo))
+    {
+        <div class="row">
+            <div class="col-lg-offset-12 col-md-12">
+                <button type="button" value="Create" class="btn btn-primary" onclick="GuardarFuncion(event)" id="btnSubmit">Crear Funcion</button>
+                <button type="button" class="btn btn-default" onclick="CancelAction(event)">Cancelar</button>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-lg-offset-12 col-md-12">
+                <button type="button" value="Guardar" class="btn btn-danger" onclick="GuardarFuncion(event)" id="btnSubmit">Guardar Cambios</button>
+                <button type="button" class="btn btn-default" onclick="CancelAction(event)">Cancelar</button>
+            </div>
+        </div>
+    }
+</form>
+
+
+<div class="modal fade" id="modalAgregarParametro" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <input type="hidden" id="hiddenFuncionCodigo" />
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"> Creando Parametros de la Función</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-gourp">
+                            <label for="ParametroName">Parametro</label>
+                            <input id="ParametroName" name="ParametroName" class="form-control" required />
+                            <div id="validarParametroName" class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="CbxTipos">Tipo</label>
+                            @Html.DropDownList("CbxTipos", new SelectList(ViewBag.TiposDeRetorno, "ConfigItemID", "ConfigItemAbreviatura"), "Seleccione un Tipo", new { @class = "form-control", @id = "CbxTipos", })
+                            <div id="validaCbxTipos" class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button style="margin-left: 5px;" type="button" onclick="AgregarParametroATabla(event)" class="btn btn-primary pull-right"> Guardar</button>
+                        <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEliminarParametro" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <input type="hidden" id="hiddenParametroId" />
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"> Eliminando Parametros de la Función</h4>
+            </div>
+            <div class="modal-body">
+                Esta seguro(a) que desea eliminar el registro seleccionado?
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button style="margin-left: 5px;" type="button" onclick="EliminarParametro(event)" class="btn btn-primary pull-right"> Eliminar</button>
+                        <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

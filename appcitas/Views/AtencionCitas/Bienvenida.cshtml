@@ -1,0 +1,608 @@
+﻿
+@{
+    ViewBag.Title = "Bienvenida";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <div class="box bac">
+                <div class="box-body">
+                    <div class="row" style="margin-bottom:20px;">
+                        <div class="form-group">
+                            <label for="cmb_sucursal" class="col-md-3 col-md-offset-3 control-label" align="right" style="padding-top:10px;"> Centro de Fidelización </label>
+                            <div class="col-md-3">
+                                <select class="form-control" id="cmb_sucursal" attr-message="Es un campo requerido!">
+                                    <option value="-1">Ninguna</option>
+                                </select>
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="nav-tabs-custom tab-danger">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active"><a href="#div_atencion_wk" aria-controls="div_atencion_wk" role="tab" data-toggle="tab">Atención Walk In</a></li>
+                                    <li role="presentation"><a href="#div_citas_pendientes" aria-controls="div_citas_pendientes" role="tab" data-toggle="tab">Citas pendientes</a></li>
+                                    <li role="presentation"><a href="#div_clientes_sala" aria-controls="div_clientes_sala" role="tab" data-toggle="tab">Citas en sala</a></li>
+                                    <li role="presentation"><a href="#div_clientes_proceso" aria-controls="div_clientes_proceso" role="tab" data-toggle="tab">Clientes en proceso</a></li>
+                                    <li role="presentation"><a href="#div_clientes_atendidos" aria-controls="div_clientes_atendidos" role="tab" data-toggle="tab">Clientes atendidos</a></li>
+                                    <li role="presentation"><a href="#div_centros_fidelizacion" aria-controls="div_centros_fidelizacion" role="tab" data-toggle="tab">Centros de fidelización</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row col-md-12 text-right" style="padding: 10px;padding-right: 0px;">
+        <button type="button" class="btn btn-md btn-default" id="btn_actualizar_vista"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+</div>
+<div class="row">
+    <div class="col-md-12 tab-content">
+        <div role="tabpanel" class="tab-pane active row" id="div_atencion_wk">
+            <div class="col-md-12">
+                <div class="box bac">
+                    <div class="box-header">
+                        <h3 class="titulo">Atención Walk In</h3>
+                    </div>
+                    <div class="row hidden" id="div_btn_add_walkin">
+                        <div class="row col-md-12">
+                            <div class="col-md-6 col-md-offset-3" align="center">
+                                <button type="button" class="btn btn-lg btn-success" id="btn_agregar_wk"><h3>Crear Walk In</h3></button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-6" align="center">
+                                    <h4>Número de clientes en fila: <strong id="num_clientes_fila"></strong></h4>
+                                </div>
+                                <div class="col-md-6" align="center">
+                                    <h4>Tiempo espera promedio: <strong id="tiempo_espera_prom"></strong> minuto(s)<br /><!--<small>Calculado de los ultimos 7 días</small>--></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-body" style="overflow-x:auto;">
+                        <table class="table list-table table-bordered" id="table_citas_wk">
+                            <thead>
+                                <tr>
+                                    <th width="5%">Nro</th>
+                                    <th width="10%">Identidad</th>
+                                    <th width="10%">Nombre</th>
+                                    <th width="10%">Trámite</th>
+                                    <th width="15%">Sucursal Referido</th>
+                                    <th width="10%">Ticket</th>
+                                    <th width="15%">Hora emisión</th>
+                                    <th width="15%">Tiempo Espera</th>
+                                    <th width="20%">Acciones</th>
+                                    <th hidden="hidden"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody_citas_wk"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane row" id="div_citas_pendientes">
+            <div class="col-md-12">
+                <div class="box bac">
+                    <div class="box-header">
+                        <h3 class="titulo">Citas pendientes</h3>
+                    </div>
+                    <div class="box-body" style="overflow-x:auto;">
+                        <table class="table list-table table-bordered" id="table_citas_pendientes">
+                            <thead>
+                                <tr>
+                                    <th width="5%">Nro</th>
+                                    <th width="20%">Identidad</th>
+                                    <th width="30%">Nombre</th>
+                                    <th width="15%">Trámite</th>
+                                    <th width="15%">Ticket</th>
+                                    <th width="15%">Hora</th>
+                                    <th width="20%">Escritorio/Cubiculo</th>
+                                    <th width="10%">Acciones</th>
+                                    <th hidden="hidden"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody_citas_pendientes"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane row" id="div_clientes_sala">
+            <div class="col-md-12">
+                <div class="box bac">
+                    <div class="box-header">
+                        <h3 class="titulo">Citas en sala</h3>
+                    </div>
+                    <div class="box-body" style="overflow-x:auto;">
+                        <!--<div class="row">
+                                <div class="col-md-12" id="div_citas_cliente_llego">
+                                </div>
+                            </div>-->
+                        <table class="table list-table table-bordered" id="table_citas_cliente_llego">
+                            <thead>
+                                <tr>
+                                    <th width="5%">Nro</th>
+                                    <th width="20%">Identidad</th>
+                                    <th width="30%">Nombre</th>
+                                    <th width="15%">Ticket</th>
+                                    <th width="15%">Hora</th>
+                                    <th width="15%">Tiempo en espera</th>
+                                    <th width="20%">Escritorio/Cubiculo</th>
+                                    <th width="10%">Acciones</th>
+                                    <th hidden="hidden"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody_citas_cliente_llego"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane row" id="div_clientes_proceso">
+            <div class="col-md-12">
+                <div class="box bac">
+                    <div class="box-header">
+                        <h3 class="titulo">Clientes en proceso</h3>
+                    </div>
+                    <div class="box-body" style="overflow-x:auto;">
+                        <!--<div class="row">
+                        <div class="col-md-12" id="div_citas_proceso">
+                        </div>
+                    </div>-->
+                        <table class="table list-table table-bordered" id="table_citas_proceso">
+                            <thead>
+                                <tr>
+                                    <th width="5%">Nro</th>
+                                    <th width="30%">Nombre</th>
+                                    <th width="15%">Trámite</th>
+                                    <th width="15%">Ticket</th>
+                                    <th width="15%">Hora inicio cita</th>
+                                    <th width="15%">Tiempo en espera</th>
+                                    <th width="15%">Tiempo en atención</th>
+                                    <th width="20%">Escritorio/Cubiculo</th>
+                                    <!--<th width="10%">Acciones</th>-->
+                                    <th hidden="hidden"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody_citas_proceso"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane row" id="div_clientes_atendidos">
+            <div class="col-md-12">
+                <div class="box bac">
+                    <div class="box-header">
+                        <h3 class="titulo">Clientes atendidos (hoy)</h3>
+                    </div>
+                    <div class="box-body" style="overflow-x:auto;">
+                        <!--<div class="row">
+                        <div class="col-md-12" id="div_citas_proceso">
+                        </div>
+                    </div>-->
+                        <table class="table list-table table-bordered" id="table_clientes_atendidos">
+                            <thead>
+                                <tr>
+                                    <th width="5%">Nro</th>
+                                    <th width="20%">Identidad</th>
+                                    <th width="30%">Nombre</th>
+                                    <th width="15%">Trámite</th>
+                                    <th width="15%">Ticket</th>
+                                    <th width="20%">Escritorio/Cubiculo</th>
+                                    <th width="15%">Hora inicio</th>
+                                    <th width="15%">Hora final</th>
+                                    <th width="15%">Tiempo atención</th>
+                                    <th width="15%">Tiempo espera</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody_clientes_atendidos"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane row" id="div_centros_fidelizacion">
+            <div class="col-md-12">
+                <div class="box bac">
+                    <div class="box-header">
+                        <h3 class="titulo">Centros de atención</h3>
+                    </div>
+                    <div class="box-body" style="overflow-x:auto;">
+                        <!--<div class="row">
+                        <div class="col-md-12" id="div_citas_proceso">
+                        </div>
+                    </div>-->
+                        <table class="table list-table table-bordered" id="table_centros_fidelizacion">
+                            <thead>
+                                <tr>
+                                    <th width="5%">Nro</th>
+                                    <th width="20%">Centro de Atención</th>
+                                    <th width="30%">Tiempo espera</th>
+                                    <th width="30%">Clientes en cola (actual)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody_centros_fidelizacions"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal_nueva_walkin" tabindex="-1" role="dialog" aria-labelledby="modal_llamadoLabel" aria-hidden="true" style="text-align:center;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal_llamadoLabel">Datos generales de Walk-In</h4>
+            </div>
+            <div class="modal-body" align="center">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div data-alerts="alerts" data-titles="{&quot;success&quot;: &quot;&lt;em&gt;Correcto!&lt;/em&gt;&quot;}" data-ids="successModalTicketWK" data-fade="5000"></div>
+                    </div>
+                </div>
+                <input type="hidden" class="hidden" id="citaId">
+                <input type="hidden" class="hidden" id="emisorId">
+                <div class="row no-margin">
+                    <div class="col-xs-12">
+                        <div class="form-group input-group-sm" id="div_identificacion">
+                            <label for="txt_identificacion">Identificación</label>
+                            <input type="text" class="form-control input nombre limpiar modal_requerido" data-requerido="true" data-message="Es un campo requerido!" id="txt_identificacion" name="txt_identificacion" placeholder="Identificación del cliente" maxlength="50" autocomplete="off">
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-margin">
+                    <div class="col-xs-12">
+                        <div class="form-group input-group-sm" id="div_nombre">
+                            <label for="txt_nombre">Nombre</label>
+                            <input type="text" class="form-control input nombre limpiar modal_requerido" data-requerido="true" data-message="Es un campo requerido!" id="txt_nombre" name="txt_nombre" placeholder="Nombre del cliente" maxlength="50" autocomplete="off">
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-margin">
+                    <div class="col-xs-6">
+                        <div class="form-group input-group-sm" id="div_email">
+                            <label for="txt_email">Email</label>
+                            <input type="text" class="form-control email limpiar input modal_requerido" data-requerido="true" data-message="Es un campo requerido!" id="txt_email" name="txt_email" placeholder="correo.electronico@site.com" maxlength="50" autocomplete="off">
+                            <div class="validation-error"><p></p></div>
+                            <div class="validation-error-mail hide"><p class="label label-danger inline-block">Direccion de correo electronico no valida</p></div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group input-group-sm" id="div_cel">
+                            <label for="txt_cel">Celular</label>
+                            <input type="text" class="form-control input telefono limpiar modal_requerido" data-requerido="true" data-message="Es un campo requerido!" id="txt_cel" name="txt_cel" placeholder="9999-9999" maxlength="50" autocomplete="off">
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-margin">
+                    <div class="col-xs-6">
+                        <div class="form-group input-group-sm" id="div_tarjeta">
+                            <label for="txt_tel_oficina">Tel. Oficina</label>
+                            <input type="text" class="form-control telefono limpiar input " id="txt_tel_oficina" name="txt_tel_oficina" placeholder="9999-9999" maxlength="50" autocomplete="off">
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group input-group-sm" id="div_tel_casa">
+                            <label for="txt_tel_casa_n">Tel. Casa</label>
+                            <input type="text" class="form-control telefono limpiar input" id="txt_tel_casa" name="txt_tel_casa" placeholder="9999-9999" maxlength="50" autocomplete="off">
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-margin">
+                    <div class="col-xs-6">
+                        <div class="form-group input-group-sm" id="div_tarjeta">
+                            <label for="txt_tarjeta">No. Tarjeta</label>
+
+                            <input type="text" class="form-control limpiar input cuentaFormato " data-requerido="false" data-message="Es un campo requerido!" id="txt_tarjeta" name="txt_tarjeta" placeholder="****-****-****-1234" maxlength="50" autocomplete="off">
+                            <input type="text" class="form-control limpiar input hide" data-requerido="false" attr-message="Es un campo requerido!" id="txt_tarjeta_formato" placeholder="9998984" maxlength="50" autocomplete="off" readonly="">
+                            <div class="validation-error"><p></p></div>
+                            <div class="validation-error-cuenta-formato hide"><p class="label label-danger inline-block">Formato incorrecto.</p></div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group input-group-sm" id="div_cuenta">
+                            <label for="txt_cuenta">No. Cuenta</label>
+                            <input type="text" class="form-control limpiar input cuenta cuentaFormato modal_requerido" data-requerido="true" data-message="Es un campo requerido!" id="txt_cuenta" placeholder="9998984" maxlength="50" autocomplete="off">
+                            <input type="text" class="form-control limpiar input modal_requerido hide" data-requerido="false" attr-message="Es un campo requerido!" id="txt_cuenta_formato" placeholder="9998984" maxlength="50" autocomplete="off" readonly="">
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-margin">
+                    <div class="col-xs-6">
+                        <div class="form-group input-group-sm" id="div_marca">
+                            <label for="txt_marca">Marca</label>
+                            <input type="text" class="form-control limpiar input modal_requerido" data-requerido="true" data-message="Es un campo requerido!" id="txt_marca" placeholder="N/D" maxlength="50" autocomplete="off" disabled="">
+                            <div class="validation-error"><p></p></div>
+                            <div class="validation-error-cuenta-formato hide"><p class="label label-danger inline-block">Formato incorrecto.</p></div>
+                            <div class="validation-error-cuenta-emisor hide"><p class="label label-danger inline-block">Emisor de cuenta deconocido.</p></div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group input-group-sm" id="div_producto">
+                            <label for="txt_producto">Producto</label>
+                            <input type="text" class="form-control nombre limpiar input modal_requerido" data-requerido="true" data-message="Es un campo requerido!" id="txt_producto" placeholder="N/D" maxlength="50" autocomplete="off" disabled="">
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-margin">
+                    <div class="col-xs-6">
+                        <div class="form-group input-group-sm" id="div_familia">
+                            <label for="txt_familia">Familia</label>
+                            <input type="text" class="form-control nombre limpiar input modal_requerido" data-requerido="true" data-message="Es un campo requerido!" id="txt_familia" name="txt_familia" placeholder="N/D" maxlength="50" autocomplete="off" disabled="">
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 bottom-space-sm">
+                        <div class="form-group input-group-sm" id="div_segmento">
+                            <label for="cod_segmento">Segmento</label>
+                            <select id="cod_segmento" class="modal_requerido" data-requerido="true" data-message="Es un campo requerido!" disabled=""></select>
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-margin">
+                    <div class="col-xs-6 bottom-space-sm">
+                        <div class="form-group input-group-sm" id="div_sucursal">
+                            <label for="cod_sucursal">Sucursal de referencia</label>
+                            <select id="cod_sucursal" class="" data-requerido="true" data-message="Es un campo requerido!"></select>
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-margin">
+                    <div class="col-xs-6">
+                        <div class="form-group input-group-sm" id="div_tramite">
+                            <label for="cod_tramite">Tramite</label>
+                            <select id="cod_tramite" class="modal_requerido" data-requerido="true" data-message="Es un campo requerido!"></select>
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group input-group-sm" id="div_prioridad">
+                            <label for="cod_prioridad">Prioridad</label>
+                            <select id="cod_prioridad" class="modal_requerido" data-requerido="true" data-message="Es un campo requerido!"></select>
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row nomargin">
+                    <div class="col-sm-3">
+                        <div id="div_cubiculos">
+                        </div>
+                    </div>
+                    <div class="col-sm-9">
+                        <div id="calendar" class="calendar calendar-container"></div>
+                    </div>
+                </div>
+                <div class="row nomargin">
+                    <button class="btn btn-md btn-success" id="btn_guardar_walkin">
+                        <i class="fa fa-plus"> </i>
+                        <span> Guardar</span>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-danger" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+            <div class="modal-header modal-header-wk" style="border-bottom-color:rgb(252, 132, 40)">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal_ticket_wk" tabindex="-1" role="dialog" aria-labelledby="modal_llamadoLabel" aria-hidden="true" style="text-align:center;">
+    <div class="modal-dialog modal-md" style="width:275px!important;">
+        <div class="modal-content">
+            <div class="modal-header modal-header-wk">
+                <h4 class="modal-title" id="modal_llamadoLabel"></h4>
+            </div>
+            <div class="modal-body" align="center" id="print_ticket_wk" style="width:250px!important;height:300px!important;padding:0!important;">
+                <div class="row">
+                    <div class="col-md-12" align="center">
+                        <img src="~/imgs/logo_cr.png" width="200px" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" align="center">
+                        <h4 id="SucursalNombre">BAC - Sucursal 1</h4>
+                    </div>
+                    <div class="col-md-12" align="center">
+                        <h5 id="SucursalUbicacion">Ciudad de Panamá</h5>
+                    </div>
+                    <div class="col-md-12" align="center">
+                        <p style="font-size:54px;font-weight:500;" id="CitaTicket">C001</p>
+                    </div>
+                    <div class="col-md-12" align="center">
+                        <h4 id="PrioridadNombre">Caja Normal</h4>
+                    </div>
+                    <div class="col-md-12" align="center">
+                        <h7 id="CitaHora">Caja Normal</h7>
+                    </div>
+                    <div class="col-md-12" align="center">
+                        <h7 id="PubliTicket" style="font-size:12px;line-height:0.5">Publicidad</h7>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-header modal-header-wk" style="border-bottom-color:rgb(252, 132, 40)">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="avisoAbandonoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="avisoAtencionTitle">Aviso!</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="hidden_citaId" />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="avisoMensaje"></div>
+                    </div>
+                </div>
+                <div class="row">
+                   <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txt_observacion">Motivo abandono</label>
+                            <textarea id="txt_observacion" class="form-control" rows="3" placeholder="Ingrese motivo abandono"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button id="btnComenzarCita" type="button" class="btn btn-primary">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+@Scripts.Render("~/Scripts/js/bienvenida.js")
+<script type="text/javascript">
+    /*$(function () {
+        $.contextMenu({
+            selector: 'tr',
+            callback: function (key, options) {
+                var m = "clicked: " + key + " on " + $(this).text();
+                window.console && console.log(m) || alert(m);
+            },
+            items: {
+                "cliente_llega": { name: "Cliente llegó", icon: "fa-clock-o" },
+                "comienza_cita": { name: "Comienza cita", icon: "fa-hourglass-start" },
+                "termina_cita": { name: "Termina cita", icon: "fa-hourglass-end" },
+                "quit": { name: "Quit", icon: function ($element, key, item) { return 'context-menu-icon context-menu-icon-quit'; } }
+            }
+        });
+    });*/
+    /*
+         * Función que realiza la "busqueda" dentro de la tabla con información
+         */
+    (function () {
+        'use strict';
+        var $ = jQuery;
+        $.fn.extend({
+            filterTable: function () {
+                return this.each(function () {
+                    $(this).on('keyup', function (e) {
+                        $('.filterTable_no_results').remove();
+                        var $this = $(this), search = $this.val().toLowerCase(), target = $this.attr('data-filters'), $target = $(target), $rows = $target.find('tbody tr');
+                        if (search == '') {
+                            $rows.show();
+                        } else {
+                            $rows.each(function () {
+                                var $this = $(this);
+                                $this.text().toLowerCase().indexOf(search) === -1 ? $this.hide() : $this.show();
+                            })
+                            if ($target.find('tbody tr:visible').size() === 0) {
+                                var col_count = $target.find('tr').first().find('td').size();
+                                var no_results = $('<tr class="filterTable_no_results"><td colspan="2">No hay resultados.</td></tr>')
+                                $target.find('tbody').append(no_results);
+                            }
+                        }
+                    });
+                });
+            }
+        });
+        $('[data-action="filter"]').filterTable();
+    })(jQuery);
+</script>
+<style>
+    .table {
+        font-size: 14px;
+    }
+    .box.bac .box-header .titulo {
+        margin: -10px -10px 0px -10px;
+    }
+    #SucursalNombre, #SucursalUbicacion, #PrioridadNombre, #CitaHora
+    {
+        margin-top: 0!important;
+        margin-bottom: 0!important;
+    }
+    p
+    {
+        margin: 0!important;
+    }
+
+
+    .nav-tabs-custom {
+        margin-bottom: 20px;
+        background: #fff;
+        box-shadow: none !important;
+        border-radius: 3px;
+    }
+
+        .nav-tabs-custom > .nav-tabs {
+            margin: 0;
+            border-bottom: 1px solid #dd4b39;
+            border-bottom: 1px solid #bfbfbf;
+            border-top-right-radius: 3px;
+            border-top-left-radius: 3px;
+            border-top-color: #dd4b39;
+        }
+
+        .nav-tabs-custom.tab-danger > .nav-tabs > li.active {
+            border-top-color: #dd4b39;
+            border-bottom: #fff;
+            margin-left: 25px;
+            margin-bottom: -1px;
+            border-top-right-radius: 4px;
+            border-top-left-radius: 15px;
+        }
+
+        .nav-tabs-custom > .nav-tabs > li.active > a {
+            border-top-color: transparent;
+            border-left-color: #f4f4f4;
+            border-right-color: #f4f4f4;
+            border-left-color: #bfbfbf !important;
+            border-right-color: #bfbfbf;
+            border-bottom: #fff;
+            border-top-left-radius: 10px;
+        }
+
+        .nav-tabs-custom > .nav-tabs > li.active > a, .nav-tabs-custom > .nav-tabs > li.active:hover > a {
+            background-color: #fff;
+            border-top-color: #dd4b39;
+            background-color: rgb(221, 75, 57);
+            color: #0e0d0d;
+            font-weight: bold;
+            background-color: #fff;
+            text-transform: uppercase;
+        }
+
+    .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+        cursor: default;
+        border-bottom: none;
+    }
+
+    .box.bac .box-header .titulo {
+        margin: -10px -10px 0px -10px;
+    }
+
+    .nav-tabs-custom > .tab-content {
+        border-bottom: 1px solid #bfbfbf;
+        border: none;
+        border-top: none;
+        background: #fff;
+        padding: 10px;
+        border-bottom-right-radius: 3px;
+        border-bottom-left-radius: 3px;
+    }
+</style>
+

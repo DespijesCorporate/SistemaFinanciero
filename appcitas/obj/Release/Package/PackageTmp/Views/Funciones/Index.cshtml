@@ -1,0 +1,100 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style type="text/css">
+    .miPanel {
+        overflow-x: auto;
+        border-top: 2px solid rgb(230,230,230);
+        height: 750px;
+        max-height: 700px;
+    }
+</style>
+
+<div class="box bac">
+    <div class="box-header">
+        <h3 class="titulo">Configuración de Funciones de Motor de Retenciones</h3>
+        <div class="row nomargin">
+        </div>
+    </div>
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="panel panel-default miPanel">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <strong>Catalogo de Funciones</strong>
+                            </div>
+                            <div class="col-md-6">
+                                <button id="btnAgregarFuncion" class="btn btn-success pull-right" data-toggle="tooltip" data-placement="left" title="Agregar nueva función"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <table id="funcionesTable" class="list-table table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Codigo</th>
+                                    <th>Nombre</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody class="dataTables_fontbody">                               
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <strong>Datos de Funcion Seleccionada</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div id="viewPlaceHolder">
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <strong>Datos de Funcion Seleccionada</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEliminarFuncion" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <input type="hidden" id="hiddenFuncionCodigo" />
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"> Eliminar Función</h4>
+            </div>
+            <div class="modal-body">
+                <label>Esta seguro que desea eliminar el registro selecccionado?</label>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button style="margin-left: 5px;" type="button" class="btn btn-danger pull-right" onclick="EliminarFuncion()"><i class="fa fa-trash-o" aria-hidden="true"></i> Eliminar</button>
+                        <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@Scripts.Render("~/Scripts/js/Funciones.js")

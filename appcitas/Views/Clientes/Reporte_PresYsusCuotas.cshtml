@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "Reporte_PresYsusCuotas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="box bac">
+            <div class="box-header">
+                <h3 class="titulo">Reporte Préstamos y Sus Cuotas Por Cliente</h3>
+            </div>
+            <div class="box-body">
+                <div class="row nomargin">
+                    <div class="col-sm-12">
+                        <div class="form-group input-group-sm" id="div_identificacion">
+                            <label for="txt_identificacion_n">Identificacion Del Cliente</label>
+                            <input type="text" class="form-control id limpiar input requerido identidad" data-requerido="true" id="txt_identificacion_n" name="txt_identificacion_n" placeholder="Identificacion del cliente" maxlength="50" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row nomargin" style="margin-bottom: 25px !important; margin-top: 10px !important;">
+                    <div class="col-md-2 col-md-offset-5">
+                        <button type="button" class="btn btn-md btn-primary" id="btn_crear_reporte">Generar Reporte</button>
+                    </div>
+                </div>
+                <div class="row bac-container-table-panel">
+                    <div class="col-xs-12 bac-table-panel">
+                        <table class="table list-table table-bordered" id="tableCitasDashboard1">
+                            <thead>
+                                <tr class="">
+                                    <th>Nro</th>
+                                    <th>Código Préstamo</th>
+                                    <th>Nombre Cliente</th>
+                                    <th>Identidad</th>
+                                    <th>Número Cuota</th>
+                                    <th>Monto</th>
+                                    <th>Fecha de Pago</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Scripts.Render("~/Scripts/js/Reporte_PresYsusCuotas.js")
+

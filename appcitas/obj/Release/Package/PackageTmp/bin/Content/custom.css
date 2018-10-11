@@ -1,0 +1,176 @@
+﻿.validation-error
+{
+	text-align:center;
+}
+
+.botonVED{
+	margin: 1%;
+}
+
+.btn-search-input{	
+    cursor: default !important;
+}
+
+.borderItemCalendar{
+    border-color: red;
+}
+
+
+/**** Estilos para el dataTables ****/
+.dataTables_filter
+{
+	padding:18px 20px 20px 0px;
+	font-size: 13px;
+}
+
+.dataTables_length
+{
+	padding:16px 20px 0px 20px;
+	font-size: 13px;
+}
+
+.dataTables_info
+{
+	padding:0px 0px 0px 20px;
+	font-size: 13px;
+}
+
+.dataTables_paginate
+{
+	padding:0px 10px 0px 0px;
+	font-size: 13px;
+}
+
+.dataTables_fontTbody{
+	font-size: 13px!important;
+	overflow-x: auto;
+	width: 60px!important;
+}
+
+
+
+.dataTables_fontThead{
+	font-size: 13px!important;
+	overflow-x: auto;
+}
+
+.table 
+{
+    margin-bottom: 20px;
+    max-width: 100%;
+    width: 100%!important;
+}
+
+table.dataTable tbody tr.selected {
+  	/*background-color: #B0BED9;*/
+  	/*background-color: green;
+	color: white;*/
+	background-color: #dff0d8!important;
+    border-color: #d6e9c6;
+    color: #3c763d;
+}
+
+table.dataTable tbody tr.rowerror {
+  	background-color: #F2DEDE!important;
+    border-color: #ebccd1;
+    color: #a94442;
+}
+
+table.dataTable tbody tr.info {
+    color: #31708f;
+    background-color: #d9edf7!important;
+    border-color: #bce8f1;
+}
+
+table.dataTable tbody tr.warning {
+	color: #8a6d3b;
+    background-color: #fcf8e3!important;
+    border-color: #faebcc;
+}
+
+table.dataTable.stripe tbody tr.odd.selected, table.dataTable.display tbody tr.odd.selected {
+  background-color: #abb9d3;
+}
+table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
+  background-color: whitesmoke;
+}
+table.dataTable.hover tbody tr:hover.selected, table.dataTable.display tbody tr:hover.selected {
+  background-color: #a9b7d1;
+}
+
+table.dataTable.order-column tbody tr.selected > .sorting_1,
+table.dataTable.order-column tbody tr.selected > .sorting_2,
+table.dataTable.order-column tbody tr.selected > .sorting_3, table.dataTable.display tbody tr.selected > .sorting_1,
+table.dataTable.display tbody tr.selected > .sorting_2,
+table.dataTable.display tbody tr.selected > .sorting_3 {
+  background-color: #acbad4;
+}
+
+table.dataTable.display tbody tr.odd.selected > .sorting_1, table.dataTable.order-column.stripe tbody tr.odd.selected > .sorting_1 {
+  background-color: #a6b3cd;
+}
+table.dataTable.display tbody tr.odd.selected > .sorting_2, table.dataTable.order-column.stripe tbody tr.odd.selected > .sorting_2 {
+  background-color: #a7b5ce;
+}
+table.dataTable.display tbody tr.odd.selected > .sorting_3, table.dataTable.order-column.stripe tbody tr.odd.selected > .sorting_3 {
+  background-color: #a9b6d0;
+}
+
+table.dataTable.display tbody tr.even.selected > .sorting_1, table.dataTable.order-column.stripe tbody tr.even.selected > .sorting_1 {
+  background-color: #acbad4;
+}
+table.dataTable.display tbody tr.even.selected > .sorting_2, table.dataTable.order-column.stripe tbody tr.even.selected > .sorting_2 {
+  background-color: #adbbd6;
+}
+table.dataTable.display tbody tr.even.selected > .sorting_3, table.dataTable.order-column.stripe tbody tr.even.selected > .sorting_3 {
+  background-color: #afbdd8;
+}
+
+table.dataTable.display tbody tr:hover.selected > .sorting_1, table.dataTable.order-column.hover tbody tr:hover.selected > .sorting_1 {
+  background-color: #a1aec7;
+}
+table.dataTable.display tbody tr:hover.selected > .sorting_2, table.dataTable.order-column.hover tbody tr:hover.selected > .sorting_2 {
+  background-color: #a2afc8;
+}
+table.dataTable.display tbody tr:hover.selected > .sorting_3, table.dataTable.order-column.hover tbody tr:hover.selected > .sorting_3 {
+  background-color: #a4b2cb;
+}
+
+.col-margin-top-small{
+	margin-top:5px;
+}
+
+.centrar-menu{
+	left: -65px!important;
+}
+
+.select2
+{
+	width: 100%!important;
+}
+
+.select2-container
+{
+	width: 100%!important;
+}
+
+.row-top-margin {
+    margin-top: 15px;
+}
+
+.no-gutter > [class*='col-'] {
+    padding-right:0;
+    padding-left:0;
+}
+
+.col-margin-top > [class*='col-'] {
+	margin-top: 35px;
+}
+
+.col-margin-top-small > [class*='col-'] {
+	margin-top: 11px;
+}
+
+.modal-lg{
+	width:60%!important;
+}

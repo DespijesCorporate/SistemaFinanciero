@@ -1,0 +1,249 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>BAC</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    
+
+    @Styles.Render("~/Content/bootstrap/css/bootstrap.min.css")
+    @Styles.Render("~/Content/font-awesome/css/font-awesome.css")
+    @Styles.Render("//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css")
+    @Styles.Render("~/Plugins/select2/select2.min.css")
+    @Styles.Render("~/Content/dist/css/admin-lte.css")
+    @Styles.Render("~/Plugins/timepicker/bootstrap-timepicker.css")
+    @Styles.Render("~/Content/dist/css/skins/skin-red-light.css")
+    @Styles.Render("~/Content/dist/css/skins/skin-red.css")
+    @Styles.Render("~/Content/dist/css/skins/skin-blue.css")
+    @Styles.Render("~/Content/custom.css")
+    @Styles.Render("~/Content/dist/css/bac-sgrc.css")
+    @Styles.Render("~/Content/datatables/css/dataTables.bootstrap.min.css")
+    @Styles.Render("~/Content/bootstrap/css/bootstrap-datetimepicker.css")
+
+
+    @Scripts.Render("~/Content/plugins/jquery/js/jQuery-2.1.4.min.js")
+    @Scripts.Render("~/Content/plugins/jquery/js/jquery-ui.min.js")
+    @Scripts.Render("~/Content/plugins/jquery/js/jquery.mask.min.js")
+
+    @Scripts.Render("~/Content/datatables/js/jquery.dataTables.min.js")
+    @Scripts.Render("~/Content/bootstrap/js/moment.js")
+    @Scripts.Render("~/Content/datatables/js/dataTables.bootstrap.min.js")
+
+    @Scripts.Render("~/Content/bootstrap/js/bootstrap.js")
+    @Scripts.Render("~/Content/bootstrap/js/bootstrap-datetimepicker.js")
+    @Scripts.Render("~/Content/bootstrap/js/bootstrap-datetimepicker.es.js")
+    @Scripts.Render("~/Plugins/select2/select2.full.js")
+    @Scripts.Render("~/Plugins/timepicker/bootstrap-timepicker.js")
+    @Scripts.Render("~/Content/plugins/marquee.js")
+    @Scripts.Render("~/Content/plugins/jquery.innerfade/js/jquery.innerfade.js")
+    @Scripts.Render("~/Scripts/js/global.js")
+    @Scripts.Render("~/Scripts/js/vistacliente.js")
+</head>
+<body>
+    <header>
+        <div class="row">
+            <div class="col-md-12" align="center">
+                <img src="~/imgs/Logo_cr.png" width="100%" style="max-height:200px;max-width:400px;">
+            </div>
+        </div>
+    </header>
+    <div class="jumbotron div_cuerpo">
+        <div class="col-sm-4" align="left">
+            <h4 class="p">Atención de Citas</h4>
+        </div>
+            <div class="col-sm-4" align="center">
+                <input type="text" id="SucursalName" style="border-style: none; background-color: #eeeeee; text-align: center; font-weight: bold; ">
+            </div>
+        <div class="col-sm-4" align="right">
+            <h4 class="p">Atención por Orden de Llegada</h4>
+        </div>
+            <div class="row" class="content">
+                <section id="MyAlerts">
+                    <div class="col-sm-12">
+                        <div data-alerts="alerts" dat a-titles="{&quot;danger&quot;: &quot;&lt;em&gt;Advertencia!&lt;/em&gt;&quot;}" data-ids="error" data-fade="5000"></div>
+                        <div data-alerts="alerts" data-titles="{&quot;success&quot;: &quot;&lt;em&gt;Correcto!&lt;/em&gt;&quot;}" data-ids="success" data-fade="5000"></div>
+                    </div>
+                </section>
+            </div>
+            <div class="row" align="center">
+                <div class="col-sm-2">
+                    <div class="row" id="div_programadas">
+                        <!--<div class="row">
+                        <h3>Ticket 1</h3>
+                        <h3>Escritorio 01</h3>
+                    </div>
+                    <div class="row">
+                        <h3>Ticket 2</h3>
+                        <h3>Escritorio 02</h3>
+                    </div>
+                    <div class="row">
+                        <h3>Ticket 3</h3>
+                        <h3>Escritorio 03</h3>
+                    </div>
+                    <div class="row">
+                        <h3>Ticket 4</h3>
+                        <h3>Escritorio 04</h3>
+                    </div>
+                    <div class="row">
+                        <h3>Ticket 5</h3>
+                        <h3>Escritorio 05</h3>
+                    </div>-->
+                    </div>
+                </div>
+                <div class="col-md-8 col-sm-8 col-xs-8" id="div_publicidad">
+                    <ul class="div_publicidad"></ul>
+                </div>
+                <div class="col-md-2">
+                    <div class="row" id="div_walkin">
+                        <!--<div class="row">
+                        <h3>Ticket 6</h3>
+                        <h3>Escritorio 06</h3>
+                    </div>
+                    <div class="row">
+                        <h3>Ticket 8</h3>
+                        <h3>Escritorio 08</h3>
+                    </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="footer">
+    </div>
+    <!--<div class="row">
+        <div class="col-md-12" align="center">
+            <button type="button" class="" data-toggle="modal" data-target="#modal_llamado" id="btn_ticketp">Ticket Programada</button>
+            <button type="button" class="" data-toggle="modal" data-target="#modal_llamado_wk" id="btn_ticketwk">Ticket Walk-in</button>
+        </div>
+    </div>-->
+    <!-- Modal -->
+    <div class="modal fade" id="modal_llamado" tabindex="-1" role="dialog" aria-labelledby="modal_llamadoLabel" aria-hidden="true" style="text-align:center">
+        <div class="modal-dialog modal-md" style="width:500px!important;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal_llamadoLabel"></h4>
+                </div>
+                <div class="modal-body" align="center">
+                    <div class="row">
+                        <p id="ticket_llamado">Ticket 7</p>
+                        <p id="lugar_llamado">Escritorio 01</p>
+                    </div>
+                </div>
+                <div class="modal-header" style="border-bottom-color:rgb(221, 75, 57)">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal_llamado_wk" tabindex="-1" role="dialog" aria-labelledby="modal_llamadoLabel" aria-hidden="true" style="text-align:center;">
+        <div class="modal-dialog modal-md" style="width:500px!important;">
+            <div class="modal-content">
+                <div class="modal-header modal-header-wk">
+                    <h4 class="modal-title" id="modal_llamadoLabel"></h4>
+                </div>
+                <div class="modal-body" align="center">
+                    <div class="row">
+                        <p id="ticket_llamadowk">Ticket 7</p>
+                        <p id="lugar_llamadowk">Escritorio 01</p>
+                    </div>
+                </div>
+                <div class="modal-header modal-header-wk" style="border-bottom-color:rgb(252, 132, 40)">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<style>
+    
+
+    .p{
+        font-weight: bold;
+    }
+    
+    .div_cuerpo {
+        border-top: solid #ef0000 5px;
+        border-bottom: solid #ef0000 5px;
+        height: 100%;
+        min-height: 100%;
+        margin-bottom: 0;
+        padding: 0;
+    }
+
+    .footer {
+        height: 30px;
+        background-color: #ef0000;
+        color: white;
+        font-size: 26px;
+    }
+
+    #div_programadas, #div_walkin {
+        border-left: solid #fff 5px;
+        border-right: solid #fff 5px;
+        margin: 0;
+        margin-top: 40px;
+    }
+
+    #div_cuerpo {
+        margin: 0;
+    }
+
+    header {
+        border-top: solid #fff 30px;
+        height: 180px; /*150*/
+        background-color: white;
+    }
+
+    #div_programadas > .row {
+        border-bottom: solid white 5px;
+        color: white;
+        background-color: #ef0000;
+    }
+
+    #div_walkin > .row {
+        border-bottom: solid white 5px;
+        color: white;
+        background-color: #fc8428;
+    }
+
+    ul {
+        list-style-type: none;
+    }
+
+    #ticket_llamado, #lugar_llamado, #ticket_llamadowk, #lugar_llamadowk {
+        font-size: 60px;
+        font-weight: 800;
+    }
+
+    #div_publicidad {
+        height: 100%;
+        max-height: 585px;
+        text-align: center;
+        align-content: center;
+        align-items: center;
+    }
+
+    #div_publicidad > ul > li > img {
+        max-height: 585px;
+        margin-top: 5px;
+        margin-left: 15px;
+    }
+
+    #div_publicidad > video {
+        max-height: 585px;
+        margin-top: 5px;
+        max-width: 900px;
+        height: 100%;
+    }
+
+    .modal-header-wk {
+        border-bottom-color: rgb(252, 132, 40) !important;
+        background: rgb(252, 132, 40) !important;
+        color: rgb(255,255,255) !important;
+    }
+
+</style>

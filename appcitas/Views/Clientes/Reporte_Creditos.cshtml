@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "Reporte_Creditos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="box bac">
+            <div class="box-header">
+                <h3 class="titulo">Reporte de Préstamos Por Cliente</h3>
+            </div>
+            <div class="box-body">
+                <div class="row nomargin">
+                    <div class="form-group input-group-sm date col-md-4">
+                        <label for="txt_fecha1">Fecha Inicio</label>
+                        <div class='input-group input-group-sm date' id="fecha1">
+                            <span class="input-group-addon">
+                                <span class="fa fa-calendar"></span>
+                            </span>
+                            <input type='text' class="form-control limpiar requerido" data-requerido="true" id="txt_fecha1" readonly="" attr-message="Es un filtro requerido!">
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                    <div class="form-group input-group-sm date col-md-4">
+                        <label for="txt_fecha2">Fecha Final</label>
+                        <div class='input-group input-group-sm date' id="fecha2">
+                            <span class="input-group-addon">
+                                <span class="fa fa-calendar"></span>
+                            </span>
+                            <input type='text' class="form-control limpiar requerido" data-requerido="true" id="txt_fecha2" readonly="" attr-message="Es un filtro requerido!">
+                            <div class="validation-error"><p></p></div>
+                        </div>
+                    </div>
+                    <div class="form-group input-group-sm col-md-4">
+                        <label class="control-label" for="cod_tipo_cita">Estado</label>
+                        <select class="form-control requerido" data-requerido="false" id="ListaEstados" attr-message="Es un filtro requerido!"></select>
+                        <div class="validation-error"><p></p></div>
+                    </div>
+                </div>
+                <div class="row nomargin" style="margin-bottom: 25px !important; margin-top: 10px !important;">
+                    <div class="col-md-2 col-md-offset-5">
+                        <button type="button" class="btn btn-md btn-primary" id="btn_crear_reporte">Generar Reporte</button>
+                    </div>
+                </div>
+                <div class="row bac-container-table-panel">
+                    <div class="col-xs-12 bac-table-panel">
+                        <table class="table list-table table-bordered" id="tableCitasDashboard1">
+                            <thead>
+                                <tr class="">
+                                    <th>Nro</th>
+                                    <th>Código de Préstamo</th>
+                                    <th>Código del Cliente</th>
+                                    <th>Nombre del Cliente</th>
+                                    <th>Fecha de Solicitud</th>
+                                    <th>Monto Solicitado</th>
+                                    <th>Monto Aprobado</th>
+                                    <th>Plazo en Meses</th>
+                                    <th>Porcentaje de Interés</th>
+                                    <th>Saldo</th>
+                                    <th>Estado</th>
+                                    <th>Frecuencia de Pago</th>
+                                    <th>Numero de Pagos</th>
+                                    <th>Destino</th>
+                                    <th>Garantia</th>
+                                    <th>Agrego</th>
+                                    <th>Fecha de Agrego</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Scripts.Render("~/Scripts/js/ReporteCreditos.js")
+
+
+
+

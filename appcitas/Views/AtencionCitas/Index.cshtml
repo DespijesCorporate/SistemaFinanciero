@@ -1,0 +1,994 @@
+﻿
+@{
+    ViewBag.Title = "Atención de Citas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-3 col-md-offset-3 margin-bottom">
+        <label class="control-label">Sucursales</label>
+        <select class="form-control" id="cmb_sucursal" attr-message="Es un campo requerido!">
+            <option value="-1">Ninguna</option>
+        </select>
+        <div class="validation-error"><p></p></div>
+    </div>
+
+    <div class="col-md-3">
+        <label class="control-label">Cubiculo</label>
+        <select class="form-control" id="cmb_cubiculo" attr-message="Es un campo requerido!"><option value="-1">Ninguna</option></select>
+        <div class="validation-error"><p></p></div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-8">            
+            <div id="contenedor-form" class="row">
+                <div class="col-md-12">
+                    <div class="box bac">
+                        <div class="box-header">
+                            <h3 class="titulo">Formulario Atención</h3>                            
+                        </div>
+                        <div class="box-body">
+                            <div class="nav-tabs-custom tab-danger">
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs" role="tablist">                                                                        
+                                    <li role="presentation" class="active"><a href="#ver_cita" aria-controls="ver_cita" role="tab" data-toggle="tab">Información Cliente</a></li>
+                                    <li role="presentation"><a href="#nueva_cita" aria-controls="nueva_cita" role="tab" data-toggle="tab">Resolución</a></li>
+                                    <li role="presentation"><a href="#mas_tarjetas" aria-controls="mas_tarjetas" role="tab" data-toggle="tab">Más Tarjetas</a></li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content bac-table-panelx">
+                                    <div role="tabpanel" class="tab-pane fade in active" id="ver_cita">                                  
+                                        <div class="row no-margin">
+                                            <div class="col-xs-12">
+                                                <div class="form-group input-group-sm" id="div_identificacion">
+                                                    <label for="txt_identificacion">Identificacion</label>
+                                                    <input type="text" class="form-control id limpiar input requerido" id="txt_identificacion" name="txt_identificacion" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-margin">
+                                            <div class="col-xs-12">
+                                                <div class="form-group input-group-sm" id="div_nombre">
+                                                    <label for="txt_nombre">Nombre</label>
+                                                    <input type="text" class="form-control nombre limpiar input requerido" id="txt_nombre" name="txt_nombre" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-margin">
+                                            <div class="col-xs-12 col-sm-6">
+                                                <div class="form-group input-group-sm" id="div_email">
+                                                    <label for="txt_email">Email</label>
+                                                    <input type="text" class="form-control nombre limpiar input requerido" id="txt_email" name="txt_email" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group input-group-sm" id="div_cel">
+                                                    <label for="txt_cel">Celular</label>
+                                                    <input type="text" class="form-control telefono limpiar input requerido" id="txt_cel" name="txt_cel" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-margin">
+                                            <div class="col-xs-6">
+                                                <div class="form-group input-group-sm" id="div_tel_oficina">
+                                                    <label for="txt_tel_oficina">Tel. Oficina</label>
+                                                    <input type="text" class="form-control limpiar telefono input requerido" id="txt_tel_oficina" name="txt_tel_oficina" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="form-group input-group-sm" id="div_tel_casa">
+                                                    <label for="txt_tel_casa">Tel. Casa</label>
+                                                    <input type="text" class="form-control telefono limpiar input requerido" id="txt_tel_casa" name="txt_tel_casa" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row no-margin">
+                                            <div class="col-xs-6">
+                                                <div class="form-group input-group-sm" id="div_tarjeta">
+                                                    <label for="txt_tarjeta">Tarjeta</label>
+                                                    @*<input type="text" class="form-control nombre limpiar input cuenta requerido" id="txt_tarjeta" name="txt_tarjeta" placeholder="N/D" maxlength="50" autocomplete="off" disabled>*@
+                                                    <input type="text" class="form-control limpiar input cuentaFormato modal_requerido" data-requerido="true" attr-message="Es un campo requerido!" id="txt_tarjeta" name="txt_tarjeta" placeholder="****-****-****-1234" maxlength="50" autocomplete="off" disabled>
+                                                    <input type="text" class="form-control limpiar input modal_requerido hide" data-requerido="false" attr-message="Es un campo requerido!" id="txt_tarjeta_formato" placeholder="9998984" maxlength="50" autocomplete="off" readonly="" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="form-group input-group-sm" id="div_cel">
+                                                    <label for="txt_cuenta">No. Cuenta</label>
+                                                    @*<input type="text" class="form-control nombre limpiar input requerido" id="txt_cuenta" name="txt_cuenta" placeholder="N/D" maxlength="50" autocomplete="off" disabled>*@
+                                                    <input type="text" class="form-control limpiar input cuenta cuentaFormato modal_requerido" data-requerido="true" attr-message="Es un campo requerido!" id="txt_cuenta" placeholder="9998984" maxlength="50" autocomplete="off" disabled>
+                                                    <input type="text" class="form-control limpiar input modal_requerido hide" data-requerido="false" attr-message="Es un campo requerido!" id="txt_cuenta_formato" placeholder="9998984" maxlength="50" autocomplete="off" readonly="" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-margin">
+                                            <div class="col-xs-6">
+                                                <div class="form-group input-group-sm" id="div_tarjeta">
+                                                    <label for="txt_marca">Marca</label>
+                                                    <input type="text" class="form-control nombre limpiar input cuenta requerido" id="txt_marca" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="form-group input-group-sm" id="div_tarjeta">
+                                                    <label for="txt_producto">Producto</label>
+                                                    <input type="text" class="form-control nombre limpiar input cuenta requerido" id="txt_producto" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-margin">
+                                            <div class="col-xs-6">
+                                                <div class="form-group input-group-sm" id="div_tarjeta">
+                                                    <label for="txt_familia">Familia</label>
+                                                    <input type="text" class="form-control nombre limpiar input cuenta requerido" id="txt_familia" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="form-group input-group-sm" id="div_segmento">
+                                                    <label for="txt_segmento">Segmento</label>
+                                                    @*<input type="text" class="form-control nombre limpiar input requerido" id="txt_segmento" name="txt_segmento" placeholder="N/D" maxlength="50" autocomplete="off" disabled>*@
+                                                    <select id="cod_segmento" class="requerido" data-requerido="true" attr-message="Es un campo requerido!" disabled></select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-margin">
+                                            <div class="col-xs-6">
+                                                <div class="form-group input-group-sm" id="div_sucursal">
+                                                    <label for="txt_sucursal">Sucursal</label>
+                                                    <input type="text" class="form-control nombre limpiar input requerido" id="txt_sucursal" name="txt_sucursal" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="form-group input-group-sm" id="div_tramite">
+                                                    <label for="txt_tramite">Tramite</label>
+                                                    <input type="text" class="form-control nombre limpiar input requerido" id="txt_tramite" name="txt_tramite" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-margin">
+                                            <div class="col-xs-6">
+                                                <div class="form-group input-group-sm" id="div_fech">
+                                                    <label for="txt_fecha">Fecha</label>
+                                                    <input type="text" class="form-control nombre limpiar input requerido" id="txt_fecha" name="txt_fecha" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="form-group input-group-sm" id="div_hora">
+                                                    <label for="txt_hora">Hora</label>
+                                                    <input type="text" class="form-control nombre limpiar input requerido" id="txt_hora_vista" name="txt_hora_vista" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row no-margin">
+                                            <button class="btn btn-md btn-success pull-right hidden" id="btn_guardarCuenta">
+                                                <span> Guardar </span>
+                                                <i class="fa fa-save"> </i>
+                                            </button>
+                                        </div>
+
+                                        <div class="row no-margin">
+                                            <button class="btn btn-md btn-success pull-right hidden" id="btn_guardarTarjeta">
+                                                <span> Guardar </span>
+                                                <i class="fa fa-save"> </i>
+                                            </button>
+                                        </div>
+
+                                    </div> 
+
+                                    <div role="tabpanel" class="tab-pane fade" id="nueva_cita">
+                                        <!-- Razones -->
+
+                                        
+
+
+                                        <div class="row margin-bottom">
+
+                                            
+
+
+                                            <div class="col-sm-12 bottom-space-sm">
+                                                <div class="form-group input-group-sm" id="div_razon">
+
+
+                                                    
+
+
+                                                    @*<label for="guardarRazon">Agregar Razón</label>*@
+                                                    <button class="btn btn-md btn-success pull-right" id="guardarRazon">
+                                                        <i class="fa fa-plus"> Agregar Razón</i>
+                                                        <span></span>
+                                                    </button>
+                                                </div>
+
+                                                <div class="col-sm-8">
+                                                    <div class="form-group input-group-sm hidden" id="campocitarazon">
+                                                        <label>Cita Razón: </label>
+                                                        <input type="text" id="citarazon" size="12" disabled style="border-style: none; background-color:  ActiveBorder; text-align: center; font-weight: bold;">
+
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+
+                                        
+
+
+                                        <div class="row">
+
+                                            <div class="col-sm-4 bottom-space-sm">
+                                                <div class="form-group input-group-sm" id="div_tipo_razon">
+                                                    <label for="cod_tipo_razon">Tipo de Razon</label>
+                                                    <select id="cod_tipo_razon" class="requerido" data-requerido="true" attr-message="Es un campo requerido!"></select>
+                                                    <div class="validation-error"><p></p></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group input-group-sm" id="div_razon">
+                                                    <label for="cod_razonp">Razon</label>
+                                                    <select id="cod_razonp" class="requerido" data-requerido="true" attr-message="Es un campo requerido!"></select>
+                                                    <div class="validation-error"><p></p></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4 hide" id="listadoExtraContainer">
+                                                <div class="form-group input-group-sm" id="div_listado">
+                                                    <label for="cod_listado_extra" id="label_cod_listado_extra">Listado Extra</label>
+                                                    <select id="cod_listado_extra" class="requerido" data-requerido="true" attr-message="Es un campo requerido!"></select>
+                                                    <div class="validation-error"><p></p></div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row margin-bottom">
+                                            <div class="box-body">
+                                                <table id="tableRazones" class="list-table table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>No.</th>
+                                                            <th>Tipo de razon</th>
+                                                            <th>Razon</th>
+                                                            <th>Origen</th>
+                                                            <th></th>
+                                                            <th>Acciones</th>
+                                                            <th hidden="hidden"></th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>                                                                              
+                                        
+                                        <!-- /Razones -->
+
+                                        <div class="bac-table-panel2"></div>
+
+                                        <!-- Herramientas -->
+                                        <div class="row margin-bottom">
+                                            <div class="col-sm-12 bottom-space-sm">
+                                                <div class="form-group input-group-sm">                                                    
+                                                    <button class="btn btn-md btn-success pull-right" id="guardarHerramienta">
+                                                        <i class="fa fa-plus"> Agregar Herramienta</i>
+                                                        <span></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <label for="cmbHerramientas">Herramientas</label>
+                                                    <select id="cmbHerramientas" class="requerido cmbHerramientas"></select>
+                                                    <div class="validation-error"><p></p></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <label for="txtObsHerramienta">Observación</label>
+                                                    <textarea id="txtObsHerramienta" class="form-control" rows="3" placeholder="Ingrese alguna observación..."></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row margin-bottom">
+                                            <div class="box-body">
+                                                <table id="tableHerramientas" class="list-table table table-bordered">
+                                                    <thead>
+                                                        <tr class="text-center">
+                                                            <th>Herramientas</th>
+                                                            <th>Observación</th>
+                                                            <th>Acciones</th>
+                                                            <th hidden="hidden"></th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <!-- /Herramientas -->
+                                        
+                                        <div class="bac-table-panel2 margin-bottom"></div>
+
+                                        <div class="row margin-bottom">                                            
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <label for="txt_observacion">Comentario</label>
+                                                    <textarea id="txt_observacion" class="form-control" rows="3" placeholder="Ingrese algun comentario sobre la cita..."></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row margin-bottom">
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <label for="cmb_resultado">Resultado</label>
+                                                    <select class="requerido" id="cmb_resultado" attr-message="Es un campo requerido!"></select>
+                                                    <div class="validation-error"><p></p></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row margin-bottom">
+                                            <div class="col-md-12">
+                                                <button class="btn btn-md btn-success pull-right" onclick='guardarCita(event)'>
+                                                    <i class="fa fa-check-square-o"> </i>
+                                                    <span> Finalizar</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div role="tabpanel" class="tab-pane fade" id="mas_tarjetas">
+                                        <div class="row margin-bottom" style="overflow:auto">
+                                            <div class="col-md-12">
+                                                    <table id="tableTarjetas" class="list-table table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>No. Cuenta</th>
+                                                                <th>No. Tarjeta</th>
+                                                                <th>Segmento</th>
+                                                                <th>Producto</th>
+                                                                <th>Acciones</th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                            </div>                                            
+                                        </div>
+
+                                        <div class="row margin-bottom">
+                                            <div class="col-sm-12 bottom-space-sm">
+                                                <div class="form-group input-group-sm">                                                    
+                                                    <button class="btn btn-md btn-success pull-right" id="btnNuevaTarjeta">
+                                                        <i class="fa fa-plus"> Agregar Nueva Tarjeta</i>
+                                                        <span></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div id="contenedor_timer" class="row hidden">
+                <div class="col-md-12">
+                    <div class="box bac">
+                        <div class="box-header">
+                            <h3 class="titulo">Tiempo</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="TimerCitas"></div>
+                                </div>
+                                <div class="col-md-12">
+                                    <p class="text-center">
+                                        <strong>Tiempos de tolerancia</strong>
+                                    </p>
+                                    <div class="progress-group hidden">
+                                        <span class="progress-text">Duración Cita</span>
+                                        <span class="progress-number"><b>24 Min</b>/30 Min</span>
+
+                                        <div class="progress sm">
+                                            <div class="progress-bar progress-bar-green" style="width: 80%"></div>
+                                        </div>
+                                    </div>
+                                    <!-- /.progress-group -->
+                                    <div class="progress-group">
+                                        <span class="progress-text">Alerta Previa</span>
+                                        <span id="lbl_alertaPrevia" class="progress-number"><b>20 Min</b>/25 Min</span>
+
+                                        <div class="progress sm">
+                                            <div id="bar_alertaPrevia" class="progress-bar progress-bar-yellow" style="width: 100%"></div>
+                                        </div>
+                                    </div>                                  
+
+                                    <!-- /.progress-group -->
+                                    <div class="progress-group">
+                                        <span class="progress-text">Tolerancia a Finalización</span>
+                                        <span id="lbl_Torelancia" class="progress-number"><b>5 Min</b>/10 Min</span>
+
+                                        <div class="progress sm">
+                                            <div id="bar_tolerancia" class="progress-bar progress-bar-red" style="width: 100%"></div>
+                                        </div>
+                                    </div>
+                                    <!-- /.progress-group -->  
+                                    
+                                    <div id="contenedor_tiempomuerto" class="progress-group">
+                                        <span class="progress-text">Tiempo Muerto</span>
+                                        <span id="lbl_tiempoMuerto" class="progress-number"><b>2 Min</b>/15 Min</span>
+
+                                        <div class="progress sm">
+                                            <div id="bar_tiempoMuerto" class="progress-bar progress-bar-striped" style="width: 100%"></div>
+                                        </div>
+                                    </div>
+                                    <!-- /.progress-group -->                                                                  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="contenedor_mensaje_timer" class="row hidden">
+                <div id="titleMessageTimerOut" class="alert alert-danger" role="alert"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box bac">
+                        <div class="box-header">
+                            <h3 class="titulo">Programadas</h3>
+
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-12">
+                                        <div id="message_programa_proccess" class="text-center hidden">
+                                            <a href="javascript:void(0);" class="list-group-item text-center list-group-item-vacio"><span id="spanProgramadas" class="label label-warning">Cita en proceso...</span></a>
+                                        </div>
+                                    </div>
+                                    <div id="list_citas" class="list-group">
+                                        <a href="#contenedor_principal" class="list-group-item text-center list-group-item-vacio"><span class="label label-warning">No hay citas que mostrar!</span></a>
+                                    </div>                                    
+                                </div>
+                                @*<div id="controles_programada" class="col-md-12 hidden">
+                                    <div class="text-center">
+                                        <div class="btn-group text-center" role="group" aria-label="Basic example">                                            
+                                            <button id="btn-prog-refresh" type="button" class="btn btn-secondary"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
+                                            <button id="btn-prog-next" type="button" class="btn btn-secondary"><span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></button>
+                                        </div>
+                                    </div>
+                                </div>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box bac">
+                        <div class="box-header">
+                            <h3 class="titulo">Walkin</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="message_walkin_proccess" class="hidden text-center">                                        
+                                        <a href="javascript:void(0);" class="list-group-item text-center list-group-item-vacio"><span id="spanWalkin" class="label label-warning">Cita en proceso...</span></a>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div id="list_citas_walkin" class="list-group">
+                                        <a href="#contenedor_principal" class="list-group-item text-center list-group-item-vacio"><span class="label label-warning">No hay citas que mostrar!</span></a>
+                                    </div>                                    
+                                </div>
+                                @*<div id="controles_walkin1" class="col-md-12 hidden">
+                                    <div class="text-center">
+                                        <div class="btn-group text-center" role="group" aria-label="Basic example">
+                                            <button id="btn-wal-refresh" type="button" class="btn btn-secondary"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
+                                            <button id="btn-wal-next" type="button" class="btn btn-secondary"><span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></button>
+                                        </div>
+                                    </div>
+                                </div>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box bac">
+                        <div class="box-header">
+                            <h3 class="titulo">Citas del Día</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="list_citas_dia" class="list-group">
+                                        <a href="#contenedor_principal" class="list-group-item text-center list-group-item-vacio"><span class="label label-warning">No hay citas que mostrar!</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box bac">
+                        <div class="box-header">
+                            <h3 class="titulo">Citas Atendidas</h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+
+                                <table class="list-table table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Walkin</th>
+                                            <th class="text-center">Program</th>
+
+                                        </tr>
+
+                                        <tr align="center">
+                                            <td>
+                                                <input type="text" id="cont_walkin" size="4" disabled style="border-style: none; background-color: #eeeeee; text-align: center; font-weight: bold;">
+                                            </td>
+                                            <td>
+                                                <input type="text" id="cont_programada" size="4" disabled style="border-style: none; background-color: #eeeeee; text-align: center; font-weight: bold; ">
+                                            </td>
+                                        </tr>
+
+                                    </thead>
+                                </table>
+
+
+                                @*<div class="col-md-12">
+                                    <div>
+                                        <label class="control-label">Walkin</label>
+                                        <input type="text" id="cont_walkin" style="border-style: none; background-color: #eeeeee; text-align: center; font-weight: bold; disabled">
+                                    </div>
+                                    <div>
+                                        <label class="control-label">Programadas</label>
+                                        <input type="text" id="cont_programada" style="border-style: none; background-color: #eeeeee; text-align: center; font-weight: bold; ">
+                                    </div>
+                                </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="avisoAtencionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="avisoAtencionTitle">Aviso!</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="hidden_citaId" />
+                <input type="hidden" id="hidden_Identificacion" />
+                <input type="hidden" id="userSucursal" />
+                <input type="hidden" id="userCubiculo" />
+                <input type="hidden" class="hidden" id="emisorId_m">
+                <input type="hidden" class="hidden" id="emisorId">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="avisoMensajeCitaProgramada"></div>
+                    </div>
+                    <div class="col-md-12">
+                        <div id="avisoMensaje"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button id="btnComenzarCita" type="button" class="btn btn-primary">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="masTarjetasModal"  role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="masTarjetasTitle">Aviso!</h4>
+            </div>
+            <div class="modal-body">
+                <!--Inputs Tarjetas -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div data-alerts="alerts" data-titles="{&quot;danger&quot;: &quot;&lt;em&gt;Advertencia!&lt;/em&gt;&quot;}" data-ids="errorTarjetas" data-fade="5000"></div>
+                        <div data-alerts="alerts" data-titles="{&quot;success&quot;: &quot;&lt;em&gt;Correcto!&lt;/em&gt;&quot;}" data-ids="successTarjetas" data-fade="5000"></div>
+                    </div>
+                </div>
+                <div class="row">                    
+                    <div class="col-xs-6">
+                        <div class="form-group input-group-sm">
+                            <label for="txt_tarjeta_m">Tarjeta</label>
+                            <input type="text" class="form-control limpiar input cuentaFormato_m modal_requerido" data-requerido="true" attr-message="Es un campo requerido!" id="txt_tarjeta_m" name="txt_tarjeta_m" placeholder="****-****-****-1234" maxlength="50" autocomplete="off">
+                            <input type="text" class="form-control limpiar input modal_requerido hide" data-requerido="false" attr-message="Es un campo requerido!" id="txt_tarjeta_formato_m" placeholder="9998984" maxlength="50" autocomplete="off" readonly="">
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group input-group-sm">
+                            <label for="txt_cuenta_m">No. Cuenta</label>
+                            <input type="text" class="form-control limpiar input cuenta_m cuentaFormato_m modal_requerido" data-requerido="true" attr-message="Es un campo requerido!" id="txt_cuenta_m" placeholder="9998984" maxlength="50" autocomplete="off">
+                            <input type="text" class="form-control limpiar input modal_requerido hide" data-requerido="false" attr-message="Es un campo requerido!" id="txt_cuenta_formato_m" placeholder="9998984" maxlength="50" autocomplete="off" readonly="">
+                        </div>
+                    </div>                    
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="form-group input-group-sm">
+                            <label for="txt_marca_m">Marca</label>
+                            <input type="text" class="form-control nombre limpiar input cuenta_m requerido" id="txt_marca_m" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group input-group-sm">
+                            <label for="txt_producto_m">Producto</label>
+                            <input type="text" class="form-control nombre limpiar input cuenta_m requerido" id="txt_producto_m" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="form-group input-group-sm">
+                            <label for="txt_familia_m">Familia</label>
+                            <input type="text" class="form-control nombre limpiar input cuenta_m requerido" id="txt_familia_m" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group input-group-sm">
+                            <label for="cod_segmento_m">Segmento</label>
+                            <select id="cod_segmento_m" class="requerido" data-requerido="true" attr-message="Es un campo requerido!" disabled=""></select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row margin-bottom">
+                    <div class="col-sm-12 bottom-space-sm">
+                        <div class="form-group input-group-sm">
+                            @*<label for="guardarRazon">Agregar Razón</label>*@
+                            <button class="btn btn-md btn-success pull-right" id="guardarTarjetas_m">
+                                <i class="fa fa-plus"> Agregar Tarjeta/Cuenta</i>
+                                <span></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Inputs Tarjetas -->
+
+                <div id="contenedor_tarjetas" class="hidden">
+                    <div class="bac-table-panel2 margin-bottom"></div>
+
+
+                    <!-- Razones -->
+                    <div class="row margin-bottom">
+
+
+                        
+
+                        
+
+                        <div class="col-sm-12 bottom-space-sm">
+                            <div class="form-group input-group-sm" id="div_razon_m">
+                                @*<label for="guardarRazon">Agregar Razón</label>*@
+                                <button class="btn btn-md btn-success pull-right" id="guardarRazon_m">
+                                    <i class="fa fa-plus"> Agregar Razón</i>
+                                    <span></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4 bottom-space-sm">
+                            <div class="form-group input-group-sm" id="div_tipo_razon_m">
+                                <label for="cod_tipo_razon_m">Tipo de Razon</label>
+                                <select id="cod_tipo_razon_m" class="requerido" data-requerido="true" attr-message="Es un campo requerido!"></select>
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group input-group-sm" id="div_razon_m">
+                                <label for="cod_razonp_m">Razon</label>
+                                <select id="cod_razonp_m" class="requerido" data-requerido="true" attr-message="Es un campo requerido!"></select>
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 hide" id="listadoExtraContainer_m">
+                            <div class="form-group input-group-sm" id="div_listado_m">
+                                <label for="cod_listado_extra_m" id="label_cod_listado_extra_m">Listado Extra</label>
+                                <select id="cod_listado_extra_m" class="requerido" data-requerido="true" attr-message="Es un campo requerido!"></select>
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row margin-bottom">
+                        <div class="box-body">
+                            <table id="tableRazones_m" class="list-table table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Tipo de razon</th>
+                                        <th>Razon</th>
+                                        <th>Origen</th>
+                                        <th></th>
+                                        <th>Acciones</th>
+                                        <th hidden="hidden"></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- /Razones -->
+
+                    <div class="bac-table-panel2 margin-bottom"></div>
+
+                    <!-- Herramientas -->
+                    <div class="row margin-bottom">
+                        <div class="col-sm-12 bottom-space-sm">
+                            <div class="form-group input-group-sm">
+                                <button class="btn btn-md btn-success pull-right" id="guardarHerramienta_m">
+                                    <i class="fa fa-plus"> Agregar Herramienta</i>
+                                    <span></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label for="cmbHerramientas_m">Herramientas</label>
+                                <select id="cmbHerramientas_m" class="requerido"></select>
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label for="txtObsHerramienta_m">Observación</label>
+                                <textarea id="txtObsHerramienta_m" class="form-control" rows="3" placeholder="Ingrese alguna observación..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row margin-bottom">
+                        <div class="box-body">
+                            <table id="tableHerramientas_m" class="list-table table table-bordered">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th>Herramientas</th>
+                                        <th>Observación</th>
+                                        <th>Acciones</th>
+                                        <th hidden="hidden"></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- /Herramientas -->
+
+                    <div class="bac-table-panel2 margin-bottom"></div>
+
+                    <div class="row margin-bottom">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label for="txt_observacion_m">Comentario</label>
+                                <textarea id="txt_observacion_m" class="form-control" rows="3" placeholder="Ingrese algun comentario..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row margin-bottom">
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label for="cmb_resultado_m">Resultado</label>
+                                <select class="requerido" id="cmb_resultado_m" attr-message="Es un campo requerido!"></select>
+                                <div class="validation-error"><p></p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+            </div>
+            <div class="modal-footer">                
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button id="btnFinalizarTarjeta" type="button" class="btn btn-primary">Finalizar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="DetalleCitaModal" tabindex="-1" role="dialog" aria-labelledby="DetalleCitaTitle">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="DetalleCitaTitle"></h4>
+            </div>
+            <div class="modal-body">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#datosgenerales" aria-controls="datosgenerales" role="tab" data-toggle="tab">Datos Generales</a></li>
+                        <li role="presentation"><a href="#razonesdetalles" aria-controls="razonesdetalles" role="tab" data-toggle="tab">Razones</a></li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="datosgenerales">
+                            <div>
+                                <div class="row no-margin">
+                                    <div class="col-xs-12">
+                                        <div class="form-group input-group-sm" id="div_identificacion_d">
+                                            <label for="txt_identificacion_d">Identificacion</label>
+                                            <input type="text" class="form-control id limpiar input requerido" id="txt_identificacion_d" name="txt_identificacion_d" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row no-margin">
+                                    <div class="col-xs-12">
+                                        <div class="form-group input-group-sm" id="div_nombre_d">
+                                            <label for="txt_nombre">Nombre</label>
+                                            <input type="text" class="form-control nombre limpiar input requerido" id="txt_nombre_d" name="txt_nombre_d" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row no-margin">
+                                    <div class="col-xs-12 col-sm-6">
+                                        <div class="form-group input-group-sm" id="div_email_d">
+                                            <label for="txt_email_d">Email</label>
+                                            <input type="text" class="form-control nombre limpiar input requerido" id="txt_email_d" name="txt_email_d" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group input-group-sm" id="div_cel_d">
+                                            <label for="txt_cel_d">Celular</label>
+                                            <input type="text" class="form-control telefono limpiar input requerido" id="txt_cel_d" name="txt_cel_d" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row no-margin">
+                                    <div class="col-xs-6">
+                                        <div class="form-group input-group-sm" id="div_tel_oficina_d">
+                                            <label for="txt_tel_oficina_d">Tel. Oficina</label>
+                                            <input type="text" class="form-control limpiar telefono input requerido" id="txt_tel_oficina_d" name="txt_tel_oficina_d" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="form-group input-group-sm" id="div_tel_casa_d">
+                                            <label for="txt_tel_casa_d">Tel. Casa</label>
+                                            <input type="text" class="form-control telefono limpiar input requerido" id="txt_tel_casa_d" name="txt_tel_casa_d" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row no-margin">
+                                    <div class="col-xs-6">
+                                        <div class="form-group input-group-sm" id="div_tarjeta_d">
+                                            <label for="txt_tarjeta_d">Tarjeta</label>
+                                            <input type="text" class="form-control limpiar input cuentaFormato modal_requerido" data-requerido="true" attr-message="Es un campo requerido!" id="txt_tarjeta_d" name="txt_tarjeta_d" placeholder="****-****-****-1234" maxlength="50" autocomplete="off" disabled>
+                                            <input type="text" class="form-control limpiar input modal_requerido hide" data-requerido="false" attr-message="Es un campo requerido!" id="txt_tarjeta_formato_d" placeholder="9998984" maxlength="50" autocomplete="off" readonly="" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="form-group input-group-sm" id="div_cel_d">
+                                            <label for="txt_cuenta_d">No. Cuenta</label>
+                                            <input type="text" class="form-control limpiar input cuenta cuentaFormato modal_requerido" data-requerido="true" attr-message="Es un campo requerido!" id="txt_cuenta_d" placeholder="9998984" maxlength="50" autocomplete="off" disabled>
+                                            <input type="text" class="form-control limpiar input modal_requerido hide" data-requerido="false" attr-message="Es un campo requerido!" id="txt_cuenta_formato_d" placeholder="9998984" maxlength="50" autocomplete="off" readonly="" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row no-margin">
+                                    <div class="col-xs-6">
+                                        <div class="form-group input-group-sm" id="div_tarjeta_d">
+                                            <label for="txt_marca_d">Marca</label>
+                                            <input type="text" class="form-control nombre limpiar input cuenta requerido" id="txt_marca_d" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="form-group input-group-sm" id="div_tarjeta_d">
+                                            <label for="txt_producto_d">Producto</label>
+                                            <input type="text" class="form-control nombre limpiar input cuenta requerido" id="txt_producto_d" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row no-margin">
+                                    <div class="col-xs-6">
+                                        <div class="form-group input-group-sm" id="div_tarjeta_d">
+                                            <label for="txt_familia_d">Familia</label>
+                                            <input type="text" class="form-control nombre limpiar input cuenta requerido" id="txt_familia_d" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="form-group input-group-sm" id="div_segmento_d">
+                                            <label for="txt_segmento_d">Segmento</label>
+                                            <input type="text" class="form-control nombre limpiar input cuenta requerido" id="txt_segmento_d" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row no-margin">
+                                    <div class="col-xs-6">
+                                        <div class="form-group input-group-sm" id="div_sucursal_d">
+                                            <label for="txt_sucursal_d">Sucursal</label>
+                                            <input type="text" class="form-control nombre limpiar input requerido" id="txt_sucursal_d" name="txt_sucursal_d" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="form-group input-group-sm" id="div_tramite_d">
+                                            <label for="txt_tramite_d">Tramite</label>
+                                            <input type="text" class="form-control nombre limpiar input requerido" id="txt_tramite_d" name="txt_tramite_d" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row no-margin">
+                                    <div class="col-xs-6">
+                                        <div class="form-group input-group-sm" id="div_fech_d">
+                                            <label for="txt_fecha_d">Fecha</label>
+                                            <input type="text" class="form-control nombre limpiar input requerido" id="txt_fecha_d" name="txt_fecha_d" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="form-group input-group-sm" id="div_hora_d">
+                                            <label for="txt_hora_d">Hora</label>
+                                            <input type="text" class="form-control nombre limpiar input requerido" id="txt_hora_vista_d" name="txt_hora_vista_d" placeholder="N/D" maxlength="50" autocomplete="off" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="razonesdetalles">
+                            <div class="row margin-bottom">
+                                <div class="box-body">
+                                    <table id="tableRazonesdetalles" class="list-table table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Tipo de razon</th>
+                                                <th>Razon</th>
+                                                <th>Origen</th>
+                                                <th></th>
+                                                <th hidden="hidden">Acciones</th>
+                                                <th hidden="hidden"></th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+               
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/Scripts/js/atencioncitas.js")
